@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4v4534uylwdg"]
+
+[ext_resource type="Script" uid="uid://ca2w8j0q2rfui" path="res://chars/pc.gd" id="1_aovtj"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aovtj"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_aovtj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aovtj"]
+
+[node name="PC" type="CharacterBody3D"]
+collision_layer = 0
+script = ExtResource("1_aovtj")
+
+[node name="HeadPC" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+
+[node name="CameraPC" type="Camera3D" parent="HeadPC"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+cull_mask = 1048573
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_aovtj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 2
+mesh = SubResource("CapsuleMesh_aovtj")
+surface_material_override/0 = SubResource("StandardMaterial3D_aovtj")
