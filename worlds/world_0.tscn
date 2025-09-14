@@ -13,6 +13,14 @@ sky = SubResource("Sky_jxbed")
 
 [node name="World0" type="Node3D"]
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-1, 5.78137e-08, -6.55768e-08, 0, 0.750111, 0.661312, 8.74228e-08, 0.661312, -0.750111, 0, 0, 0)
+light_color = Color(1, 0.99, 0.9, 1)
+light_energy = 2.0
+light_angular_distance = 0.5
+shadow_enabled = true
+directional_shadow_mode = 0
+
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 use_collision = true
 collision_mask = 0

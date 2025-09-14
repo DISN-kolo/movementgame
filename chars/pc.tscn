@@ -16,13 +16,10 @@ script = ExtResource("1_aovtj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
 [node name="CameraPC" type="Camera3D" parent="HeadPC"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-cull_mask = 1048573
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_aovtj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-layers = 2
 mesh = SubResource("CapsuleMesh_aovtj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aovtj")
