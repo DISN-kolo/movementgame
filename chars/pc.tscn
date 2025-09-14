@@ -1,6 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4v4534uylwdg"]
+[gd_scene load_steps=13 format=3 uid="uid://c4v4534uylwdg"]
 
 [ext_resource type="Script" uid="uid://ca2w8j0q2rfui" path="res://chars/pc.gd" id="1_aovtj"]
+[ext_resource type="Script" uid="uid://djqdubkdlusj7" path="res://statemachine/state_machine.gd" id="2_wfr46"]
+[ext_resource type="Script" uid="uid://dtl1cmdi4582h" path="res://statemachine/state.gd" id="3_u34q0"]
+[ext_resource type="Script" uid="uid://dgetrxyknty7k" path="res://statemachine/jump.gd" id="4_parr1"]
+[ext_resource type="Script" uid="uid://b4iui472vyo04" path="res://statemachine/walk.gd" id="5_7do1w"]
+[ext_resource type="Script" uid="uid://drmq8lfgaak06" path="res://statemachine/idle.gd" id="6_gntgg"]
+[ext_resource type="Script" uid="uid://whmduexfg3cu" path="res://statemachine/fall.gd" id="7_3ebf4"]
+[ext_resource type="LabelSettings" uid="uid://dimcd24nnd471" path="res://misc/quicklabelbig.tres" id="8_xe2sf"]
+[ext_resource type="LabelSettings" uid="uid://f64jls6y366i" path="res://misc/quicklabelsmall.tres" id="9_dbsnd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aovtj"]
 
@@ -23,3 +31,55 @@ shape = SubResource("CapsuleShape3D_aovtj")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_aovtj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aovtj")
+
+[node name="Controllers" type="Node" parent="."]
+
+[node name="StateMachine" type="Node" parent="Controllers" node_paths=PackedStringArray("starting_state")]
+script = ExtResource("2_wfr46")
+starting_state = NodePath("Idle")
+
+[node name="State" type="Node" parent="Controllers/StateMachine"]
+script = ExtResource("3_u34q0")
+
+[node name="Idle" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("fall_state", "jump_state", "walk_state")]
+script = ExtResource("6_gntgg")
+fall_state = NodePath("../Fall")
+jump_state = NodePath("../Jump")
+walk_state = NodePath("../Walk")
+metadata/_custom_type_script = "uid://dtl1cmdi4582h"
+
+[node name="Walk" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("fall_state", "jump_state", "idle_state")]
+script = ExtResource("5_7do1w")
+fall_state = NodePath("../Fall")
+jump_state = NodePath("../Jump")
+idle_state = NodePath("../Idle")
+metadata/_custom_type_script = "uid://dtl1cmdi4582h"
+
+[node name="Jump" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("fall_state", "walk_state", "idle_state")]
+script = ExtResource("4_parr1")
+fall_state = NodePath("../Fall")
+walk_state = NodePath("../Walk")
+idle_state = NodePath("../Idle")
+metadata/_custom_type_script = "uid://dtl1cmdi4582h"
+
+[node name="Fall" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("jump_state", "walk_state", "idle_state")]
+script = ExtResource("7_3ebf4")
+jump_state = NodePath("../Jump")
+walk_state = NodePath("../Walk")
+idle_state = NodePath("../Idle")
+metadata/_custom_type_script = "uid://dtl1cmdi4582h"
+
+[node name="LabelState" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = ExtResource("8_xe2sf")
+horizontal_alignment = 2
+justification_flags = 160
+
+[node name="LabelMisc" type="Label" parent="."]
+offset_top = 63.0
+offset_right = 40.0
+offset_bottom = 86.0
+label_settings = ExtResource("9_dbsnd")
+horizontal_alignment = 2
+justification_flags = 160
