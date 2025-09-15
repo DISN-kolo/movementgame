@@ -1,10 +1,13 @@
 extends State
 
+@export var controllers: Node
+
 @export var fall_state: State
 @export var jump_state: State
 @export var idle_state: State
 
 func enter() -> void:
+	controllers.is_walking_bc_input = true;
 	super();
 
 var input_dir: Vector2 = Vector2(0, 0);
@@ -19,8 +22,10 @@ func process_input(event: InputEvent) -> State:
 
 func process_physics(delta: float) -> State:
 	input_dir = Input.get_vector("mov_left", "mov_right", "mov_up", "mov_down");
-	direction = (actor.head_pc.transform.basis * Vector3(input_dir.x, 0, input_dir.y));
-	actor.velocity = direction * speed_modifier * delta;
+	direction = (actor.head_pc.transform.basis
+		* Vector3(input_dir.x, 0, input_dir.y));
+	actor.velocity = (direction * controllers.speed_default
+		* controllers.speed_modifier * delta);
 	actor.velocity.y -= gravity;
 	actor.move_and_slide();
 	

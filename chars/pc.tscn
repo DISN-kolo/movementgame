@@ -1,14 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4v4534uylwdg"]
+[gd_scene load_steps=16 format=3 uid="uid://c4v4534uylwdg"]
 
 [ext_resource type="Script" uid="uid://ca2w8j0q2rfui" path="res://chars/pc.gd" id="1_aovtj"]
+[ext_resource type="Script" uid="uid://bplimovblhfno" path="res://statemachine/controllers.gd" id="2_dbsnd"]
 [ext_resource type="Script" uid="uid://djqdubkdlusj7" path="res://statemachine/state_machine.gd" id="2_wfr46"]
-[ext_resource type="Script" uid="uid://dtl1cmdi4582h" path="res://statemachine/state.gd" id="3_u34q0"]
 [ext_resource type="Script" uid="uid://dgetrxyknty7k" path="res://statemachine/jump.gd" id="4_parr1"]
 [ext_resource type="Script" uid="uid://b4iui472vyo04" path="res://statemachine/walk.gd" id="5_7do1w"]
+[ext_resource type="Script" uid="uid://bmkcybbyhykfs" path="res://statemachine/run.gd" id="5_xe2sf"]
 [ext_resource type="Script" uid="uid://drmq8lfgaak06" path="res://statemachine/idle.gd" id="6_gntgg"]
 [ext_resource type="Script" uid="uid://whmduexfg3cu" path="res://statemachine/fall.gd" id="7_3ebf4"]
+[ext_resource type="Script" uid="uid://e324jje1crp8" path="res://chars/run_machine.gd" id="8_nv5ok"]
 [ext_resource type="LabelSettings" uid="uid://dimcd24nnd471" path="res://misc/quicklabelbig.tres" id="8_xe2sf"]
 [ext_resource type="LabelSettings" uid="uid://f64jls6y366i" path="res://misc/quicklabelsmall.tres" id="9_dbsnd"]
+[ext_resource type="Script" uid="uid://c028jm5m7h7r1" path="res://statemachine/non_run.gd" id="9_udn5f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aovtj"]
 
@@ -33,40 +36,59 @@ mesh = SubResource("CapsuleMesh_aovtj")
 surface_material_override/0 = SubResource("StandardMaterial3D_aovtj")
 
 [node name="Controllers" type="Node" parent="."]
+script = ExtResource("2_dbsnd")
 
 [node name="StateMachine" type="Node" parent="Controllers" node_paths=PackedStringArray("starting_state")]
 script = ExtResource("2_wfr46")
 starting_state = NodePath("Idle")
 
-[node name="State" type="Node" parent="Controllers/StateMachine"]
-script = ExtResource("3_u34q0")
-
-[node name="Idle" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("fall_state", "jump_state", "walk_state")]
+[node name="Idle" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "walk_state")]
 script = ExtResource("6_gntgg")
+controllers = NodePath("../..")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 walk_state = NodePath("../Walk")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
-[node name="Walk" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("fall_state", "jump_state", "idle_state")]
+[node name="Walk" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "idle_state")]
 script = ExtResource("5_7do1w")
+controllers = NodePath("../..")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 idle_state = NodePath("../Idle")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
-[node name="Jump" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("fall_state", "walk_state", "idle_state")]
+[node name="Jump" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("controllers", "fall_state", "walk_state", "idle_state")]
 script = ExtResource("4_parr1")
+controllers = NodePath("../..")
 fall_state = NodePath("../Fall")
 walk_state = NodePath("../Walk")
 idle_state = NodePath("../Idle")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
-[node name="Fall" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("jump_state", "walk_state", "idle_state")]
+[node name="Fall" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("controllers", "jump_state", "walk_state", "idle_state")]
 script = ExtResource("7_3ebf4")
+controllers = NodePath("../..")
 jump_state = NodePath("../Jump")
 walk_state = NodePath("../Walk")
 idle_state = NodePath("../Idle")
+metadata/_custom_type_script = "uid://dtl1cmdi4582h"
+
+[node name="RunMachine" type="Node" parent="Controllers" node_paths=PackedStringArray("starting_state")]
+script = ExtResource("8_nv5ok")
+starting_state = NodePath("NonRun")
+metadata/_custom_type_script = "uid://djqdubkdlusj7"
+
+[node name="Run" type="Node" parent="Controllers/RunMachine" node_paths=PackedStringArray("controllers", "non_run")]
+script = ExtResource("5_xe2sf")
+controllers = NodePath("../..")
+non_run = NodePath("../NonRun")
+metadata/_custom_type_script = "uid://dcl56cpmdi8ir"
+
+[node name="NonRun" type="Node" parent="Controllers/RunMachine" node_paths=PackedStringArray("controllers", "run")]
+script = ExtResource("9_udn5f")
+controllers = NodePath("../..")
+run = NodePath("../Run")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
 [node name="LabelState" type="Label" parent="."]
@@ -76,10 +98,17 @@ label_settings = ExtResource("8_xe2sf")
 horizontal_alignment = 2
 justification_flags = 160
 
-[node name="LabelMisc" type="Label" parent="."]
-offset_top = 63.0
+[node name="LabelRState" type="Label" parent="."]
+offset_top = 52.0
 offset_right = 40.0
-offset_bottom = 86.0
-label_settings = ExtResource("9_dbsnd")
+offset_bottom = 105.0
+label_settings = ExtResource("8_xe2sf")
 horizontal_alignment = 2
 justification_flags = 160
+
+[node name="LabelMisc" type="Label" parent="."]
+offset_top = 113.0
+offset_right = 40.0
+offset_bottom = 144.0
+label_settings = ExtResource("9_dbsnd")
+justification_flags = 0

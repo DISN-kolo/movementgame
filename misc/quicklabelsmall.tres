@@ -1,6 +1,10 @@
-[gd_resource type="LabelSettings" format=3 uid="uid://f64jls6y366i"]
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://f64jls6y366i"]
+
+[ext_resource type="FontFile" uid="uid://b2onbevo0qmfw" path="res://misc/fonts/JetBrainsMono/fonts/ttf/JetBrainsMono-Regular.ttf" id="1_k0bld"]
 
 [resource]
+line_spacing = 0.0
+font = ExtResource("1_k0bld")
 font_size = 22
-outline_size = 2
+outline_size = 3
 outline_color = Color(0, 0, 0, 1)

@@ -1,5 +1,7 @@
 extends State
 
+@export var controllers: Node
+
 @export var jump_state: State
 @export var walk_state: State
 @export var idle_state: State
@@ -13,13 +15,21 @@ var direction: Vector3 = Vector3(0, 0, 0);
 
 func process_physics(delta: float) -> State:
 	input_dir = Input.get_vector("mov_left", "mov_right", "mov_up", "mov_down");
-	direction = (actor.head_pc.transform.basis * Vector3(input_dir.x, 0, input_dir.y));
-	var temp_fullmultiplier = direction * speed_modifier * delta;
-	actor.velocity += temp_fullmultiplier * air_speed_modifier;
-	var temp_y = actor.velocity.y;
-	actor.velocity.y = 0;
-	actor.velocity = actor.velocity.normalized() * temp_fullmultiplier.length();
-	actor.velocity.y = temp_y;
+	
+	if input_dir.length() > 0.1:
+		controllers.is_walking_bc_input = true;
+		direction = (actor.head_pc.transform.basis
+			* Vector3(input_dir.x, 0, input_dir.y));
+		var temp_fullmultiplier: Vector3 = (direction
+			* controllers.speed_default
+			* controllers.speed_modifier * delta);
+		actor.velocity.x = lerp(actor.velocity.x,
+			temp_fullmultiplier.x, delta);
+		actor.velocity.z = lerp(actor.velocity.z,
+			temp_fullmultiplier.z, delta);
+	else:
+		controllers.is_walking_bc_input = false;
+	
 	actor.velocity.y -= gravity;
 	actor.move_and_slide();
 	

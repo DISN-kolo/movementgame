@@ -1,14 +1,10 @@
-class_name State
+class_name RunningState
 extends Node
 
 #@export var animation_name: String;
-var speed_modifier: float = 500;
 var sprint_modifier: float = 1.4;
 var normal_fov: float = 75;
 var speedy_fov: float = 90;
-var air_speed_modifier: float = 0.6;
-
-var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 # Hold a reference to the parent so that it can be controlled by the state
 var actor: CharacterBody3D
@@ -20,11 +16,11 @@ func enter() -> void:
 func exit() -> void:
 	pass
 
-func process_input(event: InputEvent) -> State:
+func process_input(event: InputEvent) -> RunningState:
 	return null
 
-func process_default(delta: float) -> State:
+func process_default(delta: float) -> RunningState:
 	return null
 
-func process_physics(delta: float) -> State:
+func process_physics(delta: float) -> RunningState:
 	return null

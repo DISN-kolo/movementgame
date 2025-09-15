@@ -2,13 +2,21 @@ extends CharacterBody3D;
 
 @onready var head_pc: Node3D = $HeadPC;
 @onready var camera_pc: Camera3D = $HeadPC/CameraPC;
-@onready var label_state: Label = $LabelState
-@onready var label_misc: Label = $LabelMisc
+@onready var label_state: Label = $LabelState;
+@onready var label_r_state: Label = $LabelRState;
+@onready var label_misc: Label = $LabelMisc;
+
+@onready var controllers: Node = $Controllers;
 
 @onready var state_machine: Node = $Controllers/StateMachine;
+@onready var run_machine: Node = $Controllers/RunMachine;
+
+var fov_default : float = 75;
+var fov_pc : float = 75;
 
 func _ready() -> void:
 	state_machine.init(self);
+	run_machine.init(self);
 
 func _unhandled_input(event) -> void:
 	# if it's gonna come to making sure camera does this and that while we're
@@ -21,15 +29,18 @@ func _unhandled_input(event) -> void:
 		camera_pc.rotation.x = clamp(camera_pc.rotation.x, -PI/2, PI/2);
 	else:
 		state_machine.process_input(event);
+		run_machine.process_input(event);
 
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta);
+	run_machine.process_physics(delta);
 	label_misc.text = "
-	%8.2f, %8.2f, %8.2f
-	\n%8.2f, %8.2f, %8.2f" % [
+pos: %8.2f, %8.2f, %8.2f
+vel: %8.2f, %8.2f, %8.2f" % [
 		position.x, position.y, position.z,
 		velocity.x, velocity.y, velocity.z];
 	# I need to find a monospace font :)
 
 func _process(delta: float) -> void:
 	state_machine.process_default(delta);
+	run_machine.process_default(delta);

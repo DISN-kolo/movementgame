@@ -1,6 +1,9 @@
-[gd_resource type="LabelSettings" format=3 uid="uid://dimcd24nnd471"]
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dimcd24nnd471"]
+
+[ext_resource type="FontFile" uid="uid://b2onbevo0qmfw" path="res://misc/fonts/JetBrainsMono/fonts/ttf/JetBrainsMono-Regular.ttf" id="1_cmwu6"]
 
 [resource]
+font = ExtResource("1_cmwu6")
 font_size = 40
 outline_size = 3
 outline_color = Color(0, 0, 0, 1)
