@@ -2,11 +2,6 @@ class_name State
 extends Node
 
 #@export var animation_name: String;
-var speed_modifier: float = 500;
-var sprint_modifier: float = 1.4;
-var normal_fov: float = 75;
-var speedy_fov: float = 90;
-var air_speed_modifier: float = 0.6;
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 

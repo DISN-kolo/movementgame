@@ -6,7 +6,7 @@ extends RunningState
 
 func enter() -> void:
 	actor.fov_pc = 90;
-	controllers.speed_modifier = 1.5;
+	controllers.speed_modifier = sprint_modifier;
 	super();
 
 func process_input(event: InputEvent) -> RunningState:

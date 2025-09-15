@@ -3,8 +3,6 @@ extends Node
 
 #@export var animation_name: String;
 var sprint_modifier: float = 1.4;
-var normal_fov: float = 75;
-var speedy_fov: float = 90;
 
 # Hold a reference to the parent so that it can be controlled by the state
 var actor: CharacterBody3D
