@@ -8,5 +8,5 @@ noise_type = 3
 frequency = 0.1532
 
 [resource]
-color_ramp = SubResource("Gradient_jmjme")
 noise = SubResource("FastNoiseLite_jxbed")
+color_ramp = SubResource("Gradient_jmjme")

@@ -22,6 +22,7 @@
 [node name="PC" type="CharacterBody3D"]
 collision_layer = 0
 script = ExtResource("1_aovtj")
+is_debugging = true
 
 [node name="HeadPC" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)

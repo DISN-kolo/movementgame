@@ -17,6 +17,7 @@ var fov_speed_proportion_minimum : float = 0.1;
 
 var lagging_speed_len : float = 0;
 
+@export var is_debugging : bool = false;
 func _ready() -> void:
 	state_machine.init(self);
 	run_machine.init(self);
@@ -37,13 +38,16 @@ func _unhandled_input(event) -> void:
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta);
 	run_machine.process_physics(delta);
+
 	camera_pc.fov = fov_default * map_speed_to_fov_multiplier(velocity, delta);
-	label_misc.text = "camera_pc.fov: %5f" % camera_pc.fov;
-	label_misc.text += "
-pos: %8.2f, %8.2f, %8.2f
-vel: %8.2f, %8.2f, %8.2f" % [
-		position.x, position.y, position.z,
-		velocity.x, velocity.y, velocity.z];
+
+	if is_debugging:
+		label_misc.text = "camera_pc.fov: %5f" % camera_pc.fov;
+		label_misc.text += "
+	pos: %8.2f, %8.2f, %8.2f
+	vel: %8.2f, %8.2f, %8.2f" % [
+			position.x, position.y, position.z,
+			velocity.x, velocity.y, velocity.z];
 
 func _process(delta: float) -> void:
 	state_machine.process_default(delta);
