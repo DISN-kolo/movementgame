@@ -11,8 +11,9 @@ extends CharacterBody3D;
 @onready var state_machine: Node = $Controllers/StateMachine;
 @onready var run_machine: Node = $Controllers/RunMachine;
 
-var fov_default : float = 75;
-var fov_pc : float = 75;
+var fov_default : float = 85;
+#var fov_pc : float = fov_default;
+var fov_speed_proportion_minimum : float = 0.1;
 
 func _ready() -> void:
 	state_machine.init(self);
@@ -34,7 +35,9 @@ func _unhandled_input(event) -> void:
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta);
 	run_machine.process_physics(delta);
-	label_misc.text = "
+	camera_pc.fov = fov_default * map_speed_to_fov_multiplier(velocity, delta);
+	label_misc.text = "camera_pc.fov: %5f" % camera_pc.fov;
+	label_misc.text += "
 pos: %8.2f, %8.2f, %8.2f
 vel: %8.2f, %8.2f, %8.2f" % [
 		position.x, position.y, position.z,
@@ -44,3 +47,14 @@ vel: %8.2f, %8.2f, %8.2f" % [
 func _process(delta: float) -> void:
 	state_machine.process_default(delta);
 	run_machine.process_default(delta);
+
+func map_speed_to_fov_multiplier(speed_rn: Vector3, delta: float) -> float:
+	var horizontal_speed: Vector2 = Vector2(speed_rn.x, speed_rn.z) / delta;
+	var horizontal_speed_len: float = horizontal_speed.length();
+	return clamp(remap(horizontal_speed_len,
+			controllers.speed_default * fov_speed_proportion_minimum,
+			controllers.speed_default,
+			1.0,
+			1.05),
+		1.0,
+		1.05);

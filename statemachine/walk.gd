@@ -24,8 +24,13 @@ func process_physics(delta: float) -> State:
 	input_dir = Input.get_vector("mov_left", "mov_right", "mov_up", "mov_down");
 	direction = (actor.head_pc.transform.basis
 		* Vector3(input_dir.x, 0, input_dir.y));
-	actor.velocity = (direction * controllers.speed_default
+	var temp_fullmultiplier: Vector3 = (direction
+		* controllers.speed_default
 		* controllers.speed_modifier * delta);
+	actor.velocity.x = lerp(actor.velocity.x,
+		temp_fullmultiplier.x, 8*delta);
+	actor.velocity.z = lerp(actor.velocity.z,
+		temp_fullmultiplier.z, 8*delta);
 	actor.velocity.y -= gravity;
 	actor.move_and_slide();
 	

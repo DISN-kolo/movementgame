@@ -76,7 +76,7 @@ metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
 [node name="RunMachine" type="Node" parent="Controllers" node_paths=PackedStringArray("starting_state")]
 script = ExtResource("8_nv5ok")
-starting_state = NodePath("NonRun")
+starting_state = NodePath("Run")
 metadata/_custom_type_script = "uid://djqdubkdlusj7"
 
 [node name="Run" type="Node" parent="Controllers/RunMachine" node_paths=PackedStringArray("controllers", "non_run")]

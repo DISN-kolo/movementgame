@@ -2,7 +2,7 @@ class_name RunningState
 extends Node
 
 #@export var animation_name: String;
-var sprint_modifier: float = 1.4;
+var nonrun_modifier: float = 0.35;
 
 # Hold a reference to the parent so that it can be controlled by the state
 var actor: CharacterBody3D
