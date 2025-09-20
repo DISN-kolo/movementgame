@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://07k11ofhv68j"]
+[gd_scene load_steps=6 format=3 uid="uid://07k11ofhv68j"]
 
 [ext_resource type="Material" uid="uid://1886fk3kxkel" path="res://worlds/world_0.material" id="1_jxbed"]
+[ext_resource type="Material" uid="uid://canwx4rncrchn" path="res://worlds/world_0_1.material" id="2_5e6hi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jmjme"]
 
@@ -22,10 +23,31 @@ shadow_enabled = true
 directional_shadow_mode = 0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.340951, 83.46218)
 use_collision = true
 collision_mask = 0
 size = Vector3(100, 0.1, 100)
 material = ExtResource("1_jxbed")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+use_collision = true
+collision_mask = 0
+size = Vector3(100, 0.1, 100)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.100403, 8.446934, -51.781982)
+use_collision = true
+collision_mask = 0
+size = Vector3(68.33142, 24.831738, 8.468262)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.957664, 4.122796, -31.141518)
+use_collision = true
+collision_mask = 0
+size = Vector3(21.885437, 17.500708, 8.468262)
+material = ExtResource("2_5e6hi")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5e6hi")

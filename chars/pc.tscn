@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c4v4534uylwdg"]
+[gd_scene load_steps=17 format=3 uid="uid://c4v4534uylwdg"]
 
 [ext_resource type="Script" uid="uid://ca2w8j0q2rfui" path="res://chars/pc.gd" id="1_aovtj"]
 [ext_resource type="Script" uid="uid://bplimovblhfno" path="res://statemachine/controllers.gd" id="2_dbsnd"]
@@ -12,6 +12,7 @@
 [ext_resource type="LabelSettings" uid="uid://dimcd24nnd471" path="res://misc/quicklabelbig.tres" id="8_xe2sf"]
 [ext_resource type="LabelSettings" uid="uid://f64jls6y366i" path="res://misc/quicklabelsmall.tres" id="9_dbsnd"]
 [ext_resource type="Script" uid="uid://c028jm5m7h7r1" path="res://statemachine/non_run.gd" id="9_udn5f"]
+[ext_resource type="Script" uid="uid://bjn0wpruqemw5" path="res://ui/crosshair.gd" id="13_xgwki"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aovtj"]
 
@@ -92,14 +93,26 @@ controllers = NodePath("../..")
 run = NodePath("../Run")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
-[node name="LabelState" type="Label" parent="."]
+[node name="MainControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="LabelState" type="Label" parent="MainControl"]
+layout_mode = 0
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = 53.0
 label_settings = ExtResource("8_xe2sf")
 horizontal_alignment = 2
 justification_flags = 160
 
-[node name="LabelRState" type="Label" parent="."]
+[node name="LabelRState" type="Label" parent="MainControl"]
+layout_mode = 0
 offset_top = 52.0
 offset_right = 40.0
 offset_bottom = 105.0
@@ -107,9 +120,19 @@ label_settings = ExtResource("8_xe2sf")
 horizontal_alignment = 2
 justification_flags = 160
 
-[node name="LabelMisc" type="Label" parent="."]
+[node name="LabelMisc" type="Label" parent="MainControl"]
+layout_mode = 0
 offset_top = 113.0
 offset_right = 40.0
 offset_bottom = 144.0
 label_settings = ExtResource("9_dbsnd")
 justification_flags = 0
+
+[node name="ColorRect" type="ColorRect" parent="MainControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_xgwki")
