@@ -15,6 +15,8 @@ var fov_default : float = 85;
 #var fov_pc : float = fov_default;
 var fov_speed_proportion_minimum : float = 0.1;
 
+var lagging_speed_len : float = 0;
+
 func _ready() -> void:
 	state_machine.init(self);
 	run_machine.init(self);
@@ -42,7 +44,6 @@ pos: %8.2f, %8.2f, %8.2f
 vel: %8.2f, %8.2f, %8.2f" % [
 		position.x, position.y, position.z,
 		velocity.x, velocity.y, velocity.z];
-	# I need to find a monospace font :)
 
 func _process(delta: float) -> void:
 	state_machine.process_default(delta);
@@ -51,7 +52,11 @@ func _process(delta: float) -> void:
 func map_speed_to_fov_multiplier(speed_rn: Vector3, delta: float) -> float:
 	var horizontal_speed: Vector2 = Vector2(speed_rn.x, speed_rn.z) / delta;
 	var horizontal_speed_len: float = horizontal_speed.length();
-	return clamp(remap(horizontal_speed_len,
+	lagging_speed_len = lerp(
+		lagging_speed_len,
+		horizontal_speed_len,
+		2*delta);
+	return clamp(remap(lagging_speed_len,
 			controllers.speed_default * fov_speed_proportion_minimum,
 			controllers.speed_default,
 			1.0,
