@@ -17,15 +17,25 @@ extends CharacterBody3D;
 
 @onready var crouch_machine: CrouchMachine = $Controllers/CrouchMachine;
 
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D;
+
 var fov_default : float = 85;
 var fov_speed_proportion_minimum : float = 0.1;
 var bob_speed_proportion_minimum : float = 0.2;
 var bob_t : float = 0;
 
+# related to crouching
+var default_head_y : float;
+var lower_head_y : float;
+var current_head_y : float;
+
 var lagging_speed_len : float = 0;
 
 @export var is_debugging : bool = false;
 func _ready() -> void:
+	default_head_y = head_pc.position.y;
+	lower_head_y = default_head_y - 0.5;
+	current_head_y = default_head_y;
 	state_machine.init(self);
 	run_machine.init(self);
 	crouch_machine.init(self);
@@ -54,6 +64,7 @@ func _physics_process(delta: float) -> void:
 
 	camera_pc.fov = (fov_default
 		* map_speed_to_fov_multiplier(horizontal_speed_len, delta));
+	headbob(horizontal_speed_len, delta);
 
 	if is_debugging:
 		label_misc.text = "camera_pc.fov: %5f" % camera_pc.fov;
@@ -62,7 +73,6 @@ func _physics_process(delta: float) -> void:
 	vel: %8.2f, %8.2f, %8.2f" % [
 			position.x, position.y, position.z,
 			velocity.x, velocity.y, velocity.z];
-	headbob(horizontal_speed_len, delta);
 
 func _process(delta: float) -> void:
 	state_machine.process_default(delta);
@@ -90,9 +100,13 @@ func headbob(
 		delta: float) -> void:
 	if (horizontal_speed_len <= bob_speed_proportion_minimum
 		* controllers.speed_default):
-		camera_pc.position = lerp(
-			camera_pc.position,
-			Vector3(0, 0, 0),
+		camera_pc.position.x = lerp(
+			camera_pc.position.x,
+			0.0,
+			5*delta);
+		head_pc.position.y = lerp(
+			head_pc.position.y,
+			current_head_y,
 			5*delta);
 	else:
 		var bob_intensity : float = clamp(remap(horizontal_speed_len,
@@ -115,7 +129,7 @@ func headbob(
 			camera_pc.position.x,
 			sin(bob_t) / 40 * bob_intensity,
 			9*delta);
-		camera_pc.position.y = lerp(
-			camera_pc.position.y,
-			sin(bob_t * 2) / 20 * bob_intensity,
+		head_pc.position.y = lerp(
+			head_pc.position.y,
+			current_head_y + sin(bob_t * 2) / 20 * bob_intensity,
 			9*delta);

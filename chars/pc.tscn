@@ -36,8 +36,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_aovtj")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
 mesh = SubResource("CapsuleMesh_aovtj")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_aovtj")
 
 [node name="Controllers" type="Node" parent="."]
@@ -103,13 +104,13 @@ metadata/_custom_type_script = "uid://djqdubkdlusj7"
 
 [node name="Crouching" type="Node" parent="Controllers/CrouchMachine" node_paths=PackedStringArray("controllers", "non_crouching")]
 script = ExtResource("12_pnih5")
-controllers = NodePath("..")
+controllers = NodePath("../..")
 non_crouching = NodePath("../NonCrouching")
 metadata/_custom_type_script = "uid://br25jrkllc3m7"
 
 [node name="NonCrouching" type="Node" parent="Controllers/CrouchMachine" node_paths=PackedStringArray("controllers", "crouching")]
 script = ExtResource("13_k4ylc")
-controllers = NodePath("..")
+controllers = NodePath("../..")
 crouching = NodePath("../Crouching")
 metadata/_custom_type_script = "uid://br25jrkllc3m7"
 
