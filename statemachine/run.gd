@@ -8,7 +8,7 @@ func enter() -> void:
 	controllers.speed_modifier = 1;
 	super();
 
-func process_input(event: InputEvent) -> RunningState:
+func process_default(delta: float) -> RunningState:
 	if Input.is_action_just_pressed("run"):
 		return non_run;
 	return null;

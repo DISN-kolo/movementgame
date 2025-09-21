@@ -4,6 +4,7 @@ extends CharacterBody3D;
 @onready var camera_pc: Camera3D = $HeadPC/CameraPC;
 @onready var label_state: Label = $MainControl/LabelState;
 @onready var label_r_state: Label = $MainControl/LabelRState;
+@onready var label_c_state: Label = $MainControl/LabelCState;
 @onready var label_misc: Label = $MainControl/LabelMisc;
 
 @onready var controllers: Node = $Controllers;
@@ -13,6 +14,8 @@ extends CharacterBody3D;
 
 @onready var run_state: RunningState = $Controllers/RunMachine/Run;
 @onready var non_run_state: RunningState = $Controllers/RunMachine/NonRun;
+
+@onready var crouch_machine: CrouchMachine = $Controllers/CrouchMachine;
 
 var fov_default : float = 85;
 var fov_speed_proportion_minimum : float = 0.1;
@@ -25,6 +28,7 @@ var lagging_speed_len : float = 0;
 func _ready() -> void:
 	state_machine.init(self);
 	run_machine.init(self);
+	crouch_machine.init(self);
 
 func _unhandled_input(event) -> void:
 	# if it's gonna come to making sure camera does this and that while we're
@@ -38,10 +42,12 @@ func _unhandled_input(event) -> void:
 	else:
 		state_machine.process_input(event);
 		run_machine.process_input(event);
+		crouch_machine.process_input(event);
 
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta);
 	run_machine.process_physics(delta);
+	crouch_machine.process_physics(delta);
 
 	var horizontal_speed_len: float = (Vector2(velocity.x, velocity.z).length()
 		/ delta);
@@ -61,6 +67,7 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	state_machine.process_default(delta);
 	run_machine.process_default(delta);
+	crouch_machine.process_default(delta);
 
 func map_speed_to_fov_multiplier(
 		horizontal_speed_len: float,
