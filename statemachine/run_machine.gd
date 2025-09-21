@@ -13,12 +13,12 @@ func init(actor: CharacterBody3D) -> void:
 	change_state(starting_state);
 
 func change_state(new_state: RunningState) -> void:
-	if global_actor.is_debugging:
-		global_actor.label_r_state.set_text(new_state.get_name());
 	if (current_state):
 		current_state.exit();
 	if (new_state == null):
 		return ;
+	if global_actor.is_debugging:
+		global_actor.label_r_state.set_text(new_state.get_name());
 	current_state = new_state;
 	new_state.enter();
 

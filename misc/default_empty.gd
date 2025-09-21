@@ -20,3 +20,8 @@ func _input(event: InputEvent) -> void:
 		Settings.sensitivity += 0.001;
 	elif event.is_action_pressed("sens_down"):
 		Settings.sensitivity -= 0.001;
+	elif event.is_action_pressed("mouse_unlock"):
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c4v4534uylwdg"]
+[gd_scene load_steps=21 format=3 uid="uid://c4v4534uylwdg"]
 
 [ext_resource type="Script" uid="uid://ca2w8j0q2rfui" path="res://chars/pc.gd" id="1_aovtj"]
 [ext_resource type="Script" uid="uid://bplimovblhfno" path="res://statemachine/controllers.gd" id="2_dbsnd"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b4iui472vyo04" path="res://statemachine/walk.gd" id="5_7do1w"]
 [ext_resource type="Script" uid="uid://bmkcybbyhykfs" path="res://statemachine/run.gd" id="5_xe2sf"]
 [ext_resource type="Script" uid="uid://drmq8lfgaak06" path="res://statemachine/idle.gd" id="6_gntgg"]
+[ext_resource type="Script" uid="uid://6lftkk10cvhy" path="res://statemachine/slide.gd" id="6_r0ist"]
 [ext_resource type="Script" uid="uid://whmduexfg3cu" path="res://statemachine/fall.gd" id="7_3ebf4"]
 [ext_resource type="Script" uid="uid://e324jje1crp8" path="res://statemachine/run_machine.gd" id="8_nv5ok"]
 [ext_resource type="LabelSettings" uid="uid://dimcd24nnd471" path="res://misc/quicklabelbig.tres" id="8_xe2sf"]
@@ -56,12 +57,22 @@ jump_state = NodePath("../Jump")
 walk_state = NodePath("../Walk")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
-[node name="Walk" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "idle_state")]
+[node name="Walk" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "idle_state", "slide_state")]
 script = ExtResource("5_7do1w")
 controllers = NodePath("../..")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 idle_state = NodePath("../Idle")
+slide_state = NodePath("../Slide")
+metadata/_custom_type_script = "uid://dtl1cmdi4582h"
+
+[node name="Slide" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "idle_state", "walk_state")]
+script = ExtResource("6_r0ist")
+controllers = NodePath("../..")
+fall_state = NodePath("../Fall")
+jump_state = NodePath("../Jump")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
 [node name="Jump" type="Node" parent="Controllers/StateMachine" node_paths=PackedStringArray("controllers", "fall_state", "walk_state", "idle_state")]

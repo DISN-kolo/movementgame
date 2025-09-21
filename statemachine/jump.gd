@@ -22,9 +22,12 @@ func process_physics(delta: float) -> State:
 		controllers.is_walking_bc_input = true;
 		direction = (actor.head_pc.transform.basis
 			* Vector3(input_dir.x, 0, input_dir.y));
+		controllers.last_direction = direction;
 		var temp_fullmultiplier: Vector3 = (direction
 			* controllers.speed_default
-			* controllers.speed_modifier * delta);
+			* controllers.speed_modifier
+			* controllers.crouch_speed_modifier
+			* delta);
 		actor.velocity.x = lerp(actor.velocity.x,
 			temp_fullmultiplier.x, 3*delta);
 		actor.velocity.z = lerp(actor.velocity.z,
