@@ -30,6 +30,10 @@ window/size/viewport_height=900
 window/size/initial_position=Vector2i(660, 645)
 window/size/borderless=true
 
+[editor]
+
+movie_writer/movie_file="/home/dfm/code/gd/movementgame/bs.avi"
+
 [input]
 
 sens_up={

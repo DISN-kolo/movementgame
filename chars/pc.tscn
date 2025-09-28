@@ -125,6 +125,11 @@ controllers = NodePath("../..")
 crouching = NodePath("../Crouching")
 metadata/_custom_type_script = "uid://br25jrkllc3m7"
 
+[node name="CrouchFatigueTimer" type="Timer" parent="Controllers"]
+process_callback = 0
+wait_time = 0.8
+one_shot = true
+
 [node name="MainControl" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -178,3 +183,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("13_xgwki")
+
+[connection signal="timeout" from="Controllers/CrouchFatigueTimer" to="Controllers" method="_on_crouch_fatigue_timer_timeout"]

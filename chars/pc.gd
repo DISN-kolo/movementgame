@@ -73,10 +73,11 @@ func _physics_process(delta: float) -> void:
 	vel: %8.2f, %8.2f, %8.2f
 	spd: %8.2f
 	l_d: %8.2f, %8.2f, %8.2f
-	speed_modifier = %8.2f;
-	crouch_speed_modifier = %8.2f;
-	is_walking_bc_input = %s;
-	ready_to_slide = %s;
+	speed_modifier        = %8.2f
+	crouch_speed_modifier = %8.2f
+	is_walking_bc_input   = %s
+	ready_to_slide        = %s
+	slide_fatigue         = %s
 " % [
 			position.x, position.y, position.z,
 			velocity.x, velocity.y, velocity.z,
@@ -87,7 +88,8 @@ func _physics_process(delta: float) -> void:
 			controllers.speed_modifier,
 			controllers.crouch_speed_modifier,
 			str(controllers.is_walking_bc_input),
-			str(controllers.ready_to_slide)];
+			str(controllers.ready_to_slide),
+			str(controllers.slide_fatigue)];
 
 func _process(delta: float) -> void:
 	state_machine.process_default(delta);

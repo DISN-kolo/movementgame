@@ -14,6 +14,7 @@ var finishing_temp_fullmultiplier: Vector3 = Vector3(0, 0, 0);
 func enter() -> void:
 	super();
 	controllers.ready_to_slide = false;
+	controllers.start_fatigue_timer();
 	# delta accounted for
 	starting_temp_fullmultiplier = (
 		controllers.last_direction

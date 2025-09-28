@@ -24,6 +24,7 @@ func process_input(event: InputEvent) -> State:
 
 func process_physics(delta: float) -> State:
 	if (controllers.ready_to_slide
+		and !(controllers.slide_fatigue)
 		and controllers.is_walking_bc_input
 		and Input.is_action_just_pressed("crouch")
 		and actor.is_on_floor()):
