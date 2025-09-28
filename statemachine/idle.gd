@@ -16,9 +16,6 @@ func enter() -> void:
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed("jump") and actor.is_on_floor():
 		return jump_state;
-	if (Input.get_vector("mov_left", "mov_right",
-		"mov_up", "mov_down").length() >= 0.01):
-		return walk_state;
 	#direction = (head_pc.transform.basis * Vector3(input_dir.x, 0, input_dir.y));
 	#velocity = direction * speed_modifier * delta;
 	#print(velocity);
@@ -26,6 +23,9 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
+	if (Input.get_vector("mov_left", "mov_right",
+		"mov_up", "mov_down").length() >= 0.01):
+		return walk_state;
 	if actor.is_on_floor():
 		actor.velocity.x = lerp(actor.velocity.x, 0.0, 9*delta);
 		actor.velocity.z = lerp(actor.velocity.z, 0.0, 9*delta);
