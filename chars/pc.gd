@@ -1,5 +1,7 @@
 extends CharacterBody3D;
 
+@onready var above_raycast: RayCast3D = $AboveRaycast
+
 @onready var head_pc: Node3D = $HeadPC;
 @onready var camera_pc: Camera3D = $HeadPC/CameraPC;
 @onready var label_state: Label = $MainControl/LabelState;
@@ -150,3 +152,9 @@ func headbob(
 			head_pc.position.y,
 			current_head_y + sin(bob_t * 2) / 20 * bob_intensity,
 			9*delta);
+
+func check_above_for_uncrouching() -> bool:
+	above_raycast.force_raycast_update();
+	if above_raycast.is_colliding():
+		return false;
+	return true;

@@ -14,6 +14,7 @@ func enter() -> void:
 
 
 func process_default(delta: float) -> CrouchState:
-	if Input.is_action_just_pressed("crouch"):
+	if (Input.is_action_just_pressed("crouch")
+		and actor.check_above_for_uncrouching()):
 		return non_crouching;
 	return null;

@@ -29,12 +29,15 @@ collision_layer = 0
 script = ExtResource("1_aovtj")
 is_debugging = true
 
+[node name="AboveRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(0, 1.05, 0)
+
 [node name="HeadPC" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
 [node name="CameraPC" type="Camera3D" parent="HeadPC"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["playersOwnCollider"]]
 shape = SubResource("CapsuleShape3D_aovtj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
