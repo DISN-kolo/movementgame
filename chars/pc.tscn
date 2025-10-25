@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://c4v4534uylwdg"]
+[gd_scene load_steps=24 format=3 uid="uid://c4v4534uylwdg"]
 
 [ext_resource type="Script" uid="uid://ca2w8j0q2rfui" path="res://chars/pc.gd" id="1_aovtj"]
 [ext_resource type="Script" uid="uid://bplimovblhfno" path="res://statemachine/controllers.gd" id="2_dbsnd"]
 [ext_resource type="Script" uid="uid://ddng3vwlafat2" path="res://chars/climb_casts.gd" id="2_m3xoy"]
 [ext_resource type="Script" uid="uid://djqdubkdlusj7" path="res://statemachine/state_machine.gd" id="2_wfr46"]
+[ext_resource type="Script" uid="uid://dq8178xvsxk3y" path="res://chars/wanna_be.gd" id="3_d75p6"]
 [ext_resource type="Script" uid="uid://dgetrxyknty7k" path="res://statemachine/jump.gd" id="4_parr1"]
 [ext_resource type="Script" uid="uid://b4iui472vyo04" path="res://statemachine/walk.gd" id="5_7do1w"]
 [ext_resource type="Script" uid="uid://bmkcybbyhykfs" path="res://statemachine/run.gd" id="5_xe2sf"]
@@ -56,6 +57,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493218, -0.8428471)
 target_position = Vector3(0, -1.235, 0)
 
 [node name="WannaBe" type="Area3D" parent="HeadPC/ClimbCasts"]
+unique_name_in_owner = true
+script = ExtResource("3_d75p6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HeadPC/ClimbCasts/WannaBe"]
 shape = SubResource("CapsuleShape3D_m3xoy")

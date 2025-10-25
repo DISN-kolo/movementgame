@@ -3,7 +3,7 @@ extends Node3D
 @onready var climb_cast_top_2: RayCast3D = $ClimbCastTop2;
 @onready var climb_cast_top_3: RayCast3D = $ClimbCastTop3;
 @onready var collision_shape_3d: CollisionShape3D = $"../../CollisionShape3D";
-@onready var wanna_be: Area3D = $WannaBe;
+@onready var wanna_be: Area3D = %WannaBe;
 
 var actual_raycasts: Array[RayCast3D] = [null, null, null];
 var yes_collision: bool = false;
