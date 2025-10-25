@@ -20,6 +20,7 @@ extends CharacterBody3D;
 @onready var crouch_machine: CrouchMachine = $Controllers/CrouchMachine;
 
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D;
+@onready var climb_casts: Node3D = $HeadPC/ClimbCasts;
 
 var fov_default : float = 85;
 var fov_speed_proportion_minimum : float = 0.1;
@@ -43,6 +44,8 @@ func _ready() -> void:
 	crouch_machine.init(self);
 
 func _unhandled_input(event) -> void:
+	if Input.is_action_just_pressed("jump"):
+		climb_casts.calc_horizontal_coll_point();
 	# if it's gonna come to making sure camera does this and that while we're
 	#in some state, or like the mouse movement shall affect some bs, then
 	#we'd need to redirect even this thing to the state machine. but it'll be
