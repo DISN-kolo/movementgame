@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c4v4534uylwdg"]
+[gd_scene load_steps=23 format=3 uid="uid://c4v4534uylwdg"]
 
 [ext_resource type="Script" uid="uid://ca2w8j0q2rfui" path="res://chars/pc.gd" id="1_aovtj"]
 [ext_resource type="Script" uid="uid://bplimovblhfno" path="res://statemachine/controllers.gd" id="2_dbsnd"]
@@ -18,6 +18,8 @@
 [ext_resource type="Script" uid="uid://d4in5ee8e78xi" path="res://statemachine/crouching.gd" id="12_pnih5"]
 [ext_resource type="Script" uid="uid://bspjtyjrwtae3" path="res://statemachine/non_crouching.gd" id="13_k4ylc"]
 [ext_resource type="Script" uid="uid://bjn0wpruqemw5" path="res://ui/crosshair.gd" id="13_xgwki"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m3xoy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aovtj"]
 
@@ -52,6 +54,11 @@ target_position = Vector3(0, -1.235, 0)
 [node name="ClimbCastTop3" type="RayCast3D" parent="HeadPC/ClimbCasts"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493218, -0.8428471)
 target_position = Vector3(0, -1.235, 0)
+
+[node name="WannaBe" type="Area3D" parent="HeadPC/ClimbCasts"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HeadPC/ClimbCasts/WannaBe"]
+shape = SubResource("CapsuleShape3D_m3xoy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["playersOwnCollider"]]
 shape = SubResource("CapsuleShape3D_aovtj")
