@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://bplimovblhfno" path="res://statemachine/controllers.gd" id="2_dbsnd"]
 [ext_resource type="Script" uid="uid://ddng3vwlafat2" path="res://chars/climb_casts.gd" id="2_m3xoy"]
 [ext_resource type="Script" uid="uid://djqdubkdlusj7" path="res://statemachine/state_machine.gd" id="2_wfr46"]
-[ext_resource type="Script" uid="uid://dq8178xvsxk3y" path="res://chars/wanna_be.gd" id="3_d75p6"]
 [ext_resource type="Script" uid="uid://dgetrxyknty7k" path="res://statemachine/jump.gd" id="4_parr1"]
 [ext_resource type="Script" uid="uid://b4iui472vyo04" path="res://statemachine/walk.gd" id="5_7do1w"]
 [ext_resource type="Script" uid="uid://bmkcybbyhykfs" path="res://statemachine/run.gd" id="5_xe2sf"]
@@ -19,8 +18,8 @@
 [ext_resource type="Script" uid="uid://d4in5ee8e78xi" path="res://statemachine/crouching.gd" id="12_pnih5"]
 [ext_resource type="Script" uid="uid://bspjtyjrwtae3" path="res://statemachine/non_crouching.gd" id="13_k4ylc"]
 [ext_resource type="Script" uid="uid://bjn0wpruqemw5" path="res://ui/crosshair.gd" id="13_xgwki"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m3xoy"]
+[ext_resource type="AudioStream" uid="uid://c2namttx81f" path="res://resources/sounds/sfx_city_window_recording_side_1.ogg" id="20_4muir"]
+[ext_resource type="AudioStream" uid="uid://buf7c1kn4ebnp" path="res://resources/sounds/sfx_city_window_recording_side_2.ogg" id="21_md3ry"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aovtj"]
 
@@ -55,13 +54,6 @@ target_position = Vector3(0, -1.235, 0)
 [node name="ClimbCastTop3" type="RayCast3D" parent="HeadPC/ClimbCasts"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493218, -0.8428471)
 target_position = Vector3(0, -1.235, 0)
-
-[node name="WannaBe" type="Area3D" parent="HeadPC/ClimbCasts"]
-unique_name_in_owner = true
-script = ExtResource("3_d75p6")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HeadPC/ClimbCasts/WannaBe"]
-shape = SubResource("CapsuleShape3D_m3xoy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["playersOwnCollider"]]
 shape = SubResource("CapsuleShape3D_aovtj")
@@ -212,5 +204,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("13_xgwki")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+stream = ExtResource("20_4muir")
+attenuation_model = 3
+volume_db = -12.455
+autoplay = true
+parameters/looping = true
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+stream = ExtResource("21_md3ry")
+attenuation_model = 3
+volume_db = -12.455
+autoplay = true
+parameters/looping = true
 
 [connection signal="timeout" from="Controllers/CrouchFatigueTimer" to="Controllers" method="_on_crouch_fatigue_timer_timeout"]

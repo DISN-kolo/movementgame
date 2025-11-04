@@ -34,6 +34,10 @@ window/size/borderless=true
 
 movie_writer/movie_file="/home/dfm/code/gd/movementgame/bs.avi"
 
+[global_group]
+
+worldnode="A node that encapsulates a level"
+
 [input]
 
 sens_up={

@@ -20,7 +20,7 @@ sdfgi_use_occlusion = true
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5e6hi"]
 
-[node name="World0" type="Node3D"]
+[node name="World0" type="Node3D" groups=["worldnode"]]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.92846644, -0.24562208, 0.2786035, -3.5527137e-15, 0.750111, 0.661312, -0.37141636, 0.6140059, -0.69645286, 0, 0, 0)

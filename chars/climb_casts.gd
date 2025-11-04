@@ -3,7 +3,7 @@ extends Node3D
 @onready var climb_cast_top_2: RayCast3D = $ClimbCastTop2;
 @onready var climb_cast_top_3: RayCast3D = $ClimbCastTop3;
 @onready var collision_shape_3d: CollisionShape3D = $"../../CollisionShape3D";
-@onready var wanna_be: Area3D = %WannaBe;
+const WANNA_BE_HANGING_LEDGE_CHECKER = preload("uid://c1sjg3ntf4qbe");
 
 var actual_raycasts: Array[RayCast3D] = [null, null, null];
 var yes_collision: bool = false;
@@ -28,17 +28,22 @@ func calc_horizontal_coll_point():
 	var query = PhysicsRayQueryParameters3D.create(origin, end);
 	query.exclude = [collision_shape_3d];
 	var result = space_state.intersect_ray(query);
+	if result.is_empty():
+		yes_collision = false;
+		return ;
 	hor_col_pos = result.get("position");
-	position_the_area(origin, end);
+	var hor_col_norm = result.get("normal");
+	position_the_area(hor_col_norm);
 
-func position_the_area(origin: Vector3, end: Vector3):
-	var points_to_player: Vector3 = origin - end;
-	# this will be the center of the area that checks if the player can
-	#hold on to the ledge or not
-	points_to_player = points_to_player.normalized() * (0.5 + 0.1);
-	points_to_player.y -= 1.3;
-	var scanner_area_location: Vector3 = end + points_to_player;
-	wanna_be.global_position = scanner_area_location;
+func position_the_area(hor_col_norm: Vector3):
+	hor_col_norm *= Vector3(0.6, 1, 0.6);
+	hor_col_norm.y -= 1.3;
+	var scanner_area_location: Vector3 = hor_col_pos + hor_col_norm;
+	var new_wanna_be_instance = WANNA_BE_HANGING_LEDGE_CHECKER.instantiate();
+	new_wanna_be_instance.global_position = scanner_area_location;
+	var worldnode = get_tree().get_first_node_in_group("worldnode");
+	worldnode.add_child(new_wanna_be_instance);
+	
 
 func calc_nearest_top_coll():
 	var casts: Array[bool] = check_all();
