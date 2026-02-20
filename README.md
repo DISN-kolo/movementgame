@@ -1,2 +1,2 @@
 # movementgame
-godot 4 4 1 movement game re-using my old stuff and hopefully leveling it up to the programming standards of today
+Godot 4 movement game. It's re-using my old ideas, leveling them up to a systematic way of implementation
