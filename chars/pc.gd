@@ -11,13 +11,13 @@ extends CharacterBody3D;
 
 @onready var controllers: Node = $Controllers;
 
-@onready var state_machine: Node = $Controllers/StateMachine;
-@onready var run_machine: Node = $Controllers/RunMachine;
+@onready var state_machine: StateMachine = $Controllers/StateMachine;
+@onready var run_machine: StateMachine = $Controllers/RunMachine;
 
 @onready var run_state: State = $Controllers/RunMachine/Run;
 @onready var non_run_state: State = $Controllers/RunMachine/NonRun;
 
-@onready var crouch_machine: CrouchMachine = $Controllers/CrouchMachine;
+@onready var crouch_machine: StateMachine = $Controllers/CrouchMachine;
 
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D;
 @onready var climb_casts: Node3D = $HeadPC/ClimbCasts;
@@ -42,6 +42,9 @@ func _ready() -> void:
 	state_machine.init(self);
 	run_machine.init(self);
 	crouch_machine.init(self);
+	state_machine.state_changed.connect(_on_state_changed.bind(label_state));
+	run_machine.state_changed.connect(_on_state_changed.bind(label_r_state));
+	crouch_machine.state_changed.connect(_on_state_changed.bind(label_c_state));
 
 func _unhandled_input(event) -> void:
 	if Input.is_action_just_pressed("jump"):
@@ -155,6 +158,10 @@ func headbob(
 			head_pc.position.y,
 			current_head_y + sin(bob_t * 2) / 20 * bob_intensity,
 			9*delta);
+
+func _on_state_changed(state_name: String, label: Label) -> void:
+	if (is_debugging):
+		label.set_text(state_name);
 
 func check_above_for_uncrouching() -> bool:
 	above_raycast.force_raycast_update();

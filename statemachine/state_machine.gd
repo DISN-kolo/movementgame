@@ -4,11 +4,11 @@ extends Node
 
 @export var starting_state: State;
 
+signal state_changed(state_name: String)
+
 var current_state: State = null;
-var global_actor: CharacterBody3D = null;
 
 func init(actor: CharacterBody3D) -> void:
-	global_actor = actor;
 	for child in get_children():
 		child.actor = actor;
 	change_state(starting_state);
@@ -16,10 +16,9 @@ func init(actor: CharacterBody3D) -> void:
 func change_state(new_state: State) -> void:
 	if (current_state):
 		current_state.exit();
-	if new_state == null:
+	if (new_state == null):
 		return ;
-	if global_actor.is_debugging:
-		global_actor.label_state.set_text(new_state.get_name());
+	state_changed.emit(new_state.get_name());
 	current_state = new_state;
 	new_state.enter();
 

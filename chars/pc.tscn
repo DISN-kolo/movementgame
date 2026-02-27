@@ -10,11 +10,9 @@
 [ext_resource type="Script" uid="uid://drmq8lfgaak06" path="res://statemachine/idle.gd" id="6_gntgg"]
 [ext_resource type="Script" uid="uid://6lftkk10cvhy" path="res://statemachine/slide.gd" id="6_r0ist"]
 [ext_resource type="Script" uid="uid://whmduexfg3cu" path="res://statemachine/fall.gd" id="7_3ebf4"]
-[ext_resource type="Script" uid="uid://e324jje1crp8" path="res://statemachine/run_machine.gd" id="8_nv5ok"]
 [ext_resource type="LabelSettings" uid="uid://dimcd24nnd471" path="res://misc/quicklabelbig.tres" id="8_xe2sf"]
 [ext_resource type="LabelSettings" uid="uid://f64jls6y366i" path="res://misc/quicklabelsmall.tres" id="9_dbsnd"]
 [ext_resource type="Script" uid="uid://c028jm5m7h7r1" path="res://statemachine/non_run.gd" id="9_udn5f"]
-[ext_resource type="Script" uid="uid://ck0o6nissrhdo" path="res://statemachine/crouch_machine.gd" id="11_jrn08"]
 [ext_resource type="Script" uid="uid://d4in5ee8e78xi" path="res://statemachine/crouching.gd" id="12_pnih5"]
 [ext_resource type="Script" uid="uid://bspjtyjrwtae3" path="res://statemachine/non_crouching.gd" id="13_k4ylc"]
 [ext_resource type="Script" uid="uid://bjn0wpruqemw5" path="res://ui/crosshair.gd" id="13_xgwki"]
@@ -113,7 +111,7 @@ idle_state = NodePath("../Idle")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
 [node name="RunMachine" type="Node" parent="Controllers" unique_id=1295862122 node_paths=PackedStringArray("starting_state")]
-script = ExtResource("8_nv5ok")
+script = ExtResource("2_wfr46")
 starting_state = NodePath("Run")
 metadata/_custom_type_script = "uid://djqdubkdlusj7"
 
@@ -130,7 +128,7 @@ run = NodePath("../Run")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
 [node name="CrouchMachine" type="Node" parent="Controllers" unique_id=77163849 node_paths=PackedStringArray("starting_state")]
-script = ExtResource("11_jrn08")
+script = ExtResource("2_wfr46")
 starting_state = NodePath("NonCrouching")
 metadata/_custom_type_script = "uid://djqdubkdlusj7"
 
