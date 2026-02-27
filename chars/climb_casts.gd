@@ -21,7 +21,7 @@ func calc_horizontal_coll_point():
 	if !yes_collision:
 		return ;
 	var space_state = get_world_3d().direct_space_state;
-	var origin: Vector3 = self.global_position;
+	var origin: Vector3 = global_position;
 	var end: Vector3 = top_col_pos;
 	end.y -= 0.01;
 	origin.y = end.y;

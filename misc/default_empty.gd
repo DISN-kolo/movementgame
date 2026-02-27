@@ -6,10 +6,10 @@ var playerinstance: CharacterBody3D;
 
 func _ready() -> void:
 	worldinstance = world0.instantiate();
-	self.add_child(worldinstance);
+	add_child(worldinstance);
 	playerinstance = PC.instantiate();
 	playerinstance.position.y += 1;
-	self.add_child(playerinstance);
+	add_child(playerinstance);
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
 	pass;
 
