@@ -14,8 +14,8 @@ extends CharacterBody3D;
 @onready var state_machine: Node = $Controllers/StateMachine;
 @onready var run_machine: Node = $Controllers/RunMachine;
 
-@onready var run_state: RunningState = $Controllers/RunMachine/Run;
-@onready var non_run_state: RunningState = $Controllers/RunMachine/NonRun;
+@onready var run_state: State = $Controllers/RunMachine/Run;
+@onready var non_run_state: State = $Controllers/RunMachine/NonRun;
 
 @onready var crouch_machine: CrouchMachine = $Controllers/CrouchMachine;
 

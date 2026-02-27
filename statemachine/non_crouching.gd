@@ -1,8 +1,8 @@
-extends CrouchState
+extends State
 
 @export var controllers: Node
 
-@export var crouching: CrouchState
+@export var crouching: State
 
 func enter() -> void:
 	controllers.ready_to_slide = true;
@@ -14,7 +14,7 @@ func enter() -> void:
 	#controllers.speed_modifier = nonrun_modifier;
 
 
-func process_default(delta: float) -> CrouchState:
+func process_default(delta: float) -> State:
 	if Input.is_action_just_pressed("crouch"):
 		return crouching;
 	return null;

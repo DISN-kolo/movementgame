@@ -1,9 +1,9 @@
 class_name RunMachine
 extends Node
 
-@export var starting_state: RunningState;
+@export var starting_state: State;
 
-var current_state: RunningState = null;
+var current_state: State = null;
 var global_actor: CharacterBody3D = null;
 
 func init(actor: CharacterBody3D) -> void:
@@ -12,7 +12,7 @@ func init(actor: CharacterBody3D) -> void:
 		child.actor = actor;
 	change_state(starting_state);
 
-func change_state(new_state: RunningState) -> void:
+func change_state(new_state: State) -> void:
 	if (current_state):
 		current_state.exit();
 	if (new_state == null):

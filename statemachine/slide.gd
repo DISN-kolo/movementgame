@@ -51,7 +51,7 @@ func process_physics(delta: float) -> State:
 		actor.velocity.z,
 		finishing_temp_fullmultiplier.z,
 		2*delta);
-	actor.velocity.y -= gravity;
+	actor.velocity.y -= Settings.gravity;
 	actor.move_and_slide();
 	
 	if !actor.is_on_floor() and actor.velocity.y < 0:

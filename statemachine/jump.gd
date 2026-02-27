@@ -35,7 +35,7 @@ func process_physics(delta: float) -> State:
 	else:
 		controllers.is_walking_bc_input = false;
 	
-	actor.velocity.y -= gravity;
+	actor.velocity.y -= Settings.gravity;
 	actor.move_and_slide();
 	
 	if !actor.is_on_floor() and actor.velocity.y < 0:

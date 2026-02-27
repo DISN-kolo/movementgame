@@ -3,8 +3,6 @@ extends Node
 
 #@export var animation_name: String;
 
-var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-
 # Hold a reference to the parent so that it can be controlled by the state
 var actor: CharacterBody3D
 

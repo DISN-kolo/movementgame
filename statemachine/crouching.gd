@@ -1,8 +1,8 @@
-extends CrouchState
+extends State
 
 @export var controllers: Node
 
-@export var non_crouching: CrouchState
+@export var non_crouching: State
 
 func enter() -> void:
 	controllers.crouch_speed_modifier = 0.3;
@@ -13,7 +13,7 @@ func enter() -> void:
 	#controllers.speed_modifier = nonrun_modifier;
 
 
-func process_default(delta: float) -> CrouchState:
+func process_default(delta: float) -> State:
 	if (Input.is_action_just_pressed("crouch")
 		and actor.check_above_for_uncrouching()):
 		return non_crouching;

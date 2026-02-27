@@ -29,7 +29,7 @@ func process_physics(delta: float) -> State:
 	if actor.is_on_floor():
 		actor.velocity.x = lerp(actor.velocity.x, 0.0, 9*delta);
 		actor.velocity.z = lerp(actor.velocity.z, 0.0, 9*delta);
-	actor.velocity.y -= gravity;
+	actor.velocity.y -= Settings.gravity;
 	actor.move_and_slide();
 	
 	if !actor.is_on_floor():
