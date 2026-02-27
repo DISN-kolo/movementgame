@@ -37,8 +37,6 @@ func process_input(event: InputEvent) -> State:
 		return jump_state;
 	if Input.is_action_just_pressed("crouch"):
 		return walk_state;
-	#print(velocity);
-	#move_and_slide();
 	return null
 
 func process_physics(delta: float) -> State:

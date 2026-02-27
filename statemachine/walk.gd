@@ -15,11 +15,8 @@ var input_dir: Vector2 = Vector2(0, 0);
 var direction: Vector3 = Vector3(0, 0, 0);
 
 func process_input(event: InputEvent) -> State:
-	#print(event);
 	if Input.is_action_just_pressed("jump") and actor.is_on_floor():
 		return jump_state;
-	#print(velocity);
-	#move_and_slide();
 	return null
 
 func process_physics(delta: float) -> State:

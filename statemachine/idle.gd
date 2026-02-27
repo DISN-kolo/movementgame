@@ -9,17 +9,10 @@ extends State
 func enter() -> void:
 	controllers.is_walking_bc_input = false;
 	super();
-#var input_dir: Vector2 = Vector2(0, 0);
-#var direction: Vector3 = Vector3(0, 0, 0);
-#var speed_modifier: float = 500.0;
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed("jump") and actor.is_on_floor():
 		return jump_state;
-	#direction = (head_pc.transform.basis * Vector3(input_dir.x, 0, input_dir.y));
-	#velocity = direction * speed_modifier * delta;
-	#print(velocity);
-	#move_and_slide();
 	return null
 
 func process_physics(delta: float) -> State:

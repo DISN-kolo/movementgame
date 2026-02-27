@@ -11,7 +11,6 @@ func enter() -> void:
 	actor.collision_shape_3d.scale.y = 1;
 	actor.collision_shape_3d.position.y = 0;
 	actor.current_head_y = actor.default_head_y;
-	#controllers.speed_modifier = nonrun_modifier;
 
 
 func process_default(delta: float) -> State:
