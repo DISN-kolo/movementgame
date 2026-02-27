@@ -39,12 +39,12 @@ func _ready() -> void:
 	default_head_y = head_pc.position.y;
 	lower_head_y = default_head_y - 0.5;
 	current_head_y = default_head_y;
-	state_machine.init(self);
-	run_machine.init(self);
-	crouch_machine.init(self);
 	state_machine.state_changed.connect(_on_state_changed.bind(label_state));
 	run_machine.state_changed.connect(_on_state_changed.bind(label_r_state));
 	crouch_machine.state_changed.connect(_on_state_changed.bind(label_c_state));
+	state_machine.init(self);
+	run_machine.init(self);
+	crouch_machine.init(self);
 
 func _unhandled_input(event) -> void:
 	if Input.is_action_just_pressed("jump"):
