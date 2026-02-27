@@ -5,4 +5,3 @@ func _ready() -> void:
 	position.y = get_viewport().size.y / 2 - 3;
 	size.x = 6;
 	size.y = 6;
-	pass

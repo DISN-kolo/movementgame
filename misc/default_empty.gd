@@ -11,7 +11,6 @@ func _ready() -> void:
 	playerinstance.position.y += 1;
 	add_child(playerinstance);
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
-	pass;
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
