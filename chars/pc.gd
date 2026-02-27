@@ -31,6 +31,9 @@ var bob_t : float = 0;
 var default_head_y : float;
 var lower_head_y : float;
 var current_head_y : float;
+var default_capsule_height : float;
+var crouched_capsule_height : float;
+var crouched_capsule_offset : float;
 
 var lagging_speed_len : float = 0;
 
@@ -39,6 +42,9 @@ func _ready() -> void:
 	default_head_y = head_pc.position.y;
 	lower_head_y = default_head_y - 0.5;
 	current_head_y = default_head_y;
+	default_capsule_height = collision_shape_3d.shape.height;
+	crouched_capsule_height = default_capsule_height * 0.5;
+	crouched_capsule_offset = -(default_capsule_height - crouched_capsule_height) / 2.0;
 	state_machine.state_changed.connect(_on_state_changed.bind(label_state));
 	run_machine.state_changed.connect(_on_state_changed.bind(label_r_state));
 	crouch_machine.state_changed.connect(_on_state_changed.bind(label_c_state));

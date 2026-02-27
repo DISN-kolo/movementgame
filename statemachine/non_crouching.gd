@@ -8,7 +8,7 @@ func enter() -> void:
 	controllers.ready_to_slide = true;
 	controllers.crouch_speed_modifier = 1;
 	super();
-	actor.collision_shape_3d.scale.y = 1;
+	actor.collision_shape_3d.shape.height = actor.default_capsule_height;
 	actor.collision_shape_3d.position.y = 0;
 	actor.current_head_y = actor.default_head_y;
 

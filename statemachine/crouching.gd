@@ -7,8 +7,8 @@ extends State
 func enter() -> void:
 	controllers.crouch_speed_modifier = 0.3;
 	super();
-	actor.collision_shape_3d.scale.y = 0.5;
-	actor.collision_shape_3d.position.y = -0.5;
+	actor.collision_shape_3d.shape.height = actor.crouched_capsule_height;
+	actor.collision_shape_3d.position.y = actor.crouched_capsule_offset;
 	actor.current_head_y = actor.lower_head_y;
 
 
