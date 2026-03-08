@@ -53,12 +53,6 @@ func _ready() -> void:
 	crouch_machine.init(self);
 
 func _unhandled_input(event) -> void:
-	if Input.is_action_just_pressed("jump"):
-		climb_casts.calc_horizontal_coll_point();
-	# if it's gonna come to making sure camera does this and that while we're
-	#in some state, or like the mouse movement shall affect some bs, then
-	#we'd need to redirect even this thing to the state machine. but it'll be
-	#a problem for later, if it even shows up lol. we'll see
 	if event is InputEventMouseMotion:
 		head_pc.rotate_y(-event.relative.x * Settings.sensitivity);
 		camera_pc.rotate_x(-event.relative.y * Settings.sensitivity);

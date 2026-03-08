@@ -119,7 +119,6 @@ metadata/_custom_type_script = "uid://djqdubkdlusj7"
 script = ExtResource("5_xe2sf")
 controllers = NodePath("../..")
 non_run = NodePath("../NonRun")
-metadata/_custom_type_script = "uid://dcl56cpmdi8ir"
 
 [node name="NonRun" type="Node" parent="Controllers/RunMachine" unique_id=1920474200 node_paths=PackedStringArray("controllers", "run")]
 script = ExtResource("9_udn5f")
@@ -136,13 +135,11 @@ metadata/_custom_type_script = "uid://djqdubkdlusj7"
 script = ExtResource("12_pnih5")
 controllers = NodePath("../..")
 non_crouching = NodePath("../NonCrouching")
-metadata/_custom_type_script = "uid://br25jrkllc3m7"
 
 [node name="NonCrouching" type="Node" parent="Controllers/CrouchMachine" unique_id=84539905 node_paths=PackedStringArray("controllers", "crouching")]
 script = ExtResource("13_k4ylc")
 controllers = NodePath("../..")
 crouching = NodePath("../Crouching")
-metadata/_custom_type_script = "uid://br25jrkllc3m7"
 
 [node name="CrouchFatigueTimer" type="Timer" parent="Controllers" unique_id=1698628078]
 process_callback = 0
@@ -207,7 +204,7 @@ script = ExtResource("13_xgwki")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 stream = ExtResource("20_4muir")
 attenuation_model = 3
-volume_db = -12.455
+volume_db = -24.0
 autoplay = true
 parameters/looping = true
 
@@ -215,7 +212,7 @@ parameters/looping = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 stream = ExtResource("21_md3ry")
 attenuation_model = 3
-volume_db = -12.455
+volume_db = -24.0
 autoplay = true
 parameters/looping = true
 

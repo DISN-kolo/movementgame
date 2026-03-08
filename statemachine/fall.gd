@@ -13,6 +13,8 @@ func enter() -> void:
 var input_dir: Vector2 = Vector2(0, 0);
 var direction: Vector3 = Vector3(0, 0, 0);
 
+# TODO: add pre-fall for coyote time. steal from the GJ project
+
 func process_physics(delta: float) -> State:
 	input_dir = Input.get_vector("mov_left", "mov_right", "mov_up", "mov_down");
 	

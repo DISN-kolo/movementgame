@@ -18,7 +18,7 @@ func _ready() -> void:
 
 func calc_horizontal_coll_point():
 	calc_nearest_top_coll();
-	if !yes_collision:
+	if (!yes_collision):
 		return ;
 	var space_state = get_world_3d().direct_space_state;
 	var origin: Vector3 = global_position;
@@ -28,7 +28,7 @@ func calc_horizontal_coll_point():
 	var query = PhysicsRayQueryParameters3D.create(origin, end);
 	query.exclude = [collision_shape_3d];
 	var result = space_state.intersect_ray(query);
-	if result.is_empty():
+	if (result.is_empty()):
 		yes_collision = false;
 		return ;
 	hor_col_pos = result.get("position");
@@ -40,10 +40,9 @@ func position_the_area(hor_col_norm: Vector3):
 	hor_col_norm.y -= 1.3;
 	var scanner_area_location: Vector3 = hor_col_pos + hor_col_norm;
 	var new_wanna_be_instance = WANNA_BE_HANGING_LEDGE_CHECKER.instantiate();
-	new_wanna_be_instance.global_position = scanner_area_location;
+	new_wanna_be_instance.position = scanner_area_location;
 	var worldnode = get_tree().get_first_node_in_group("worldnode");
 	worldnode.add_child(new_wanna_be_instance);
-	
 
 func calc_nearest_top_coll():
 	var casts: Array[bool] = check_all();
