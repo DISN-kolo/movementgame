@@ -11,9 +11,6 @@ func enter() -> void:
 	super();
 
 func process_input(event: InputEvent) -> State:
-	# FIXME: this should be in process (see GJ project)
-	if Input.is_action_pressed("jump"):
-		actor.climb_casts.calc_horizontal_coll_point();
 		# TODO return ledged state
 		# in the ledged state you should wait for inputs and then either enter
 		# the climb "animated state" (similar to slide) or the falling state
@@ -22,6 +19,8 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
+	if Input.is_action_pressed("jump"):
+		actor.climb_casts.calc_horizontal_coll_point();
 	if (Input.get_vector("mov_left", "mov_right",
 		"mov_up", "mov_down").length() >= 0.01):
 		return walk_state;
@@ -30,7 +29,7 @@ func process_physics(delta: float) -> State:
 		actor.velocity.z = lerp(actor.velocity.z, 0.0, 9*delta);
 	actor.velocity.y -= Settings.gravity;
 	actor.move_and_slide();
-	
+
 	if !actor.is_on_floor():
 		return fall_state;
 	return null;

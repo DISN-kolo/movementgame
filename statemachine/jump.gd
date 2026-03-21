@@ -15,9 +15,15 @@ func enter() -> void:
 var input_dir: Vector2 = Vector2(0, 0);
 var direction: Vector3 = Vector3(0, 0, 0);
 
+#func process_input(event: InputEvent) -> State:
+	#if Input.is_action_pressed("jump"):
+		#actor.climb_casts.calc_horizontal_coll_point();
+	#return null;
+
 func process_physics(delta: float) -> State:
 	input_dir = Input.get_vector("mov_left", "mov_right", "mov_up", "mov_down");
-	
+	if Input.is_action_pressed("jump"):
+		actor.climb_casts.calc_horizontal_coll_point();
 	if input_dir.length() > 0.1:
 		controllers.is_walking_bc_input = true;
 		direction = (actor.head_pc.transform.basis
