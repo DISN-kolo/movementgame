@@ -113,6 +113,7 @@ func _physics_process(delta: float) -> void:
 		label_misc.text = "camera_pc.fov: %5f" % camera_pc.fov;
 		label_misc.text += "
 	pos: %8.2f, %8.2f, %8.2f
+	tcp: %8.2f, %8.2f, %8.2f
 	vel: %8.2f, %8.2f, %8.2f
 	spd: %8.2f
 	l_d: %8.2f, %8.2f, %8.2f
@@ -123,6 +124,7 @@ func _physics_process(delta: float) -> void:
 	slide_fatigue         = %s
 " % [
 			position.x, position.y, position.z,
+			climb_casts.top_col_pos.x, climb_casts.top_col_pos.y, climb_casts.top_col_pos.z,
 			velocity.x, velocity.y, velocity.z,
 			Vector2(velocity.x, velocity.z).length(),
 			controllers.last_direction.x,

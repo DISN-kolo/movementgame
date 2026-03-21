@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cvqyc8ckk0rju" path="res://statemachine/transition_to_ledged.gd" id="6_npmjr"]
 [ext_resource type="Script" uid="uid://6lftkk10cvhy" path="res://statemachine/slide.gd" id="6_r0ist"]
 [ext_resource type="Script" uid="uid://whmduexfg3cu" path="res://statemachine/fall.gd" id="7_3ebf4"]
+[ext_resource type="Script" uid="uid://c8u5k8kvp71qk" path="res://statemachine/animated_climb.gd" id="7_4muir"]
 [ext_resource type="LabelSettings" uid="uid://dimcd24nnd471" path="res://misc/quicklabelbig.tres" id="8_xe2sf"]
 [ext_resource type="LabelSettings" uid="uid://f64jls6y366i" path="res://misc/quicklabelsmall.tres" id="9_dbsnd"]
 [ext_resource type="Script" uid="uid://c028jm5m7h7r1" path="res://statemachine/non_run.gd" id="9_udn5f"]
@@ -44,7 +45,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_npmjr"]
 resource_name = "transition_to_ledged"
-length = 0.3
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -52,8 +53,8 @@ tracks/0/path = NodePath("StateMachine/TransitionToLedged:parameter")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.7578583, 1),
 "update": 0,
 "values": [0.0, 1.0]
 }
@@ -64,7 +65,7 @@ tracks/1/path = NodePath("StateMachine/TransitionToLedged")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -76,6 +77,57 @@ tracks/1/keys = {
 _data = {
 &"RESET": SubResource("Animation_4muir"),
 &"transition_to_ledged": SubResource("Animation_npmjr")
+}
+
+[sub_resource type="Animation" id="Animation_x7i01"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StateMachine/AnimatedClimb:parameter")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_md3ry"]
+resource_name = "climb"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StateMachine/AnimatedClimb:parameter")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StateMachine/AnimatedClimb")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start_returning_idle"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x7i01"]
+_data = {
+&"RESET": SubResource("Animation_x7i01"),
+&"climb": SubResource("Animation_md3ry")
 }
 
 [node name="PC" type="CharacterBody3D" unique_id=2075278280]
@@ -136,11 +188,18 @@ controllers = NodePath("../..")
 ledged_state = NodePath("../Ledged")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
-[node name="Ledged" type="Node" parent="Controllers/StateMachine" unique_id=50053953 node_paths=PackedStringArray("controllers", "fall_state", "jump_state")]
+[node name="Ledged" type="Node" parent="Controllers/StateMachine" unique_id=50053953 node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "animated_climb_state")]
 script = ExtResource("6_d75p6")
 controllers = NodePath("../..")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
+animated_climb_state = NodePath("../AnimatedClimb")
+metadata/_custom_type_script = "uid://dtl1cmdi4582h"
+
+[node name="AnimatedClimb" type="Node" parent="Controllers/StateMachine" unique_id=1720037863 node_paths=PackedStringArray("controllers", "idle_state")]
+script = ExtResource("7_4muir")
+controllers = NodePath("../..")
+idle_state = NodePath("../Idle")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
 [node name="Walk" type="Node" parent="Controllers/StateMachine" unique_id=869931327 node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "idle_state", "slide_state")]
@@ -217,6 +276,9 @@ one_shot = true
 
 [node name="LedgedTransitioner" type="AnimationPlayer" parent="Controllers" unique_id=997690608]
 libraries/ = SubResource("AnimationLibrary_4muir")
+
+[node name="Climber" type="AnimationPlayer" parent="Controllers" unique_id=869049265]
+libraries/ = SubResource("AnimationLibrary_x7i01")
 
 [node name="MainControl" type="Control" parent="." unique_id=405950481]
 layout_mode = 3

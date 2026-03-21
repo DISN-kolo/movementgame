@@ -24,5 +24,8 @@ func start_fatigue_timer() -> void:
 func play_transition_to_ledged() -> void:
 	$LedgedTransitioner.play("transition_to_ledged");
 
+func play_climb() -> void:
+	$Climber.play("climb");
+
 #func reset_ledged_transitioner() -> void:
 	#$LedgedTransitioner.play("RESET");
