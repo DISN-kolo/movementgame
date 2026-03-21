@@ -280,6 +280,11 @@ libraries/ = SubResource("AnimationLibrary_4muir")
 [node name="Climber" type="AnimationPlayer" parent="Controllers" unique_id=869049265]
 libraries/ = SubResource("AnimationLibrary_x7i01")
 
+[node name="AutoclimbDelay" type="Timer" parent="Controllers" unique_id=421515387]
+process_callback = 0
+wait_time = 0.1
+one_shot = true
+
 [node name="MainControl" type="Control" parent="." unique_id=405950481]
 layout_mode = 3
 anchors_preset = 15
@@ -351,3 +356,4 @@ autoplay = true
 parameters/looping = true
 
 [connection signal="timeout" from="Controllers/CrouchFatigueTimer" to="Controllers" method="_on_crouch_fatigue_timer_timeout"]
+[connection signal="timeout" from="Controllers/AutoclimbDelay" to="Controllers/StateMachine/Ledged" method="_on_autoclimb_delay_timeout"]

@@ -7,7 +7,11 @@ extends State
 @export var animated_climb_state: State = null;
 @export var shimmy_ledge_state: State = null;
 
+var init_delay_passed: bool = false;
+
 func enter() -> void:
+	$"../../AutoclimbDelay".start();
+	init_delay_passed = false;
 	controllers.is_walking_bc_input = false;
 	super();
 
@@ -29,7 +33,15 @@ func process_input(event: InputEvent) -> State:
 
 func process_physics(delta: float) -> State:
 	actor.velocity = Vector3(0.0, 0.0, 0.0);
+	if (Input.is_action_pressed("jump") or Input.is_action_pressed("mov_up")):
+		if (actor.looking_almost_at_wall_we_are_on() and init_delay_passed):
+			init_delay_passed = false;
+			return animated_climb_state;
 	if (abs(Input.get_vector("mov_left", "mov_right",
 		"mov_up", "mov_down").x) >= 0.01):
 		return shimmy_ledge_state;
 	return null;
+
+
+func _on_autoclimb_delay_timeout() -> void:
+	init_delay_passed = true;
