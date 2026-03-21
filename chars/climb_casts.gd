@@ -36,7 +36,6 @@ func calc_horizontal_coll_point():
 	position_the_area(hor_col_norm);
 
 func position_the_area(hor_col_norm: Vector3):
-	Signals.old_wb_must_go_free.emit();
 	var save_the_norm: Vector3 = hor_col_norm;
 	hor_col_norm *= Vector3(0.6, 1, 0.6);
 	hor_col_norm.y -= 1.3;

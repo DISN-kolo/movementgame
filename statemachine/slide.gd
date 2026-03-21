@@ -21,7 +21,7 @@ func enter() -> void:
 		* Vector2(actor.velocity.x, actor.velocity.z).length()
 		* controllers.speed_modifier
 		* controllers.slide_modifier);
-	print("stf: ", starting_temp_fullmultiplier);
+	#print("stf: ", starting_temp_fullmultiplier);
 	actor.velocity.x = starting_temp_fullmultiplier.x;
 	actor.velocity.z = starting_temp_fullmultiplier.z;
 	finishing_temp_fullmultiplier = (

@@ -39,26 +39,41 @@ var lagging_speed_len : float = 0;
 
 @export var is_debugging : bool = false;
 
+var wb_actual_position: Vector3 = Vector3(NAN, NAN, NAN);
+
+var worldnode: Node;
+
 func looking_almost_at_wall_we_are_on() -> bool:
 	# TODO
 	return true;
 
+func remove_old_wb() -> void:
+	var wn_children: Array[Node] = worldnode.get_children();
+	for wn_child in wn_children:
+		if (wn_child.is_in_group("wannabe_area")):
+			print("detected wb, rming");
+			wn_child.free();
+
 func space_available() -> bool:
-	var worldnode: Node = get_tree().get_first_node_in_group("worldnode");
 	var wn_children: Array[Node] = worldnode.get_children();
 	var wannabe_actual: Node = null;
 	var succeeded: bool = false;
 	for wn_child in wn_children:
 		if (wn_child.is_in_group("wannabe_area")):
+			print(wn_child);
 			succeeded = true;
+			wannabe_actual = wn_child;
 			break ;
 	if (!succeeded):
 		return false;
+	wb_actual_position = wannabe_actual.global_position;
+	print("set wb actual pos to: ", wb_actual_position);
 	if (wannabe_actual.has_geometry_inside):
 		return false;
 	return true;
 
 func _ready() -> void:
+	worldnode = get_tree().get_first_node_in_group("worldnode");
 	default_head_y = head_pc.position.y;
 	lower_head_y = default_head_y - 0.5;
 	current_head_y = default_head_y;

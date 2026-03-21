@@ -20,3 +20,9 @@ func _on_crouch_fatigue_timer_timeout() -> void:
 func start_fatigue_timer() -> void:
 	slide_fatigue = true;
 	crouch_fatigue_timer.start();
+
+func play_transition_to_ledged() -> void:
+	$LedgedTransitioner.play("transition_to_ledged");
+
+#func reset_ledged_transitioner() -> void:
+	#$LedgedTransitioner.play("RESET");

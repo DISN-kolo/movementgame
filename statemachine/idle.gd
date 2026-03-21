@@ -18,7 +18,11 @@ func process_input(event: InputEvent) -> State:
 
 func process_physics(delta: float) -> State:
 	if (Input.is_action_pressed("jump")):
+		actor.remove_old_wb();
 		actor.climb_casts.calc_horizontal_coll_point();
+		if (actor.space_available()):
+			print("determined space available from idle");
+			return transitional_to_ledged_state;
 	if (Input.get_vector("mov_left", "mov_right",
 		"mov_up", "mov_down").length() >= 0.01):
 		return walk_state;
