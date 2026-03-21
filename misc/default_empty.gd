@@ -8,8 +8,11 @@ func _ready() -> void:
 	worldinstance = world0.instantiate();
 	add_child(worldinstance);
 	playerinstance = PC.instantiate();
-	playerinstance.position.y += 1;
+	playerinstance.position = worldinstance.get_spawn_pos(0);
+	#playerinstance.position.y += 1;
 	add_child(playerinstance);
+	playerinstance.head_pc.rotate_y(worldinstance.get_spawn_rot(0).y);
+	playerinstance.camera_pc.rotate_x(worldinstance.get_spawn_rot(0).x);
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
 
 func _input(event: InputEvent) -> void:
