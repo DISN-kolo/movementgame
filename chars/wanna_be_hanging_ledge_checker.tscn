@@ -4,7 +4,8 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m3xoy"]
 
-[node name="WannaBe" type="Area3D" unique_id=1043054713]
+[node name="WannaBe" type="Area3D" unique_id=1043054713 groups=["wannabe_area"]]
+collision_layer = 0
 script = ExtResource("1_fcs20")
 
 [node name="WannaBeCollisionShape" type="CollisionShape3D" parent="." unique_id=75238720]

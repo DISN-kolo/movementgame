@@ -1,8 +1,10 @@
 extends Area3D;
 
 var has_geometry_inside: bool = false;
+var wall_norm: Vector3;
 
 func _ready() -> void:
+	Signals.old_wb_must_go_free.connect(_on_asked_wb_to_exit);
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state;
 	var query: PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new();
 	query.collision_mask = collision_mask;
@@ -11,7 +13,7 @@ func _ready() -> void:
 	query.transform = %WannaBeCollisionShape.global_transform;
 
 	var results: Array = space_state.intersect_shape(query);
-	has_geometry_inside = not results.is_empty();
+	has_geometry_inside = !(results.is_empty());
 
 	# TODO: ignore intersections with particular node groups
 	# like collectibles or whatever
@@ -27,3 +29,6 @@ func _ready() -> void:
 		#if (not ignored):
 			#filtered.append(hit);
 	#has_geometry_inside = not filtered.is_empty();
+
+func _on_asked_wb_to_exit() -> void:
+	call_deferred("queue_free");

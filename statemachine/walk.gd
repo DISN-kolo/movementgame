@@ -15,7 +15,7 @@ var input_dir: Vector2 = Vector2(0, 0);
 var direction: Vector3 = Vector3(0, 0, 0);
 
 func process_input(event: InputEvent) -> State:
-	if Input.is_action_just_pressed("jump") and actor.is_on_floor():
+	if (Input.is_action_just_pressed("jump") and actor.is_on_floor()):
 		return jump_state;
 	return null
 
@@ -48,8 +48,8 @@ func process_physics(delta: float) -> State:
 	actor.velocity.y -= Settings.gravity;
 	actor.move_and_slide();
 	
-	if !actor.is_on_floor():
+	if (!actor.is_on_floor()):
 		return fall_state;
-	if input_dir.length() < 0.1:
+	if (input_dir.length() < 0.1):
 		return idle_state;
 	return null;

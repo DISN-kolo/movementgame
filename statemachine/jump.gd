@@ -5,6 +5,7 @@ extends State
 @export var fall_state: State
 @export var walk_state: State
 @export var idle_state: State
+@export var transitional_to_ledged_state: State
 
 var jump_velocity: float = 10;
 
@@ -22,9 +23,11 @@ var direction: Vector3 = Vector3(0, 0, 0);
 
 func process_physics(delta: float) -> State:
 	input_dir = Input.get_vector("mov_left", "mov_right", "mov_up", "mov_down");
-	if Input.is_action_pressed("jump"):
+	if (Input.is_action_pressed("jump")):
 		actor.climb_casts.calc_horizontal_coll_point();
-	if input_dir.length() > 0.1:
+		if (actor.space_available()):
+			return transitional_to_ledged_state;
+	if (input_dir.length() > 0.1):
 		controllers.is_walking_bc_input = true;
 		direction = (actor.head_pc.transform.basis
 			* Vector3(input_dir.x, 0, input_dir.y));
@@ -44,10 +47,10 @@ func process_physics(delta: float) -> State:
 	actor.velocity.y -= Settings.gravity;
 	actor.move_and_slide();
 	
-	if !actor.is_on_floor() and actor.velocity.y < 0:
+	if (!actor.is_on_floor() and actor.velocity.y < 0):
 		return fall_state;
-	if actor.is_on_floor():
-		if input_dir.length() > 0.1:
+	if (actor.is_on_floor()):
+		if (input_dir.length() > 0.1):
 			return walk_state;
 		return idle_state;
 	return null;

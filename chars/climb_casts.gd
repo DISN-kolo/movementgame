@@ -36,23 +36,26 @@ func calc_horizontal_coll_point():
 	position_the_area(hor_col_norm);
 
 func position_the_area(hor_col_norm: Vector3):
+	Signals.old_wb_must_go_free.emit();
+	var save_the_norm: Vector3 = hor_col_norm;
 	hor_col_norm *= Vector3(0.6, 1, 0.6);
 	hor_col_norm.y -= 1.3;
 	var scanner_area_location: Vector3 = hor_col_pos + hor_col_norm;
 	var new_wanna_be_instance = WANNA_BE_HANGING_LEDGE_CHECKER.instantiate();
 	new_wanna_be_instance.position = scanner_area_location;
+	new_wanna_be_instance.wall_norm = save_the_norm;
 	var worldnode = get_tree().get_first_node_in_group("worldnode");
 	worldnode.add_child(new_wanna_be_instance);
 
 func calc_nearest_top_coll():
 	var casts: Array[bool] = check_all();
 	var index: int = 0;
-	while index < 3:
-		if casts[index] == true:
+	while (index < 3):
+		if (casts[index] == true):
 			yes_collision = true;
 			break;
 		index += 1;
-	if index == 3:
+	if (index == 3):
 		yes_collision = false;
 		return ;
 	collided_object = actual_raycasts[index];

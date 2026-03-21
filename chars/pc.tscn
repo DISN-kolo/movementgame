@@ -7,7 +7,9 @@
 [ext_resource type="Script" uid="uid://dgetrxyknty7k" path="res://statemachine/jump.gd" id="4_parr1"]
 [ext_resource type="Script" uid="uid://b4iui472vyo04" path="res://statemachine/walk.gd" id="5_7do1w"]
 [ext_resource type="Script" uid="uid://bmkcybbyhykfs" path="res://statemachine/run.gd" id="5_xe2sf"]
+[ext_resource type="Script" uid="uid://cpm522fhupkjv" path="res://statemachine/ledged.gd" id="6_d75p6"]
 [ext_resource type="Script" uid="uid://drmq8lfgaak06" path="res://statemachine/idle.gd" id="6_gntgg"]
+[ext_resource type="Script" uid="uid://cvqyc8ckk0rju" path="res://statemachine/transition_to_ledged.gd" id="6_npmjr"]
 [ext_resource type="Script" uid="uid://6lftkk10cvhy" path="res://statemachine/slide.gd" id="6_r0ist"]
 [ext_resource type="Script" uid="uid://whmduexfg3cu" path="res://statemachine/fall.gd" id="7_3ebf4"]
 [ext_resource type="LabelSettings" uid="uid://dimcd24nnd471" path="res://misc/quicklabelbig.tres" id="8_xe2sf"]
@@ -74,6 +76,19 @@ controllers = NodePath("../..")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 walk_state = NodePath("../Walk")
+metadata/_custom_type_script = "uid://dtl1cmdi4582h"
+
+[node name="TransitionToLedged" type="Node" parent="Controllers/StateMachine" unique_id=1713174273 node_paths=PackedStringArray("controllers", "ledged_state")]
+script = ExtResource("6_npmjr")
+controllers = NodePath("../..")
+ledged_state = NodePath("../Ledged")
+metadata/_custom_type_script = "uid://dtl1cmdi4582h"
+
+[node name="Ledged" type="Node" parent="Controllers/StateMachine" unique_id=50053953 node_paths=PackedStringArray("controllers", "fall_state", "jump_state")]
+script = ExtResource("6_d75p6")
+controllers = NodePath("../..")
+fall_state = NodePath("../Fall")
+jump_state = NodePath("../Jump")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
 [node name="Walk" type="Node" parent="Controllers/StateMachine" unique_id=869931327 node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "idle_state", "slide_state")]

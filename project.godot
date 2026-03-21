@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Settings="*res://singletons/settings.gd"
+Signals="*uid://nhck3oh68o7c"
 
 [debug]
 
@@ -41,6 +42,7 @@ movie_writer/movie_file="/home/dfm/code/gd/movementgame/bs.avi"
 [global_group]
 
 worldnode="A node that encapsulates a level"
+wannabe_area=""
 
 [input]
 

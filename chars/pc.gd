@@ -38,6 +38,26 @@ var crouched_capsule_offset : float;
 var lagging_speed_len : float = 0;
 
 @export var is_debugging : bool = false;
+
+func looking_almost_at_wall_we_are_on() -> bool:
+	# TODO
+	return true;
+
+func space_available() -> bool:
+	var worldnode: Node = get_tree().get_first_node_in_group("worldnode");
+	var wn_children: Array[Node] = worldnode.get_children();
+	var wannabe_actual: Node = null;
+	var succeeded: bool = false;
+	for wn_child in wn_children:
+		if (wn_child.is_in_group("wannabe_area")):
+			succeeded = true;
+			break ;
+	if (!succeeded):
+		return false;
+	if (wannabe_actual.has_geometry_inside):
+		return false;
+	return true;
+
 func _ready() -> void:
 	default_head_y = head_pc.position.y;
 	lower_head_y = default_head_y - 0.5;
