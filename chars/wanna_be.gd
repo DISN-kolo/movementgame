@@ -14,17 +14,11 @@ func _ready() -> void:
 	var results: Array = space_state.intersect_shape(query);
 	has_geometry_inside = !(results.is_empty());
 
-	# TODO: ignore intersections with particular node groups
-	# like collectibles or whatever
-	#var ignored_groups: Array[StringName] = [];
+	#var ignored_masks: int = 0b1;
+	## debris and such should REALLY be in their own mask
 	#var filtered: Array = [];
 	#for hit in results:
 		#var collider: Node = hit.get("collider");
-		#var ignored: bool = false;
-		#for group in ignored_groups:
-			#if (collider != null and collider.is_in_group(group)):
-				#ignored = true;
-				#break;
-		#if (not ignored):
+		#if ((collider.collision_layer | ignored_masks) != collider.collision_layer):
 			#filtered.append(hit);
-	#has_geometry_inside = not filtered.is_empty();
+	#has_geometry_inside = !(filtered.is_empty());

@@ -21,9 +21,6 @@ func process_input(event: InputEvent) -> State:
 			return animated_climb_state;
 		else:
 			return jump_state;
-	if (Input.is_action_just_pressed("mov_up")):
-		if (actor.looking_almost_at_wall_we_are_on()):
-			return animated_climb_state;
 	if (Input.is_action_just_pressed("mov_down")):
 		if (actor.looking_almost_at_wall_we_are_on()):
 			return fall_state;
@@ -33,7 +30,7 @@ func process_input(event: InputEvent) -> State:
 
 func process_physics(delta: float) -> State:
 	actor.velocity = Vector3(0.0, 0.0, 0.0);
-	if (Input.is_action_pressed("jump") or Input.is_action_pressed("mov_up")):
+	if (Input.is_action_pressed("jump")):
 		if (actor.looking_almost_at_wall_we_are_on() and init_delay_passed):
 			init_delay_passed = false;
 			return animated_climb_state;

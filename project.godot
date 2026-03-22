@@ -99,6 +99,11 @@ mouse_unlock={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="basic geometry"
+3d_physics/layer_2="misc, trash, whatever"
+
 [physics]
 
 3d/default_gravity=0.5

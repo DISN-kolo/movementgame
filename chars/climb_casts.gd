@@ -9,6 +9,7 @@ var actual_raycasts: Array[RayCast3D] = [null, null, null];
 var yes_collision: bool = false;
 var top_col_pos: Vector3 = Vector3(NAN, NAN, NAN);
 var hor_col_pos: Vector3 = Vector3(NAN, NAN, NAN);
+var hor_col_norm: Vector3 = Vector3(NAN, NAN, NAN);
 var collided_object: Object = null;
 
 func _ready() -> void:
@@ -32,10 +33,10 @@ func calc_horizontal_coll_point():
 		yes_collision = false;
 		return ;
 	hor_col_pos = result.get("position");
-	var hor_col_norm = result.get("normal");
-	position_the_area(hor_col_norm);
+	hor_col_norm = result.get("normal");
+	position_the_area();
 
-func position_the_area(hor_col_norm: Vector3):
+func position_the_area():
 	var save_the_norm: Vector3 = hor_col_norm;
 	hor_col_norm *= Vector3(0.6, 1, 0.6);
 	hor_col_norm.y -= 1.3;

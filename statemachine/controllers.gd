@@ -27,5 +27,8 @@ func play_transition_to_ledged() -> void:
 func play_climb() -> void:
 	$Climber.play("climb");
 
+func play_vault() -> void:
+	$Vaulter.play("vault");
+
 #func reset_ledged_transitioner() -> void:
 	#$LedgedTransitioner.play("RESET");

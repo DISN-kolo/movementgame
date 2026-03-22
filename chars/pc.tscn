@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://c8u5k8kvp71qk" path="res://statemachine/animated_climb.gd" id="7_4muir"]
 [ext_resource type="LabelSettings" uid="uid://dimcd24nnd471" path="res://misc/quicklabelbig.tres" id="8_xe2sf"]
 [ext_resource type="LabelSettings" uid="uid://f64jls6y366i" path="res://misc/quicklabelsmall.tres" id="9_dbsnd"]
+[ext_resource type="Script" uid="uid://b5tl0f8ox6vb2" path="res://statemachine/animated_vault.gd" id="9_md3ry"]
 [ext_resource type="Script" uid="uid://c028jm5m7h7r1" path="res://statemachine/non_run.gd" id="9_udn5f"]
 [ext_resource type="Script" uid="uid://d4in5ee8e78xi" path="res://statemachine/crouching.gd" id="12_pnih5"]
 [ext_resource type="Script" uid="uid://bspjtyjrwtae3" path="res://statemachine/non_crouching.gd" id="13_k4ylc"]
@@ -130,6 +131,58 @@ _data = {
 &"climb": SubResource("Animation_md3ry")
 }
 
+[sub_resource type="Animation" id="Animation_4evux"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StateMachine/AnimatedVault:parameter")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_gfyax"]
+resource_name = "vault"
+length = 0.25
+step = 0.0167
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StateMachine/AnimatedVault:parameter")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(0.6155722, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StateMachine/AnimatedVault")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start_returning_idle"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4lgag"]
+_data = {
+&"RESET": SubResource("Animation_4evux"),
+&"vault": SubResource("Animation_gfyax")
+}
+
 [node name="PC" type="CharacterBody3D" unique_id=2075278280]
 collision_layer = 0
 script = ExtResource("1_aovtj")
@@ -173,13 +226,14 @@ script = ExtResource("2_dbsnd")
 script = ExtResource("2_wfr46")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="Controllers/StateMachine" unique_id=728157428 node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "walk_state", "transitional_to_ledged_state")]
+[node name="Idle" type="Node" parent="Controllers/StateMachine" unique_id=728157428 node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "walk_state", "transitional_to_ledged_state", "animated_vault_state")]
 script = ExtResource("6_gntgg")
 controllers = NodePath("../..")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 walk_state = NodePath("../Walk")
 transitional_to_ledged_state = NodePath("../TransitionToLedged")
+animated_vault_state = NodePath("../AnimatedVault")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
 [node name="TransitionToLedged" type="Node" parent="Controllers/StateMachine" unique_id=1713174273 node_paths=PackedStringArray("controllers", "ledged_state")]
@@ -202,6 +256,12 @@ controllers = NodePath("../..")
 idle_state = NodePath("../Idle")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
+[node name="AnimatedVault" type="Node" parent="Controllers/StateMachine" unique_id=2145357414 node_paths=PackedStringArray("controllers", "idle_state")]
+script = ExtResource("9_md3ry")
+controllers = NodePath("../..")
+idle_state = NodePath("../Idle")
+metadata/_custom_type_script = "uid://dtl1cmdi4582h"
+
 [node name="Walk" type="Node" parent="Controllers/StateMachine" unique_id=869931327 node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "idle_state", "slide_state")]
 script = ExtResource("5_7do1w")
 controllers = NodePath("../..")
@@ -220,22 +280,24 @@ idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
-[node name="Jump" type="Node" parent="Controllers/StateMachine" unique_id=335995540 node_paths=PackedStringArray("controllers", "fall_state", "walk_state", "idle_state", "transitional_to_ledged_state")]
+[node name="Jump" type="Node" parent="Controllers/StateMachine" unique_id=335995540 node_paths=PackedStringArray("controllers", "fall_state", "walk_state", "idle_state", "transitional_to_ledged_state", "animated_vault_state")]
 script = ExtResource("4_parr1")
 controllers = NodePath("../..")
 fall_state = NodePath("../Fall")
 walk_state = NodePath("../Walk")
 idle_state = NodePath("../Idle")
 transitional_to_ledged_state = NodePath("../TransitionToLedged")
+animated_vault_state = NodePath("../AnimatedVault")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
-[node name="Fall" type="Node" parent="Controllers/StateMachine" unique_id=463749850 node_paths=PackedStringArray("controllers", "jump_state", "walk_state", "idle_state", "transitional_to_ledged_state")]
+[node name="Fall" type="Node" parent="Controllers/StateMachine" unique_id=463749850 node_paths=PackedStringArray("controllers", "jump_state", "walk_state", "idle_state", "transitional_to_ledged_state", "animated_vault_state")]
 script = ExtResource("7_3ebf4")
 controllers = NodePath("../..")
 jump_state = NodePath("../Jump")
 walk_state = NodePath("../Walk")
 idle_state = NodePath("../Idle")
 transitional_to_ledged_state = NodePath("../TransitionToLedged")
+animated_vault_state = NodePath("../AnimatedVault")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
 [node name="RunMachine" type="Node" parent="Controllers" unique_id=1295862122 node_paths=PackedStringArray("starting_state")]
@@ -284,6 +346,9 @@ libraries/ = SubResource("AnimationLibrary_x7i01")
 process_callback = 0
 wait_time = 0.1
 one_shot = true
+
+[node name="Vaulter" type="AnimationPlayer" parent="Controllers" unique_id=1111608458]
+libraries/ = SubResource("AnimationLibrary_4lgag")
 
 [node name="MainControl" type="Control" parent="." unique_id=405950481]
 layout_mode = 3

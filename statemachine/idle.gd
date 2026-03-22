@@ -6,6 +6,7 @@ extends State
 @export var jump_state: State
 @export var walk_state: State
 @export var transitional_to_ledged_state: State
+@export var animated_vault_state: State
 
 func enter() -> void:
 	controllers.is_walking_bc_input = false;
@@ -20,9 +21,13 @@ func process_physics(delta: float) -> State:
 	if (Input.is_action_pressed("jump")):
 		actor.remove_old_wb();
 		actor.climb_casts.calc_horizontal_coll_point();
-		if (actor.space_available()):
-			print("determined space available from idle");
-			return transitional_to_ledged_state;
+		if (actor.there_is_wb()):
+			if (actor.space_available()):
+				print("determined space available from idle");
+				return transitional_to_ledged_state;
+			elif (actor.are_we_below_wb() && actor.up_space_available()):
+				print("determined vault from fall");
+				return animated_vault_state;
 	if (Input.get_vector("mov_left", "mov_right",
 		"mov_up", "mov_down").length() >= 0.01):
 		return walk_state;

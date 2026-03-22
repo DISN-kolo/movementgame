@@ -43,9 +43,40 @@ var wb_actual_position: Vector3 = Vector3(NAN, NAN, NAN);
 
 var worldnode: Node;
 
-func looking_almost_at_wall_we_are_on() -> bool:
-	# TODO
+# TODO: spawn a different area3d above the climb spot and do checks there
+func up_space_available() -> bool:
 	return true;
+
+func there_is_wb() -> bool:
+	var wn_children: Array[Node] = worldnode.get_children();
+	for wn_child in wn_children:
+		if (wn_child.is_in_group("wannabe_area")):
+			print("detected wb, yeah there is");
+			return true;
+	return false;
+
+func are_we_below_wb() -> bool:
+	return (wb_actual_position.y <= position.y);
+
+func calc_head_z_vector() -> Vector3:
+	var res: Vector3 = Vector3(0, 0, 1).rotated(
+		Vector3(0, 1, 0),
+		head_pc.rotation.y
+	);
+	return res;
+
+func calc_xz_wall_norm() -> Vector3:
+	var res: Vector3 = Vector3(
+		climb_casts.hor_col_norm.x,
+		0,
+		climb_casts.hor_col_norm.z
+	).normalized();
+	return res;
+
+func looking_almost_at_wall_we_are_on() -> bool:
+	if (calc_head_z_vector().dot(calc_xz_wall_norm()) > 0.64):
+		return true;
+	return false;
 
 func remove_old_wb() -> void:
 	var wn_children: Array[Node] = worldnode.get_children();
@@ -112,6 +143,7 @@ func _physics_process(delta: float) -> void:
 	if is_debugging:
 		label_misc.text = "camera_pc.fov: %5f" % camera_pc.fov;
 		label_misc.text += "
+	dot: %8.2f
 	pos: %8.2f, %8.2f, %8.2f
 	tcp: %8.2f, %8.2f, %8.2f
 	vel: %8.2f, %8.2f, %8.2f
@@ -123,6 +155,7 @@ func _physics_process(delta: float) -> void:
 	ready_to_slide        = %s
 	slide_fatigue         = %s
 " % [
+			calc_head_z_vector().dot(calc_xz_wall_norm()),
 			position.x, position.y, position.z,
 			climb_casts.top_col_pos.x, climb_casts.top_col_pos.y, climb_casts.top_col_pos.z,
 			velocity.x, velocity.y, velocity.z,
