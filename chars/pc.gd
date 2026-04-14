@@ -67,7 +67,13 @@ func remove_old_wb_ups() -> void:
 func do_the_top_check() -> void:
 	remove_old_wb_ups();
 	spawn_wb_up();
-	if (wannabeup.has_geometry_inside):
+	var wn_children: Array[Node] = worldnode.get_children();
+	for wn_child in wn_children:
+		if (wn_child.is_in_group("wannabe_up_area")):
+			wannabeup = wn_child;
+			break ;
+	await get_tree().physics_frame;
+	if (wannabeup.has_overlapping_bodies()):
 		climbing_space_available = false;
 	else:
 		climbing_space_available = true;
@@ -113,7 +119,7 @@ func remove_old_wb() -> void:
 
 func space_available() -> bool:
 	var wn_children: Array[Node] = worldnode.get_children();
-	var wannabe_actual: Node = null;
+	var wannabe_actual: Area3D = null;
 	var succeeded: bool = false;
 	for wn_child in wn_children:
 		if (wn_child.is_in_group("wannabe_ledged_area")):
@@ -125,7 +131,8 @@ func space_available() -> bool:
 		return false;
 	wb_actual_position = wannabe_actual.global_position;
 	print("set wb actual pos to: ", wb_actual_position);
-	if (wannabe_actual.has_geometry_inside):
+	await get_tree().physics_frame;
+	if (wannabe_actual.has_overlapping_bodies()):
 		return false;
 	return true;
 

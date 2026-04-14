@@ -29,7 +29,7 @@ func process_physics(delta: float) -> State:
 		actor.remove_old_wb();
 		actor.climb_casts.calc_horizontal_coll_point();
 		if (actor.there_is_wb()):
-			if (actor.space_available()):
+			if (await actor.space_available()):
 				print("determined space available from jump");
 				return transitional_to_ledged_state;
 			elif (actor.is_wb_below() && actor.climbing_space_available):
