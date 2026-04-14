@@ -25,6 +25,5 @@ func process_physics(delta: float) -> State:
 	actor.position = lerp(starting_position, ending_position, parameter);
 	return returned_state;
 
-# TODO enters Ledged State upon animation finish
 func start_returning_idle() -> void:
 	returned_state = idle_state;

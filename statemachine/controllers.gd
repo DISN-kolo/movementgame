@@ -1,4 +1,5 @@
 extends Node
+class_name Controllers;
 
 @onready var crouch_fatigue_timer: Timer = $CrouchFatigueTimer
 
@@ -42,6 +43,9 @@ func play_climb() -> void:
 
 func play_vault() -> void:
 	$Vaulter.play("vault");
+
+func play_slide() -> void:
+	$Slider.play("sliding");
 
 #func reset_ledged_transitioner() -> void:
 	#$LedgedTransitioner.play("RESET");

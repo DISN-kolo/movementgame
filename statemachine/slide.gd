@@ -7,11 +7,14 @@ extends State
 @export var idle_state: State
 @export var walk_state: State
 
+@export var parameter: float = 0.0;
+
 ## don't forget to multiply by delta
 var starting_temp_fullmultiplier: Vector3 = Vector3(0, 0, 0);
 var finishing_temp_fullmultiplier: Vector3 = Vector3(0, 0, 0);
 
 func enter() -> void:
+	parameter = 0.0;
 	actor.climb_casts.is_hopping = false;
 	super();
 	controllers.ready_to_slide = false;
@@ -29,6 +32,7 @@ func enter() -> void:
 		starting_temp_fullmultiplier
 		/ controllers.slide_modifier
 		* controllers.slide_post_modifier);
+	controllers.play_slide();
 
 var input_dir: Vector2 = Vector2(0, 0);
 var direction: Vector3 = Vector3(0, 0, 0);
@@ -41,15 +45,14 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
-	# this is so dumb but idk what do I do about it.
 	actor.velocity.x = lerp(
-		actor.velocity.x,
+		starting_temp_fullmultiplier.x,
 		finishing_temp_fullmultiplier.x,
-		2*delta);
+		parameter);
 	actor.velocity.z = lerp(
-		actor.velocity.z,
+		starting_temp_fullmultiplier.z,
 		finishing_temp_fullmultiplier.z,
-		2*delta);
+		parameter);
 	actor.velocity.y -= Settings.gravity*60*delta;
 	actor.move_and_slide();
 	
