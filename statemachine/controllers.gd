@@ -2,6 +2,8 @@ extends Node
 
 @onready var crouch_fatigue_timer: Timer = $CrouchFatigueTimer
 
+var me: Player;
+
 var speed_default: float = 12.0;
 var speed_modifier: float = 1.0;
 var crouch_speed_modifier: float = 1.0;
@@ -20,6 +22,17 @@ func _on_crouch_fatigue_timer_timeout() -> void:
 func start_fatigue_timer() -> void:
 	slide_fatigue = true;
 	crouch_fatigue_timer.start();
+
+func hor_vel_processor(direction: Vector3, delta: float, accel_factor: float) -> void:
+	var target: Vector3 = (direction
+		* speed_default
+		* speed_modifier
+		* crouch_speed_modifier);
+	me.velocity.x = lerp(me.velocity.x, target.x, accel_factor * delta);
+	me.velocity.z = lerp(me.velocity.z, target.z, accel_factor * delta);
+
+func fall_vel_processor(delta: float) -> void:
+	me.velocity.y -= Settings.gravity * 60 * delta;
 
 func play_transition_to_ledged() -> void:
 	$LedgedTransitioner.play("transition_to_ledged");

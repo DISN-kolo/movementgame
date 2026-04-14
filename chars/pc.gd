@@ -150,6 +150,7 @@ func _ready() -> void:
 	state_machine.state_changed.connect(_on_state_changed.bind(label_state));
 	run_machine.state_changed.connect(_on_state_changed.bind(label_r_state));
 	crouch_machine.state_changed.connect(_on_state_changed.bind(label_c_state));
+	controllers.me = self;
 	state_machine.init(self);
 	run_machine.init(self);
 	crouch_machine.init(self);

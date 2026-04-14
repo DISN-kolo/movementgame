@@ -37,18 +37,11 @@ func process_physics(delta: float) -> State:
 		direction = (actor.head_pc.transform.basis
 			* Vector3(input_dir.x, 0, input_dir.y));
 		controllers.last_direction = direction;
-		var temp_fullmultiplier: Vector3 = (direction
-			* controllers.speed_default
-			* controllers.speed_modifier
-			* controllers.crouch_speed_modifier);
-		actor.velocity.x = lerp(actor.velocity.x,
-			temp_fullmultiplier.x, delta);
-		actor.velocity.z = lerp(actor.velocity.z,
-			temp_fullmultiplier.z, delta);
+		controllers.hor_vel_processor(direction, delta, 1);
 	else:
 		controllers.is_walking_bc_input = false;
-	
-	actor.velocity.y -= Settings.gravity*60*delta;
+
+	controllers.fall_vel_processor(delta);
 	actor.move_and_slide();
 	
 	if (actor.is_on_floor()):
