@@ -2,7 +2,7 @@ extends Node
 
 @onready var crouch_fatigue_timer: Timer = $CrouchFatigueTimer
 
-var speed_default: float = 700.0;
+var speed_default: float = 12.0;
 var speed_modifier: float = 1.0;
 var crouch_speed_modifier: float = 1.0;
 var slide_modifier: float = 1.5;

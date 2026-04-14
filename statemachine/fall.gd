@@ -40,8 +40,7 @@ func process_physics(delta: float) -> State:
 		var temp_fullmultiplier: Vector3 = (direction
 			* controllers.speed_default
 			* controllers.speed_modifier
-			* controllers.crouch_speed_modifier
-			* delta);
+			* controllers.crouch_speed_modifier);
 		actor.velocity.x = lerp(actor.velocity.x,
 			temp_fullmultiplier.x, delta);
 		actor.velocity.z = lerp(actor.velocity.z,
@@ -49,7 +48,7 @@ func process_physics(delta: float) -> State:
 	else:
 		controllers.is_walking_bc_input = false;
 	
-	actor.velocity.y -= Settings.gravity;
+	actor.velocity.y -= Settings.gravity*60*delta;
 	actor.move_and_slide();
 	
 	if (actor.is_on_floor()):

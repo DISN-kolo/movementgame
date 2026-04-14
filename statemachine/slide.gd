@@ -50,7 +50,7 @@ func process_physics(delta: float) -> State:
 		actor.velocity.z,
 		finishing_temp_fullmultiplier.z,
 		2*delta);
-	actor.velocity.y -= Settings.gravity;
+	actor.velocity.y -= Settings.gravity*60*delta;
 	actor.move_and_slide();
 	
 	if (!actor.is_on_floor() and actor.velocity.y < 0):
@@ -59,7 +59,6 @@ func process_physics(delta: float) -> State:
 			actor.velocity.x,
 			actor.velocity.z).length() <= (
 				controllers.speed_default
-				* delta
 				* controllers.slide_post_modifier * 1.1)):
 		return idle_state;
 	return null;

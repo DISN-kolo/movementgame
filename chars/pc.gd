@@ -48,6 +48,8 @@ var wannabeup: Area3D;
 var climbing_space_available: bool = false;
 var ending_position: Vector3;
 
+var state_machine_awaiting: bool = false;
+
 var worldnode: Node;
 
 func spawn_wb_up() -> void:
@@ -163,12 +165,14 @@ func _unhandled_input(event) -> void:
 		crouch_machine.process_input(event);
 
 func _physics_process(delta: float) -> void:
-	state_machine.process_physics(delta);
+	if (!state_machine_awaiting):
+		state_machine_awaiting = true;
+		await state_machine.process_physics(delta);
+		state_machine_awaiting = false;
 	run_machine.process_physics(delta);
 	crouch_machine.process_physics(delta);
 
-	var horizontal_speed_len: float = (Vector2(velocity.x, velocity.z).length()
-		/ delta);
+	var horizontal_speed_len: float = Vector2(velocity.x, velocity.z).length();
 
 	camera_pc.fov = (fov_default
 		* map_speed_to_fov_multiplier(horizontal_speed_len, delta));
