@@ -2,7 +2,7 @@ extends Node3D;
 @onready var world0 = preload("res://worlds/world_0.tscn");
 var worldinstance;
 @onready var PC = preload("res://chars/pc.tscn");
-var playerinstance: CharacterBody3D;
+var playerinstance: Player;
 
 func _ready() -> void:
 	worldinstance = world0.instantiate();

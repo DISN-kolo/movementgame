@@ -29,10 +29,10 @@ func process_physics(delta: float) -> State:
 		actor.climb_casts.calc_horizontal_coll_point();
 		if (actor.there_is_wb()):
 			if (actor.space_available()):
-				print("determined space available from idle");
+				print("determined space available from jump");
 				return transitional_to_ledged_state;
-			elif (actor.are_we_below_wb() && actor.up_space_available()):
-				print("determined vault from fall");
+			elif (actor.is_wb_below() && actor.climbing_space_available):
+				print("determined vault from jump");
 				return animated_vault_state;
 	if (input_dir.length() > 0.1):
 		controllers.is_walking_bc_input = true;

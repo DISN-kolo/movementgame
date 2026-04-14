@@ -8,7 +8,7 @@ signal state_changed(state_name: String)
 
 var current_state: State = null;
 
-func init(actor: CharacterBody3D) -> void:
+func init(actor: Player) -> void:
 	for child in get_children():
 		child.actor = actor;
 	change_state(starting_state);

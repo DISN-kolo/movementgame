@@ -4,7 +4,7 @@ extends Node
 #@export var animation_name: String;
 
 # Hold a reference to the parent so that it can be controlled by the state
-var actor: CharacterBody3D
+var actor: Player;
 
 func enter() -> void:
 	#parent.animations.play(animation_name)

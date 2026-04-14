@@ -197,6 +197,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 [node name="CameraPC" type="Camera3D" parent="HeadPC" unique_id=1907710476]
 
 [node name="ClimbCasts" type="Node3D" parent="HeadPC" unique_id=431173569]
+unique_name_in_owner = true
 script = ExtResource("2_m3xoy")
 
 [node name="ClimbCastTop1" type="RayCast3D" parent="HeadPC/ClimbCasts" unique_id=252191343]

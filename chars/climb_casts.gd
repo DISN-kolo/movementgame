@@ -12,6 +12,8 @@ var hor_col_pos: Vector3 = Vector3(NAN, NAN, NAN);
 var hor_col_norm: Vector3 = Vector3(NAN, NAN, NAN);
 var collided_object: Object = null;
 
+signal positioned_ledger;
+
 func _ready() -> void:
 	actual_raycasts[0] = climb_cast_top_1;
 	actual_raycasts[1] = climb_cast_top_2;
@@ -35,15 +37,14 @@ func calc_horizontal_coll_point():
 	hor_col_pos = result.get("position");
 	hor_col_norm = result.get("normal");
 	position_the_area();
+	positioned_ledger.emit();
 
 func position_the_area():
-	var save_the_norm: Vector3 = hor_col_norm;
 	hor_col_norm *= Vector3(0.6, 1, 0.6);
 	hor_col_norm.y -= 1.3;
 	var scanner_area_location: Vector3 = hor_col_pos + hor_col_norm;
 	var new_wanna_be_instance = WANNA_BE_HANGING_LEDGE_CHECKER.instantiate();
 	new_wanna_be_instance.position = scanner_area_location;
-	new_wanna_be_instance.wall_norm = save_the_norm;
 	var worldnode = get_tree().get_first_node_in_group("worldnode");
 	worldnode.add_child(new_wanna_be_instance);
 

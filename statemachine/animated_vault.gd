@@ -16,8 +16,7 @@ func enter() -> void:
 	controllers.is_walking_bc_input = false;
 	super();
 	starting_position = actor.position;
-	ending_position = (actor.climb_casts.top_col_pos
-		+ Vector3(0, actor.default_capsule_height/2, 0));
+	ending_position = actor.ending_position;
 	controllers.play_vault();
 
 func process_physics(delta: float) -> State:

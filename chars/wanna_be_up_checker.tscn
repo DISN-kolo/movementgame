@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bbd5q7sqd40yk"]
+
+[ext_resource type="Script" uid="uid://cmvo42brpn7ml" path="res://chars/wanna_be_up_checker.gd" id="1_1pxng"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m3xoy"]
+margin = 0.01
+height = 1.98
+
+[node name="WannaBeUp" type="Area3D" unique_id=1043054713 groups=["wannabe_up_area"]]
+collision_layer = 0
+script = ExtResource("1_1pxng")
+
+[node name="WannaBeUpCollisionShape" type="CollisionShape3D" parent="." unique_id=75238720]
+unique_name_in_owner = true
+shape = SubResource("CapsuleShape3D_m3xoy")
+debug_color = Color(0.43, 0.544, 1, 0.75686276)

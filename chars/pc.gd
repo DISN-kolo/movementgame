@@ -1,4 +1,5 @@
 extends CharacterBody3D;
+class_name Player;
 
 @onready var above_raycast: RayCast3D = $AboveRaycast
 
@@ -41,21 +42,46 @@ var lagging_speed_len : float = 0;
 
 var wb_actual_position: Vector3 = Vector3(NAN, NAN, NAN);
 
+@onready var wannabeup_ps = preload("res://chars/wanna_be_up_checker.tscn");
+var wannabeup: Area3D;
+
+var climbing_space_available: bool = false;
+var ending_position: Vector3;
+
 var worldnode: Node;
 
-# TODO: spawn a different area3d above the climb spot and do checks there
-func up_space_available() -> bool:
-	return true;
+func spawn_wb_up() -> void:
+	ending_position = (climb_casts.top_col_pos
+		+ Vector3(0, default_capsule_height/2, 0));
+	wannabeup = wannabeup_ps.instantiate();
+	wannabeup.global_position = ending_position;
+	worldnode.add_child(wannabeup);
+
+func remove_old_wb_ups() -> void:
+	var wn_children: Array[Node] = worldnode.get_children();
+	for wn_child in wn_children:
+		if (wn_child.is_in_group("wannabe_up_area")):
+			print("detected wb_up, rming");
+			wn_child.free();
+
+func do_the_top_check() -> void:
+	remove_old_wb_ups();
+	spawn_wb_up();
+	if (wannabeup.has_geometry_inside):
+		climbing_space_available = false;
+	else:
+		climbing_space_available = true;
+
 
 func there_is_wb() -> bool:
 	var wn_children: Array[Node] = worldnode.get_children();
 	for wn_child in wn_children:
-		if (wn_child.is_in_group("wannabe_area")):
+		if (wn_child.is_in_group("wannabe_ledged_area")):
 			print("detected wb, yeah there is");
 			return true;
 	return false;
 
-func are_we_below_wb() -> bool:
+func is_wb_below() -> bool:
 	return (wb_actual_position.y <= position.y);
 
 func calc_head_z_vector() -> Vector3:
@@ -81,7 +107,7 @@ func looking_almost_at_wall_we_are_on() -> bool:
 func remove_old_wb() -> void:
 	var wn_children: Array[Node] = worldnode.get_children();
 	for wn_child in wn_children:
-		if (wn_child.is_in_group("wannabe_area")):
+		if (wn_child.is_in_group("wannabe_ledged_area")):
 			print("detected wb, rming");
 			wn_child.free();
 
@@ -90,7 +116,7 @@ func space_available() -> bool:
 	var wannabe_actual: Node = null;
 	var succeeded: bool = false;
 	for wn_child in wn_children:
-		if (wn_child.is_in_group("wannabe_area")):
+		if (wn_child.is_in_group("wannabe_ledged_area")):
 			print(wn_child);
 			succeeded = true;
 			wannabe_actual = wn_child;
@@ -104,6 +130,7 @@ func space_available() -> bool:
 	return true;
 
 func _ready() -> void:
+	climb_casts.positioned_ledger.connect(do_the_top_check);
 	worldnode = get_tree().get_first_node_in_group("worldnode");
 	default_head_y = head_pc.position.y;
 	lower_head_y = default_head_y - 0.5;

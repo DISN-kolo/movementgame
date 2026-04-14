@@ -25,8 +25,8 @@ func process_physics(delta: float) -> State:
 			if (actor.space_available()):
 				print("determined space available from idle");
 				return transitional_to_ledged_state;
-			elif (actor.are_we_below_wb() && actor.up_space_available()):
-				print("determined vault from fall");
+			elif (actor.is_wb_below() && actor.climbing_space_available):
+				print("determined vault from idle");
 				return animated_vault_state;
 	if (Input.get_vector("mov_left", "mov_right",
 		"mov_up", "mov_down").length() >= 0.01):
