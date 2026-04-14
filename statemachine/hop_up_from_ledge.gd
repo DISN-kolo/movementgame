@@ -11,7 +11,7 @@ extends State
 var jump_velocity: float = 10;
 
 func enter() -> void:
-	actor.climb_casts.is_hopping = false;
+	actor.climb_casts.is_hopping = true;
 	actor.velocity.y = jump_velocity;
 	super();
 

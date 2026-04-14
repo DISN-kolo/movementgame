@@ -11,4 +11,5 @@ func _ready() -> void:
 	query.transform = %WannaBeUpCollisionShape.global_transform;
 
 	var results: Array = space_state.intersect_shape(query);
+	print("up check: ", results);
 	has_geometry_inside = !(results.is_empty());

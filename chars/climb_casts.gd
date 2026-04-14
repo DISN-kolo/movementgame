@@ -1,9 +1,15 @@
 extends Node3D
+class_name ClimbCastsNode;
+
 @onready var climb_cast_top_1: RayCast3D = $ClimbCastTop1;
 @onready var climb_cast_top_2: RayCast3D = $ClimbCastTop2;
 @onready var climb_cast_top_3: RayCast3D = $ClimbCastTop3;
 @onready var collision_shape_3d: CollisionShape3D = $"../../CollisionShape3D";
 const WANNA_BE_HANGING_LEDGE_CHECKER = preload("uid://c1sjg3ntf4qbe");
+
+var hopped_from_rid: RID = RID();
+var latest_rid: RID = RID();
+var is_hopping: bool = false;
 
 var actual_raycasts: Array[RayCast3D] = [null, null, null];
 var yes_collision: bool = false;
@@ -58,16 +64,22 @@ func calc_nearest_top_coll():
 		index += 1;
 	if (index == 3):
 		yes_collision = false;
+		latest_rid = RID();
 		return ;
 	collided_object = actual_raycasts[index];
+	latest_rid = collided_object.get_collider_rid();
 	top_col_pos = actual_raycasts[index].get_collision_point();
+
+func one_cast_check(cast: RayCast3D) -> bool:
+	cast.force_raycast_update();
+	if (is_hopping and hopped_from_rid.is_valid() and cast.get_collider_rid() == hopped_from_rid):
+		return false;
+	else:
+		return cast.is_colliding();
 
 func check_all() -> Array[bool]:
 	var casts: Array[bool] = [false, false, false];
-	climb_cast_top_1.force_raycast_update();
-	casts[0] = climb_cast_top_1.is_colliding();
-	climb_cast_top_2.force_raycast_update();
-	casts[1] = climb_cast_top_2.is_colliding();
-	climb_cast_top_3.force_raycast_update();
-	casts[2] = climb_cast_top_3.is_colliding();
+	casts[0] = one_cast_check(climb_cast_top_1);
+	casts[1] = one_cast_check(climb_cast_top_2);
+	casts[2] = one_cast_check(climb_cast_top_3);
 	return casts;

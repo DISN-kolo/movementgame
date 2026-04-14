@@ -8,6 +8,7 @@ extends State
 @export var slide_state: State
 
 func enter() -> void:
+	actor.climb_casts.is_hopping = false;
 	controllers.is_walking_bc_input = true;
 	super();
 

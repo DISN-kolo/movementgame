@@ -12,6 +12,7 @@ var starting_temp_fullmultiplier: Vector3 = Vector3(0, 0, 0);
 var finishing_temp_fullmultiplier: Vector3 = Vector3(0, 0, 0);
 
 func enter() -> void:
+	actor.climb_casts.is_hopping = false;
 	super();
 	controllers.ready_to_slide = false;
 	controllers.start_fatigue_timer();

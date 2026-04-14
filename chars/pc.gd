@@ -21,7 +21,7 @@ class_name Player;
 @onready var crouch_machine: StateMachine = $Controllers/CrouchMachine;
 
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D;
-@onready var climb_casts: Node3D = $HeadPC/ClimbCasts;
+@onready var climb_casts: ClimbCastsNode = %ClimbCasts;
 
 var fov_default : float = 85;
 var fov_speed_proportion_minimum : float = 0.1;

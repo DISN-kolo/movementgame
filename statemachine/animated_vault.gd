@@ -11,6 +11,7 @@ var ending_position: Vector3;
 var returned_state: State = null;
 
 func enter() -> void:
+	actor.climb_casts.is_hopping = false;
 	returned_state = null;
 	parameter = 0.0;
 	controllers.is_walking_bc_input = false;

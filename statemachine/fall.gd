@@ -9,6 +9,7 @@ extends State
 @export var animated_vault_state: State
 
 func enter() -> void:
+	actor.climb_casts.is_hopping = false;
 	super();
 
 var input_dir: Vector2 = Vector2(0, 0);

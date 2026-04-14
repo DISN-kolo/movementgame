@@ -11,5 +11,5 @@ func _ready() -> void:
 	query.transform = %WannaBeLedgedCollisionShape.global_transform;
 
 	var results: Array = space_state.intersect_shape(query);
-	print(results);
+	print("ledge check: ", results);
 	has_geometry_inside = !(results.is_empty());

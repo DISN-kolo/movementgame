@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://c028jm5m7h7r1" path="res://statemachine/non_run.gd" id="9_udn5f"]
 [ext_resource type="Script" uid="uid://d4in5ee8e78xi" path="res://statemachine/crouching.gd" id="12_pnih5"]
 [ext_resource type="Script" uid="uid://bspjtyjrwtae3" path="res://statemachine/non_crouching.gd" id="13_k4ylc"]
+[ext_resource type="Script" uid="uid://csg7tb6sn0ae1" path="res://statemachine/hop_up_from_ledge.gd" id="13_x7i01"]
 [ext_resource type="Script" uid="uid://bjn0wpruqemw5" path="res://ui/crosshair.gd" id="13_xgwki"]
 [ext_resource type="AudioStream" uid="uid://c2namttx81f" path="res://resources/sounds/sfx_city_window_recording_side_1.ogg" id="20_4muir"]
 [ext_resource type="AudioStream" uid="uid://buf7c1kn4ebnp" path="res://resources/sounds/sfx_city_window_recording_side_2.ogg" id="21_md3ry"]
@@ -243,12 +244,13 @@ controllers = NodePath("../..")
 ledged_state = NodePath("../Ledged")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
-[node name="Ledged" type="Node" parent="Controllers/StateMachine" unique_id=50053953 node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "animated_climb_state")]
+[node name="Ledged" type="Node" parent="Controllers/StateMachine" unique_id=50053953 node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "animated_climb_state", "hop_up_from_ledge_state")]
 script = ExtResource("6_d75p6")
 controllers = NodePath("../..")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 animated_climb_state = NodePath("../AnimatedClimb")
+hop_up_from_ledge_state = NodePath("../HopUpFromLedge")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
 [node name="AnimatedClimb" type="Node" parent="Controllers/StateMachine" unique_id=1720037863 node_paths=PackedStringArray("controllers", "idle_state")]
@@ -283,6 +285,16 @@ metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
 [node name="Jump" type="Node" parent="Controllers/StateMachine" unique_id=335995540 node_paths=PackedStringArray("controllers", "fall_state", "walk_state", "idle_state", "transitional_to_ledged_state", "animated_vault_state")]
 script = ExtResource("4_parr1")
+controllers = NodePath("../..")
+fall_state = NodePath("../Fall")
+walk_state = NodePath("../Walk")
+idle_state = NodePath("../Idle")
+transitional_to_ledged_state = NodePath("../TransitionToLedged")
+animated_vault_state = NodePath("../AnimatedVault")
+metadata/_custom_type_script = "uid://dtl1cmdi4582h"
+
+[node name="HopUpFromLedge" type="Node" parent="Controllers/StateMachine" unique_id=1001646429 node_paths=PackedStringArray("controllers", "fall_state", "walk_state", "idle_state", "transitional_to_ledged_state", "animated_vault_state")]
+script = ExtResource("13_x7i01")
 controllers = NodePath("../..")
 fall_state = NodePath("../Fall")
 walk_state = NodePath("../Walk")
@@ -350,6 +362,11 @@ one_shot = true
 
 [node name="Vaulter" type="AnimationPlayer" parent="Controllers" unique_id=1111608458]
 libraries/ = SubResource("AnimationLibrary_4lgag")
+
+[node name="HopToJumpDelay" type="Timer" parent="Controllers" unique_id=1519252393]
+process_callback = 0
+wait_time = 0.15
+one_shot = true
 
 [node name="MainControl" type="Control" parent="." unique_id=405950481]
 layout_mode = 3

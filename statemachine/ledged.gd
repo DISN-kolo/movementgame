@@ -6,10 +6,14 @@ extends State
 @export var jump_state: State = null;
 @export var animated_climb_state: State = null;
 @export var shimmy_ledge_state: State = null;
+@export var hop_up_from_ledge_state: State = null;
 
 var init_delay_passed: bool = false;
 
 func enter() -> void:
+	actor.climb_casts.is_hopping = false;
+	actor.climb_casts.hopped_from_rid = actor.climb_casts.latest_rid;
+	print("just set rid to ", actor.climb_casts.hopped_from_rid);
 	$"../../AutoclimbDelay".start();
 	init_delay_passed = false;
 	controllers.is_walking_bc_input = false;
@@ -17,8 +21,11 @@ func enter() -> void:
 
 func process_input(event: InputEvent) -> State:
 	if (Input.is_action_just_pressed("jump")):
-		if (actor.looking_almost_at_wall_we_are_on() and actor.climbing_space_available):
-			return animated_climb_state;
+		if (actor.looking_almost_at_wall_we_are_on()):
+			if (actor.climbing_space_available):
+				return animated_climb_state;
+			else:
+				return hop_up_from_ledge_state;
 		else:
 			return jump_state;
 	if (Input.is_action_just_pressed("mov_down")):
