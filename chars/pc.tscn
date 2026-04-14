@@ -363,11 +363,6 @@ one_shot = true
 [node name="Vaulter" type="AnimationPlayer" parent="Controllers" unique_id=1111608458]
 libraries/ = SubResource("AnimationLibrary_4lgag")
 
-[node name="HopToJumpDelay" type="Timer" parent="Controllers" unique_id=1519252393]
-process_callback = 0
-wait_time = 0.15
-one_shot = true
-
 [node name="MainControl" type="Control" parent="." unique_id=405950481]
 layout_mode = 3
 anchors_preset = 15

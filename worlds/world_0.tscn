@@ -120,6 +120,13 @@ collision_mask = 0
 size = Vector3(5.697323, 5.196189, 8.468262)
 material = ExtResource("2_5e6hi")
 
+[node name="CSGBox3D24" type="CSGBox3D" parent="Macrostairs" unique_id=627396136]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.601133, 7.497867, 38.69608)
+use_collision = true
+collision_mask = 0
+size = Vector3(5.697323, 15.45426, 8.468262)
+material = ExtResource("2_5e6hi")
+
 [node name="CSGBox3D13" type="CSGBox3D" parent="Macrostairs" unique_id=1580359461]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.601133, 3.794394, 12.081028)
 use_collision = true
@@ -185,6 +192,13 @@ material = ExtResource("2_5e6hi")
 
 [node name="CSGBox3D15" type="CSGBox3D" parent="Macrostairs" unique_id=205167302]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.032157, 2.9005194, 32.411133)
+use_collision = true
+collision_mask = 0
+size = Vector3(1.1640158, 3.0380735, 2.0028687)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D25" type="CSGBox3D" parent="Macrostairs" unique_id=2067101565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.032157, 2.9005194, 38.08497)
 use_collision = true
 collision_mask = 0
 size = Vector3(1.1640158, 3.0380735, 2.0028687)
