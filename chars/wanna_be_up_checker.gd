@@ -12,4 +12,5 @@ func _ready() -> void:
 
 	var results: Array = space_state.intersect_shape(query);
 	print("up check: ", results);
+	print("fyi, up is at: ", global_position);
 	has_geometry_inside = !(results.is_empty());
