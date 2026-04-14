@@ -26,15 +26,21 @@ var direction: Vector3 = Vector3(0, 0, 0);
 func process_physics(delta: float) -> State:
 	input_dir = Input.get_vector("mov_left", "mov_right", "mov_up", "mov_down");
 	if (Input.is_action_pressed("jump")):
+		print("J START");
 		actor.remove_old_wb();
+		print("J RMD WB");
 		actor.climb_casts.calc_horizontal_coll_point();
+		print("J CALCD H COLL POINT");
 		if (actor.there_is_wb()):
+			print("J THERE IS WB");
 			if (actor.space_available()):
 				print("determined space available from jump");
 				return transitional_to_ledged_state;
 			elif (actor.is_wb_below() && actor.climbing_space_available):
 				print("determined vault from jump");
 				return animated_vault_state;
+			print("J NO SPACE NO VAULT");
+		print("J WB-IF ENDED");
 	if (input_dir.length() > 0.1):
 		controllers.is_walking_bc_input = true;
 		direction = (actor.head_pc.transform.basis

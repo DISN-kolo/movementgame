@@ -20,15 +20,21 @@ func process_input(event: InputEvent) -> State:
 
 func process_physics(delta: float) -> State:
 	if (Input.is_action_pressed("jump")):
+		print("I START");
 		actor.remove_old_wb();
+		print("I RMD");
 		actor.climb_casts.calc_horizontal_coll_point();
+		print("I CALCD");
 		if (actor.there_is_wb()):
+			print("I THERE IS WB");
 			if (actor.space_available()):
 				print("determined space available from idle");
 				return transitional_to_ledged_state;
 			elif (actor.is_wb_below() && actor.climbing_space_available):
 				print("determined vault from idle");
 				return animated_vault_state;
+			print("I NO SPACE, NO VAULT");
+		print("I WB-IF PASSED");
 	if (Input.get_vector("mov_left", "mov_right",
 		"mov_up", "mov_down").length() >= 0.01):
 		return walk_state;
