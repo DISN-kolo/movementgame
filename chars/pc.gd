@@ -84,7 +84,6 @@ func there_is_wb() -> bool:
 	return false;
 
 func is_wb_below() -> bool:
-	print("IS WB BELOW?");
 	return (wb_actual_position.y <= position.y);
 
 func calc_head_z_vector() -> Vector3:
@@ -115,7 +114,6 @@ func remove_old_wb() -> void:
 			wn_child.free();
 
 func space_available() -> bool:
-	print("SPACE AVAILABLE ENTERED");
 	var wn_children: Array[Node] = worldnode.get_children();
 	var wannabe_actual: Node = null;
 	var succeeded: bool = false;
@@ -126,14 +124,11 @@ func space_available() -> bool:
 			wannabe_actual = wn_child;
 			break ;
 	if (!succeeded):
-		print("SPACE AVAILABLE !succceeded");
 		return false;
 	wb_actual_position = wannabe_actual.global_position;
 	print("set wb actual pos to: ", wb_actual_position);
 	if (wannabe_actual.has_geometry_inside):
-		print("SPACE AVAILABLE has geometry inside");
 		return false;
-	print("SPACE AVAILABLE has NO geometry inside");
 	return true;
 
 func _ready() -> void:
