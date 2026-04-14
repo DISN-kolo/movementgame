@@ -107,7 +107,7 @@ size = Vector3(1.5407562, 4.934675, 8.468262)
 material = ExtResource("2_5e6hi")
 
 [node name="CSGBox3D11" type="CSGBox3D" parent="Macrostairs" unique_id=468490465]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.659445, 0.9883933, 32.051865)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.182274, 0.9883933, 32.051865)
 use_collision = true
 collision_mask = 0
 size = Vector3(2.7747726, 5.9791784, 8.468262)

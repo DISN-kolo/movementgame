@@ -67,8 +67,6 @@ func remove_old_wb_ups() -> void:
 func do_the_top_check() -> void:
 	remove_old_wb_ups();
 	spawn_wb_up();
-	await get_tree().physics_frame;
-	wannabeup.has_geometry_inside = wannabeup.has_overlapping_bodies();
 	if (wannabeup.has_geometry_inside):
 		climbing_space_available = false;
 	else:
