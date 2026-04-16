@@ -107,6 +107,9 @@ func calc_xz_wall_norm() -> Vector3:
 	).normalized();
 	return res;
 
+func along_the_wall_axis() -> Vector3:
+	return calc_xz_wall_norm().rotated(Vector3.UP, PI/2.0);
+
 func looking_almost_at_wall_we_are_on() -> bool:
 	if (calc_head_z_vector().dot(calc_xz_wall_norm()) > 0.64):
 		return true;
