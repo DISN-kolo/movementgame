@@ -1,16 +1,16 @@
 extends CharacterBody3D;
 class_name Player;
 
-@onready var above_raycast: RayCast3D = $AboveRaycast
+@onready var above_raycast: RayCast3D = %AboveRaycast;
 
-@onready var head_pc: Node3D = $HeadPC;
-@onready var camera_pc: Camera3D = $HeadPC/CameraPC;
+@onready var head_pc: Node3D = %HeadPC;
+@onready var camera_pc: Camera3D = %HeadPC/CameraPC;
 @onready var label_state: Label = $MainControl/LabelState;
 @onready var label_r_state: Label = $MainControl/LabelRState;
 @onready var label_c_state: Label = $MainControl/LabelCState;
 @onready var label_misc: Label = $MainControl/LabelMisc;
 
-@onready var controllers: Node = $Controllers;
+@onready var controllers: Node = %Controllers;
 
 @onready var state_machine: StateMachine = $Controllers/StateMachine;
 @onready var run_machine: StateMachine = $Controllers/RunMachine;
@@ -22,6 +22,7 @@ class_name Player;
 
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D;
 @onready var climb_casts: ClimbCastsNode = %ClimbCasts;
+@onready var hand_casts: Node3D = %HandCasts;
 
 var fov_default : float = 85;
 var fov_speed_proportion_minimum : float = 0.1;
