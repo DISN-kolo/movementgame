@@ -23,6 +23,7 @@ config/icon="res://icon.svg"
 
 Settings="*res://singletons/settings.gd"
 Signals="*uid://nhck3oh68o7c"
+Globals="*uid://dves0beshj2os"
 
 [debug]
 

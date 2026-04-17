@@ -3,6 +3,7 @@ extends Area3D;
 #var has_geometry_inside: bool = false;
 
 func _ready() -> void:
+	Signals.move_wanna_be_up.connect(get_moved);
 	pass ;
 	#var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state;
 	#var query: PhysicsShapeQueryParameters3D = PhysicsShapeQueryParameters3D.new();
@@ -16,3 +17,9 @@ func _ready() -> void:
 	#print("fyi, up is at: ", global_position);
 	#has_geometry_inside = !(results.is_empty());
 	#has_geometry_inside = has_overlapping_bodies();
+
+func _physics_process(delta: float) -> void:
+	Globals.current_wbu_pos = global_position;
+
+func get_moved(newpos: Vector3) -> void:
+	global_position = newpos;

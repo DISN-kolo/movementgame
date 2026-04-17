@@ -282,12 +282,13 @@ controllers = NodePath("../..")
 ledged_state = NodePath("../Ledged")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
-[node name="Ledged" type="Node" parent="Controllers/StateMachine" unique_id=50053953 node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "animated_climb_state", "hop_up_from_ledge_state")]
+[node name="Ledged" type="Node" parent="Controllers/StateMachine" unique_id=50053953 node_paths=PackedStringArray("controllers", "fall_state", "jump_state", "animated_climb_state", "shimmy_ledge_state", "hop_up_from_ledge_state")]
 script = ExtResource("6_d75p6")
 controllers = NodePath("../..")
 fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 animated_climb_state = NodePath("../AnimatedClimb")
+shimmy_ledge_state = NodePath("../ShimmyLedge")
 hop_up_from_ledge_state = NodePath("../HopUpFromLedge")
 metadata/_custom_type_script = "uid://dtl1cmdi4582h"
 
