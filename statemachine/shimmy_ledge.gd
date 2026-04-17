@@ -11,9 +11,11 @@ extends State
 var input_dir: Vector2 = Vector2.ZERO;
 var direction: Vector3 = Vector3.ZERO;
 var difference_to_wbu: Vector3 = Vector3.ZERO;
+var difference_to_tcp: Vector3 = Vector3.ZERO;
 
 func enter() -> void:
 	difference_to_wbu = Globals.current_wbu_pos - actor.global_position;
+	difference_to_tcp = actor.climb_casts.top_col_pos - actor.global_position;
 	actor.velocity = Vector3(0, 0, 0);
 	actor.climb_casts.is_hopping = false;
 	#controllers.is_walking_bc_input = true;
@@ -52,7 +54,9 @@ func process_physics(delta: float) -> State:
 	controllers.last_direction = direction;
 	controllers.hor_vel_processor(direction, delta, 8);
 	actor.move_and_slide();
+	
 	Signals.move_wanna_be_up.emit(difference_to_wbu + actor.global_position);
+	Signals.move_top_col_pos.emit(difference_to_tcp + actor.global_position);
 	if (input_dir.length() < 0.1):
 		actor.do_the_top_check();
 		return ledged_state;

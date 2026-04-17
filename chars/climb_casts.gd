@@ -20,7 +20,11 @@ var collided_object: Object = null;
 
 signal positioned_ledger;
 
+func move_top_col_pos(nextpos: Vector3) -> void:
+	top_col_pos = nextpos;
+
 func _ready() -> void:
+	Signals.move_top_col_pos.connect(move_top_col_pos);
 	actual_raycasts[0] = climb_cast_top_1;
 	actual_raycasts[1] = climb_cast_top_2;
 	actual_raycasts[2] = climb_cast_top_3;

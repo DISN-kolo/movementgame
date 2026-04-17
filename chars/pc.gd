@@ -53,6 +53,9 @@ var state_machine_awaiting: bool = false;
 var worldnode: Node;
 
 func spawn_wb_up() -> void:
+	# TODO
+	# check how wacky it gets. sloped ledges are not for my game I think.
+	# just move the top_col_pos manually while shimmying. crazy work.
 	ending_position = (climb_casts.top_col_pos
 		+ Vector3(0, default_capsule_height/2, 0));
 	wannabeup = wannabeup_ps.instantiate();
