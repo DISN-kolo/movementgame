@@ -21,7 +21,7 @@ func process_input(event: InputEvent) -> State:
 func process_physics(delta: float) -> State:
 	if (Input.is_action_pressed("jump")):
 		actor.remove_old_wb();
-		actor.climb_casts.calc_horizontal_coll_point();
+		actor.climb_casts.completely_prepare_ledging();
 		if (actor.there_is_wb()):
 			if (await actor.space_available()):
 				print("determined space available from idle");

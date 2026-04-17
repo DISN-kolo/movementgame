@@ -24,7 +24,7 @@ func process_physics(delta: float) -> State:
 	input_dir = Input.get_vector("mov_left", "mov_right", "mov_up", "mov_down");
 	if (Input.is_action_pressed("jump")):
 		actor.remove_old_wb();
-		actor.climb_casts.calc_horizontal_coll_point();
+		actor.climb_casts.completely_prepare_ledging();
 		if (actor.there_is_wb()):
 			if (await actor.space_available()):
 				print("determined space available from fall");
