@@ -234,23 +234,23 @@ script = ExtResource("2_gfyax")
 
 [node name="AboveLeft" type="RayCast3D" parent="HandCasts" unique_id=518374721]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.05)
-target_position = Vector3(0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.05, 0)
+target_position = Vector3(0, 0, -1)
 
 [node name="AboveRight" type="RayCast3D" parent="HandCasts" unique_id=1665137682]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.05)
-target_position = Vector3(0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.05, 0)
+target_position = Vector3(0, 0, -1)
 
 [node name="BelowLeft" type="RayCast3D" parent="HandCasts" unique_id=1110709085]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.01)
-target_position = Vector3(0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.01, 0)
+target_position = Vector3(0, 0, -1)
 
 [node name="BelowRight" type="RayCast3D" parent="HandCasts" unique_id=727721314]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.01)
-target_position = Vector3(0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.01, 0)
+target_position = Vector3(0, 0, -1)
 
 [node name="AboveRaycast" type="RayCast3D" parent="." unique_id=72625823]
 unique_name_in_owner = true
@@ -292,6 +292,7 @@ unique_name_in_owner = true
 script = ExtResource("2_dbsnd")
 
 [node name="StateMachine" type="Node" parent="Controllers" unique_id=1960665647 node_paths=PackedStringArray("starting_state")]
+unique_name_in_owner = true
 script = ExtResource("2_wfr46")
 starting_state = NodePath("Idle")
 

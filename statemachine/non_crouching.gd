@@ -1,3 +1,4 @@
+class_name NonCrouching
 extends State
 
 @export var controllers: Node

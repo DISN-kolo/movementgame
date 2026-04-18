@@ -1,3 +1,4 @@
+class_name AnimatedVault
 extends State
 
 @export var controllers: Node

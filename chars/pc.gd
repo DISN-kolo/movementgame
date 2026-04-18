@@ -22,7 +22,7 @@ class_name Player;
 
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D;
 @onready var climb_casts: ClimbCastsNode = %ClimbCasts;
-@onready var hand_casts: Node3D = %HandCasts;
+@onready var hand_casts: HandCasts = %HandCasts;
 
 var fov_default : float = 85;
 var fov_speed_proportion_minimum : float = 0.1;

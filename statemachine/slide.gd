@@ -1,3 +1,4 @@
+class_name Slide
 extends State
 
 @export var controllers: Node

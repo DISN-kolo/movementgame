@@ -1,3 +1,4 @@
+class_name HopUpFromLedge
 extends State
 
 @export var controllers: Node

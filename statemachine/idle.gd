@@ -1,3 +1,4 @@
+class_name Idle
 extends State
 
 @export var controllers: Node

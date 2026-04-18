@@ -1,3 +1,4 @@
+class_name NonRun
 extends State
 
 @export var controllers: Node

@@ -15,6 +15,7 @@ var actual_raycasts: Array[RayCast3D] = [null, null, null];
 var yes_collision: bool = false;
 var top_col_pos: Vector3 = Vector3(NAN, NAN, NAN);
 var hor_col_pos: Vector3 = Vector3(NAN, NAN, NAN);
+var hor_col_norm_backup: Vector3 = Vector3(NAN, NAN, NAN);
 var hor_col_norm: Vector3 = Vector3(NAN, NAN, NAN);
 var collided_object: Object = null;
 
@@ -89,6 +90,7 @@ func calc_hor_col() -> void:
 		return ;
 	hor_col_pos = result.get("position");
 	hor_col_norm = result.get("normal");
+	hor_col_norm_backup = hor_col_norm;
 
 ## gets the normal of the collision with the wall as the starting point
 ## in molding the area's position. using pre-calculated stuff that shall depend

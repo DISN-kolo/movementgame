@@ -1,3 +1,4 @@
+class_name AnimatedClimb
 extends State
 
 @export var controllers: Node

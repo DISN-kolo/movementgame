@@ -1,3 +1,4 @@
+class_name Walk
 extends State
 
 @export var controllers: Node

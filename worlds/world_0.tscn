@@ -286,5 +286,5 @@ mesh = SubResource("CapsuleMesh_5e6hi")
 [node name="SpawnNodes" type="Node3D" parent="." unique_id=2050136620]
 
 [node name="Spawn0" type="Marker3D" parent="SpawnNodes" unique_id=1673313650]
-transform = Transform3D(-0.84696853, 0.52017695, -0.10981953, 0.502527, 0.7158945, -0.48472846, -0.1735254, -0.465737, -0.867743, 24.24472, 5.1627507, 23.107836)
+transform = Transform3D(-0.9935422, 0, -0.1134633, 0, 0.99999994, 0, 0.1134633, 0, -0.9935422, 24.24472, 1.7562408, 23.107836)
 gizmo_extents = 4.19

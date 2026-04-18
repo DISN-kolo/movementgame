@@ -17,6 +17,8 @@ var is_walking_bc_input: bool = false;
 var ready_to_slide: bool = false;
 var slide_fatigue: bool = false;
 
+signal out_of_ledged;
+
 func _on_crouch_fatigue_timer_timeout() -> void:
 	slide_fatigue = false;
 

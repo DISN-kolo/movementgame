@@ -1,3 +1,4 @@
+class_name Crouching
 extends State
 
 @export var controllers: Node;

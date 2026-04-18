@@ -1,3 +1,4 @@
+class_name TransitionToLedged
 extends State
 
 @export var controllers: Node
