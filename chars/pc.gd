@@ -200,6 +200,8 @@ func _physics_process(delta: float) -> void:
 	is_walking_bc_input   = %s
 	ready_to_slide        = %s
 	slide_fatigue         = %s
+	left_possible         = %s
+	right_possible        = %s
 " % [
 			calc_head_z_vector().dot(calc_xz_wall_norm()),
 			position.x, position.y, position.z,
@@ -213,7 +215,9 @@ func _physics_process(delta: float) -> void:
 			controllers.crouch_speed_modifier,
 			str(controllers.is_walking_bc_input),
 			str(controllers.ready_to_slide),
-			str(controllers.slide_fatigue)];
+			str(controllers.slide_fatigue),
+			hand_casts.left_possible(),
+			hand_casts.right_possible()];
 
 func _process(delta: float) -> void:
 	state_machine.process_default(delta);

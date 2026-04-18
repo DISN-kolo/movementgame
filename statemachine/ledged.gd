@@ -14,6 +14,7 @@ var init_delay_passed: bool = false;
 # TODO make the init_delay a controllers-managed parameter, since we can enter
 #the ledged state also via the shimmy
 func enter() -> void:
+	Signals.player_ledged.emit();
 	actor.climb_casts.is_hopping = false;
 	actor.climb_casts.hopped_from_rid = actor.climb_casts.latest_rid;
 	print("just set rid to ", actor.climb_casts.hopped_from_rid);
@@ -48,17 +49,21 @@ func process_physics(delta: float) -> State:
 			init_delay_passed = false;
 			controllers.out_of_ledged.emit();
 			return animated_climb_state;
-	var input_dir: Vector2 = Input.get_vector("mov_left", "mov_right", "mov_up", "mov_down");
+	var input_dir: Vector2 = Input.get_vector(
+		"mov_left", "mov_right", "mov_up", "mov_down"
+	);
 	var direction: Vector3 = (
 		actor.head_pc.transform.basis
 		* Vector3(input_dir.x, 0, input_dir.y));
 	direction = direction.project(actor.along_the_wall_axis());
-	if ((!actor.hand_casts.left_impossible()
-		&& direction.dot(actor.along_the_wall_axis()) <= 0)
-		||
-		(!actor.hand_casts.right_impossible()
-		&& direction.dot(actor.along_the_wall_axis()) >= 0)):
-			return shimmy_ledge_state;
+	if (actor.hand_casts.left_possible()):
+		if (input_dir.length() > 0.1):
+			if (direction.dot(actor.along_the_wall_axis()) <= 0):
+				return shimmy_ledge_state;
+	if (actor.hand_casts.right_possible()):
+		if (input_dir.length() > 0.1):
+			if (direction.dot(actor.along_the_wall_axis()) >= 0):
+				return shimmy_ledge_state;
 	return null;
 
 

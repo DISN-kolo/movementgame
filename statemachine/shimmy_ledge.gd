@@ -48,19 +48,28 @@ func process_physics(delta: float) -> State:
 		if (actor.looking_almost_at_wall_we_are_on() and actor.climbing_space_available):
 			controllers.out_of_ledged.emit();
 			return animated_climb_state;
-	input_dir = Input.get_vector("mov_left", "mov_right", "mov_up", "mov_down");
+	input_dir = Input.get_vector(
+		"mov_left", "mov_right", "mov_up", "mov_down"
+	);
 	direction = (
 		actor.head_pc.transform.basis
 		* Vector3(input_dir.x, 0, input_dir.y));
 	direction = direction.project(actor.along_the_wall_axis());
-	if ((actor.hand_casts.left_impossible()
-		&& direction.dot(actor.along_the_wall_axis()) <= 0)
-		||
-		(actor.hand_casts.right_impossible()
-		&& direction.dot(actor.along_the_wall_axis()) >= 0)):
-		#direction = Vector3.ZERO;
-		# vvvvvvvvvvvvvvvvv TODO maybe not? maybe use the direction method?
-		return ledged_state;
+	# maybe do these with direction = 0?
+	if (!actor.hand_casts.left_possible()
+		&& actor.hand_casts.right_possible()):
+		print("L ip, R p");
+		if (input_dir.length() > 0.1):
+			if (direction.dot(actor.along_the_wall_axis()) <= 0):
+				actor.do_the_top_check();
+				return ledged_state;
+	if (!actor.hand_casts.right_possible()
+		&& actor.hand_casts.left_possible()):
+		print("L p, R ip");
+		if (input_dir.length() > 0.1):
+			if (direction.dot(actor.along_the_wall_axis()) >= 0):
+				actor.do_the_top_check();
+				return ledged_state;
 	controllers.last_direction = direction;
 	controllers.hor_vel_processor(direction, delta, 8);
 	actor.move_and_slide();
