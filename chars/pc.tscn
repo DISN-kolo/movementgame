@@ -235,22 +235,22 @@ script = ExtResource("2_gfyax")
 [node name="AboveRight" type="RayCast3D" parent="HandCasts" unique_id=518374721]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.05, 0)
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -0.65)
 
 [node name="AboveLeft" type="RayCast3D" parent="HandCasts" unique_id=1665137682]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.05, 0)
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -0.65)
 
 [node name="BelowRight" type="RayCast3D" parent="HandCasts" unique_id=1110709085]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.01, 0)
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -0.65)
 
 [node name="BelowLeft" type="RayCast3D" parent="HandCasts" unique_id=727721314]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.01, 0)
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -0.65)
 
 [node name="AboveRaycast" type="RayCast3D" parent="." unique_id=72625823]
 unique_name_in_owner = true
