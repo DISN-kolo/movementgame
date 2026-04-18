@@ -61,6 +61,7 @@ func spawn_wb_up() -> void:
 		+ Vector3(0, default_capsule_height/2, 0));
 	wannabeup = wannabeup_ps.instantiate();
 	wannabeup.global_position = ending_position;
+	print(wannabeup.position);
 	worldnode.add_child(wannabeup);
 
 func remove_old_wb_ups() -> void:

@@ -88,9 +88,22 @@ func calc_hor_col() -> void:
 	if (result.is_empty()):
 		yes_collision = false;
 		return ;
-	hor_col_pos = result.get("position");
+	#=============================================================
+	#           H - ?; H = T + TH;
+	# T o_                     TH = TR.projected_onto(norm);
+	#   |  ` =,                     TR = R - T;
+	#   |       ` =,   R      a.p_o(n) = n*cos(a..n)*a = a.don(n);
+	#---o------------`o---
+	#  H              |
+	#                 V norm
+	#
+	# thus, see below. R = raw, T = top col, H = hor col.
+	var raw: Vector3 = result.get("position");
 	hor_col_norm = result.get("normal");
 	hor_col_norm_backup = hor_col_norm;
+	var projected: Vector3 = top_col_pos + hor_col_norm * hor_col_norm.dot(raw - top_col_pos);
+	hor_col_pos = projected;
+	hor_col_pos.y = raw.y;
 
 ## gets the normal of the collision with the wall as the starting point
 ## in molding the area's position. using pre-calculated stuff that shall depend
@@ -101,6 +114,7 @@ func spawn_and_position_area() -> void:
 	hor_col_norm.y -= 1.3;
 	var scanner_area_location: Vector3 = hor_col_pos + hor_col_norm;
 	var new_wanna_be_instance = WANNA_BE_HANGING_LEDGE_CHECKER.instantiate();
-	new_wanna_be_instance.position = scanner_area_location;
+	new_wanna_be_instance.global_position = scanner_area_location;
 	var worldnode = get_tree().get_first_node_in_group("worldnode");
 	worldnode.add_child(new_wanna_be_instance);
+	print(new_wanna_be_instance.global_position);
