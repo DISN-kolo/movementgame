@@ -26,9 +26,10 @@ func move_top_col_pos(nextpos: Vector3) -> void:
 
 func _ready() -> void:
 	Signals.move_top_col_pos.connect(move_top_col_pos);
-	actual_raycasts[0] = climb_cast_top_1;
-	actual_raycasts[1] = climb_cast_top_2;
-	actual_raycasts[2] = climb_cast_top_3;
+	var i: int = 0;
+	for child in get_children():
+		actual_raycasts[i] = child;
+		i += 1;
 
 func completely_prepare_ledging() -> void:
 	calc_nearest_top_coll();
@@ -58,10 +59,12 @@ func calc_nearest_top_coll() -> void:
 	top_col_pos = actual_raycasts[index].get_collision_point();
 
 func check_all() -> Array[bool]:
+	# XXX one day expand to more than three? lol
 	var casts: Array[bool] = [false, false, false];
-	casts[0] = one_cast_check(climb_cast_top_1);
-	casts[1] = one_cast_check(climb_cast_top_2);
-	casts[2] = one_cast_check(climb_cast_top_3);
+	var i: int = 0;
+	for cast in actual_raycasts:
+		casts[i] = one_cast_check(cast);
+		i += 1;
 	return casts;
 
 func one_cast_check(cast: RayCast3D) -> bool:

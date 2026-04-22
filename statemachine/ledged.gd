@@ -11,8 +11,10 @@ extends State
 
 var init_delay_passed: bool = false;
 
-# TODO make the init_delay a controllers-managed parameter, since we can enter
+# TODO? make the init_delay a controllers-managed parameter, since we can enter
 #the ledged state also via the shimmy
+# TODO(later?) be able to climb into vents (crouch position)
+#on the other hand, absolutely fuck crouch-vents in "speedy" games
 func enter() -> void:
 	Signals.player_ledged.emit();
 	actor.climb_casts.is_hopping = false;

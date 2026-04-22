@@ -23,6 +23,7 @@ class_name Player;
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D;
 @onready var climb_casts: ClimbCastsNode = %ClimbCasts;
 @onready var hand_casts: HandCasts = %HandCasts;
+@onready var low_vault_casts: LowVaultCastsNode = %LowVaultCasts;
 
 var fov_default : float = 85;
 var fov_speed_proportion_minimum : float = 0.1;
@@ -174,6 +175,7 @@ func _unhandled_input(event) -> void:
 		crouch_machine.process_input(event);
 
 func _physics_process(delta: float) -> void:
+	low_vault_casts.calc_nearest_lv_coll();
 	if (!state_machine_awaiting):
 		state_machine_awaiting = true;
 		await state_machine.process_physics(delta);
@@ -203,6 +205,7 @@ func _physics_process(delta: float) -> void:
 	slide_fatigue         = %s
 	left_possible         = %s
 	right_possible        = %s
+	low vault result: %8.2f, %8.2f, %8.2f
 " % [
 			calc_head_z_vector().dot(calc_xz_wall_norm()),
 			position.x, position.y, position.z,
@@ -218,7 +221,10 @@ func _physics_process(delta: float) -> void:
 			str(controllers.ready_to_slide),
 			str(controllers.slide_fatigue),
 			hand_casts.left_possible(),
-			hand_casts.right_possible()];
+			hand_casts.right_possible(),
+			low_vault_casts.top_col_pos.x,
+			low_vault_casts.top_col_pos.y,
+			low_vault_casts.top_col_pos.z,];
 
 func _process(delta: float) -> void:
 	state_machine.process_default(delta);
@@ -239,6 +245,11 @@ func map_speed_to_fov_multiplier(
 			1.1),
 		1.0,
 		1.1);
+
+# TODO
+# MUST decouple climb casts from head (as in being in its children)
+# head must ONLY be responsible for camera
+# add a second head and make it control the casts
 
 ## stage 1: stationary. stage 2: movement based on speed.
 func headbob(
