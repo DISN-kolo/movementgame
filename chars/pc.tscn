@@ -279,6 +279,24 @@ target_position = Vector3(0, -1.235, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493218, -0.8428471)
 target_position = Vector3(0, -1.235, 0)
 
+[node name="LowVaultCasts" type="Node3D" parent="HeadPC" unique_id=1391112024]
+unique_name_in_owner = true
+
+[node name="LowVaultCast1" type="RayCast3D" parent="HeadPC/LowVaultCasts" unique_id=357887421]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06545496, -0.5057082)
+target_position = Vector3(0, -1.235, 0)
+debug_shape_custom_color = Color(0, 1, 0.9333334, 0.4627451)
+
+[node name="LowVaultCast2" type="RayCast3D" parent="HeadPC/LowVaultCasts" unique_id=623018942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06545496, -0.67427766)
+target_position = Vector3(0, -1.235, 0)
+debug_shape_custom_color = Color(0, 1, 0.9333334, 0.4627451)
+
+[node name="LowVaultCast3" type="RayCast3D" parent="HeadPC/LowVaultCasts" unique_id=978533269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06545496, -0.8428471)
+target_position = Vector3(0, -1.235, 0)
+debug_shape_custom_color = Color(0, 1, 0.9333334, 0.4627451)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=229432158 groups=["playersOwnCollider"]]
 shape = SubResource("CapsuleShape3D_aovtj")
 

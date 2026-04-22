@@ -7,6 +7,7 @@ extends State
 @export var jump_state: State
 @export var idle_state: State
 @export var slide_state: State
+@export var low_vault_state: State
 
 func enter() -> void:
 	actor.climb_casts.is_hopping = false;
