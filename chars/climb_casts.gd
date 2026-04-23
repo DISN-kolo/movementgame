@@ -95,7 +95,7 @@ func calc_hor_col() -> void:
 	#           H - ?; H = T + TH;
 	# T o_                     TH = TR.projected_onto(norm);
 	#   |  ` =,                     TR = R - T;
-	#   |       ` =,   R      a.p_o(n) = n*cos(a..n)*a = a.don(n);
+	#   |       ` =,   R      a.p_o(n) = n*cos(a..n)*a = a.dot(n);
 	#---o------------`o---
 	#  H              |
 	#                 V norm
