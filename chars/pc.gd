@@ -175,7 +175,6 @@ func _unhandled_input(event) -> void:
 		crouch_machine.process_input(event);
 
 func _physics_process(delta: float) -> void:
-	low_vault_casts.calc_nearest_lv_coll();
 	if (!state_machine_awaiting):
 		state_machine_awaiting = true;
 		await state_machine.process_physics(delta);

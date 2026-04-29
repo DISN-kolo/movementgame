@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dtpp1p3uoth5k"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kxtqp"]
+margin = 0.01
+height = 1.98
+
+[node name="WannaBeLowVaultedUpChecker" type="Area3D" unique_id=1843939474 groups=["wb_lvu_area"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=90958509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_kxtqp")
+debug_color = Color(0, 0.7, 0.46666673, 1)

@@ -45,6 +45,7 @@ movie_writer/movie_file="/home/dfm/code/gd/movementgame/bs.avi"
 worldnode="A node that encapsulates a level"
 wannabe_ledged_area=""
 wannabe_up_area=""
+wb_lvu_area=""
 
 [input]
 

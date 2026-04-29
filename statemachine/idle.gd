@@ -30,6 +30,10 @@ func process_physics(delta: float) -> State:
 			elif (actor.is_wb_below() && actor.climbing_space_available):
 				print("determined vault from idle");
 				return animated_vault_state;
+		actor.low_vault_casts.rm_old_wb_lvus();
+		actor.low_vault_casts.completely_prepare_stepup();
+		if (await actor.low_vault_casts.stepup_space_available()):
+			print("determined stepup available");
 	if (Input.get_vector("mov_left", "mov_right",
 		"mov_up", "mov_down").length() >= 0.01):
 		return walk_state;
