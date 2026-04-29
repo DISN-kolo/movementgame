@@ -236,6 +236,7 @@ script = ExtResource("2_ucmax")
 
 [node name="ClimbCasts" type="Node3D" parent="HeadCasts" unique_id=431173569]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.013261199)
 script = ExtResource("2_m3xoy")
 
 [node name="ClimbCastTop1" type="RayCast3D" parent="HeadCasts/ClimbCasts" unique_id=252191343]
@@ -252,6 +253,7 @@ target_position = Vector3(0, -1.235, 0)
 
 [node name="LowVaultCasts" type="Node3D" parent="HeadCasts" unique_id=1391112024]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.013261199)
 script = ExtResource("4_4lgag")
 
 [node name="LowVaultCast1" type="RayCast3D" parent="HeadCasts/LowVaultCasts" unique_id=357887421]
