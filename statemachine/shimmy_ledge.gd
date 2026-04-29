@@ -15,6 +15,7 @@ var difference_to_wbu: Vector3 = Vector3.ZERO;
 var difference_to_tcp: Vector3 = Vector3.ZERO;
 
 func enter() -> void:
+	controllers.shimmy_speed_modifier = 0.2;
 	difference_to_wbu = Globals.current_wbu_pos - actor.global_position;
 	difference_to_tcp = actor.climb_casts.top_col_pos - actor.global_position;
 	actor.velocity = Vector3(0, 0, 0);
@@ -26,6 +27,7 @@ func process_input(event: InputEvent) -> State:
 	if (Input.is_action_just_pressed("jump")):
 		controllers.out_of_ledged.emit();
 		actor.do_the_top_check();
+		controllers.shimmy_speed_modifier = 1;
 		if (actor.looking_almost_at_wall_we_are_on()):
 			if (actor.climbing_space_available):
 				return animated_climb_state;
@@ -35,10 +37,12 @@ func process_input(event: InputEvent) -> State:
 			return jump_state;
 	if (Input.is_action_just_pressed("mov_down")):
 		if (actor.looking_almost_at_wall_we_are_on()):
+			controllers.shimmy_speed_modifier = 1;
 			controllers.out_of_ledged.emit();
 			return fall_state;
 	if (Input.is_action_just_pressed("crouch")):
 		controllers.out_of_ledged.emit();
+		controllers.shimmy_speed_modifier = 1;
 		return fall_state;
 	return null
 
@@ -47,6 +51,7 @@ func process_physics(delta: float) -> State:
 		actor.do_the_top_check();
 		if (actor.looking_almost_at_wall_we_are_on() and actor.climbing_space_available):
 			controllers.out_of_ledged.emit();
+			controllers.shimmy_speed_modifier = 1;
 			return animated_climb_state;
 	input_dir = Input.get_vector(
 		"mov_left", "mov_right", "mov_up", "mov_down"
@@ -62,6 +67,7 @@ func process_physics(delta: float) -> State:
 		if (input_dir.length() > 0.1):
 			if (direction.dot(actor.along_the_wall_axis()) <= 0):
 				actor.do_the_top_check();
+				controllers.shimmy_speed_modifier = 1;
 				return ledged_state;
 	if (!actor.hand_casts.right_possible()
 		&& actor.hand_casts.left_possible()):
@@ -69,6 +75,7 @@ func process_physics(delta: float) -> State:
 		if (input_dir.length() > 0.1):
 			if (direction.dot(actor.along_the_wall_axis()) >= 0):
 				actor.do_the_top_check();
+				controllers.shimmy_speed_modifier = 1;
 				return ledged_state;
 	controllers.last_direction = direction;
 	controllers.hor_vel_processor(direction, delta, 8);
@@ -78,5 +85,6 @@ func process_physics(delta: float) -> State:
 	Signals.move_top_col_pos.emit(difference_to_tcp + actor.global_position);
 	if (input_dir.length() < 0.1):
 		actor.do_the_top_check();
+		controllers.shimmy_speed_modifier = 1;
 		return ledged_state;
 	return null;

@@ -8,6 +8,7 @@ var me: Player;
 var speed_default: float = 12.0;
 var speed_modifier: float = 1.0;
 var crouch_speed_modifier: float = 1.0;
+var shimmy_speed_modifier: float = 1.0;
 var slide_modifier: float = 1.5;
 var slide_post_modifier: float = 0.7;
 var last_direction: Vector3 = Vector3(0, 0, 0);
@@ -30,7 +31,8 @@ func hor_vel_processor(direction: Vector3, delta: float, accel_factor: float) ->
 	var target: Vector3 = (direction
 		* speed_default
 		* speed_modifier
-		* crouch_speed_modifier);
+		* crouch_speed_modifier
+		* shimmy_speed_modifier);
 	me.velocity.x = lerp(me.velocity.x, target.x, accel_factor * delta);
 	me.velocity.z = lerp(me.velocity.z, target.z, accel_factor * delta);
 
