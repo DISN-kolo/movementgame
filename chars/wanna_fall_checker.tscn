@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://01kogalnhlmt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2d2br"]
+margin = 0.01
+height = 1.98
+
+[node name="WannaFallChecker" type="Area3D" unique_id=1240364266]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1279530221]
+shape = SubResource("CapsuleShape3D_2d2br")
+debug_color = Color(0.6849997, 0.100000024, 1, 1)

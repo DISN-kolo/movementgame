@@ -13,10 +13,10 @@ var collided_object: Object = null;
 
 # TODO
 # three behaviors: 
-# 1. step-up
+# 1. step-up onto the platform (conserve speed)
 # 2. step-over (maybe allow for a boosted jump if key pushed again)
 # 3. jump-over-edge-ledge (the state afterwards must be some sort
-#of a jump-boost)
+#of a jump-boost 100%, not 'if the player presses stuff')
 # these behaviors need:
 # 1. check for any initial collision, the closer the more priority (like top)
 # 2. check if there's a fall-able gap after the collision (using an area)
