@@ -61,9 +61,9 @@ func spawn_wb_up() -> void:
 	ending_position = (climb_casts.top_col_pos
 		+ Vector3(0, default_capsule_height/2, 0));
 	wannabeup = wannabeup_ps.instantiate();
+	worldnode.add_child(wannabeup);
 	wannabeup.global_position = ending_position;
 	print(wannabeup.position);
-	worldnode.add_child(wannabeup);
 
 func remove_old_wb_ups() -> void:
 	var wn_children: Array[Node] = worldnode.get_children();
@@ -245,11 +245,6 @@ func map_speed_to_fov_multiplier(
 			1.1),
 		1.0,
 		1.1);
-
-# TODO
-# MUST decouple climb casts from head (as in being in its children)
-# head must ONLY be responsible for camera
-# add a second head and make it control the casts
 
 ## stage 1: stationary. stage 2: movement based on speed.
 func headbob(

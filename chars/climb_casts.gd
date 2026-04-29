@@ -117,7 +117,7 @@ func spawn_and_position_area() -> void:
 	hor_col_norm.y -= 1.3;
 	var scanner_area_location: Vector3 = hor_col_pos + hor_col_norm;
 	var new_wanna_be_instance = WANNA_BE_HANGING_LEDGE_CHECKER.instantiate();
-	new_wanna_be_instance.global_position = scanner_area_location;
 	var worldnode = get_tree().get_first_node_in_group("worldnode");
 	worldnode.add_child(new_wanna_be_instance);
+	new_wanna_be_instance.global_position = scanner_area_location;
 	print(new_wanna_be_instance.global_position);

@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bplimovblhfno" path="res://statemachine/controllers.gd" id="2_dbsnd"]
 [ext_resource type="Script" uid="uid://dqqpxuaaoicoi" path="res://chars/hand_casts.gd" id="2_gfyax"]
 [ext_resource type="Script" uid="uid://ddng3vwlafat2" path="res://chars/climb_casts.gd" id="2_m3xoy"]
+[ext_resource type="Script" uid="uid://hyleuye2sjmi" path="res://chars/head_casts.gd" id="2_ucmax"]
 [ext_resource type="Script" uid="uid://djqdubkdlusj7" path="res://statemachine/state_machine.gd" id="2_wfr46"]
 [ext_resource type="Script" uid="uid://dfq0aqe7af7t6" path="res://chars/low_vault_casts.gd" id="4_4lgag"]
 [ext_resource type="Script" uid="uid://dgetrxyknty7k" path="res://statemachine/jump.gd" id="4_parr1"]
@@ -229,6 +230,45 @@ collision_layer = 0
 script = ExtResource("1_aovtj")
 is_debugging = true
 
+[node name="HeadCasts" type="Node3D" parent="." unique_id=1910969378]
+unique_name_in_owner = true
+script = ExtResource("2_ucmax")
+
+[node name="ClimbCasts" type="Node3D" parent="HeadCasts" unique_id=431173569]
+unique_name_in_owner = true
+script = ExtResource("2_m3xoy")
+
+[node name="ClimbCastTop1" type="RayCast3D" parent="HeadCasts/ClimbCasts" unique_id=252191343]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493218, -0.5057082)
+target_position = Vector3(0, -1.235, 0)
+
+[node name="ClimbCastTop2" type="RayCast3D" parent="HeadCasts/ClimbCasts" unique_id=2035954797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493218, -0.67427766)
+target_position = Vector3(0, -1.235, 0)
+
+[node name="ClimbCastTop3" type="RayCast3D" parent="HeadCasts/ClimbCasts" unique_id=1372028926]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493218, -0.8428471)
+target_position = Vector3(0, -1.235, 0)
+
+[node name="LowVaultCasts" type="Node3D" parent="HeadCasts" unique_id=1391112024]
+unique_name_in_owner = true
+script = ExtResource("4_4lgag")
+
+[node name="LowVaultCast1" type="RayCast3D" parent="HeadCasts/LowVaultCasts" unique_id=357887421]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06545496, -0.5057082)
+target_position = Vector3(0, -1.235, 0)
+debug_shape_custom_color = Color(0, 1, 0.9333334, 0.4627451)
+
+[node name="LowVaultCast2" type="RayCast3D" parent="HeadCasts/LowVaultCasts" unique_id=623018942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06545496, -0.67427766)
+target_position = Vector3(0, -1.235, 0)
+debug_shape_custom_color = Color(0, 1, 0.9333334, 0.4627451)
+
+[node name="LowVaultCast3" type="RayCast3D" parent="HeadCasts/LowVaultCasts" unique_id=978533269]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06545496, -0.8428471)
+target_position = Vector3(0, -1.235, 0)
+debug_shape_custom_color = Color(0, 1, 0.9333334, 0.4627451)
+
 [node name="HandCasts" type="Node3D" parent="." unique_id=415478117]
 unique_name_in_owner = true
 script = ExtResource("2_gfyax")
@@ -263,41 +303,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
 [node name="CameraPC" type="Camera3D" parent="HeadPC" unique_id=1907710476]
 unique_name_in_owner = true
-
-[node name="ClimbCasts" type="Node3D" parent="HeadPC" unique_id=431173569]
-unique_name_in_owner = true
-script = ExtResource("2_m3xoy")
-
-[node name="ClimbCastTop1" type="RayCast3D" parent="HeadPC/ClimbCasts" unique_id=252191343]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493218, -0.5057082)
-target_position = Vector3(0, -1.235, 0)
-
-[node name="ClimbCastTop2" type="RayCast3D" parent="HeadPC/ClimbCasts" unique_id=2035954797]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493218, -0.67427766)
-target_position = Vector3(0, -1.235, 0)
-
-[node name="ClimbCastTop3" type="RayCast3D" parent="HeadPC/ClimbCasts" unique_id=1372028926]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1493218, -0.8428471)
-target_position = Vector3(0, -1.235, 0)
-
-[node name="LowVaultCasts" type="Node3D" parent="HeadPC" unique_id=1391112024]
-unique_name_in_owner = true
-script = ExtResource("4_4lgag")
-
-[node name="LowVaultCast1" type="RayCast3D" parent="HeadPC/LowVaultCasts" unique_id=357887421]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06545496, -0.5057082)
-target_position = Vector3(0, -1.235, 0)
-debug_shape_custom_color = Color(0, 1, 0.9333334, 0.4627451)
-
-[node name="LowVaultCast2" type="RayCast3D" parent="HeadPC/LowVaultCasts" unique_id=623018942]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06545496, -0.67427766)
-target_position = Vector3(0, -1.235, 0)
-debug_shape_custom_color = Color(0, 1, 0.9333334, 0.4627451)
-
-[node name="LowVaultCast3" type="RayCast3D" parent="HeadPC/LowVaultCasts" unique_id=978533269]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06545496, -0.8428471)
-target_position = Vector3(0, -1.235, 0)
-debug_shape_custom_color = Color(0, 1, 0.9333334, 0.4627451)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=229432158 groups=["playersOwnCollider"]]
 shape = SubResource("CapsuleShape3D_aovtj")
