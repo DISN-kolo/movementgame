@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://dgetrxyknty7k" path="res://statemachine/jump.gd" id="4_parr1"]
 [ext_resource type="Script" uid="uid://b4iui472vyo04" path="res://statemachine/walk.gd" id="5_7do1w"]
 [ext_resource type="Script" uid="uid://bmkcybbyhykfs" path="res://statemachine/run.gd" id="5_xe2sf"]
+[ext_resource type="Script" uid="uid://bb3t0rak1dhmi" path="res://chars/character_audio.gd" id="6_46d00"]
 [ext_resource type="Script" uid="uid://cpm522fhupkjv" path="res://statemachine/ledged.gd" id="6_d75p6"]
 [ext_resource type="Script" uid="uid://drmq8lfgaak06" path="res://statemachine/idle.gd" id="6_gntgg"]
 [ext_resource type="Script" uid="uid://cvqyc8ckk0rju" path="res://statemachine/transition_to_ledged.gd" id="6_npmjr"]
@@ -306,6 +307,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 
 [node name="CameraPC" type="Camera3D" parent="HeadPC" unique_id=1907710476]
 unique_name_in_owner = true
+
+[node name="CharacterAudio" type="Node3D" parent="HeadPC" unique_id=2127392736]
+unique_name_in_owner = true
+script = ExtResource("6_46d00")
+
+[node name="RightEar" type="AudioStreamPlayer3D" parent="HeadPC/CharacterAudio" unique_id=1324833532]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+
+[node name="LeftEar" type="AudioStreamPlayer3D" parent="HeadPC/CharacterAudio" unique_id=593352670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+pitch_scale = 2.44
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=229432158 groups=["playersOwnCollider"]]
 shape = SubResource("CapsuleShape3D_aovtj")

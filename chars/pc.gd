@@ -30,6 +30,10 @@ var fov_speed_proportion_minimum : float = 0.1;
 var bob_speed_proportion_minimum : float = 0.2;
 var bob_t : float = 0;
 
+var slow_step_speed_proportion : float = 0.3;
+var traveled_for_step : float = 0;
+var step_distance : float = 1.5;
+
 # related to crouching
 var default_head_y : float;
 var lower_head_y : float;
@@ -188,6 +192,8 @@ func _physics_process(delta: float) -> void:
 		* map_speed_to_fov_multiplier(horizontal_speed_len, delta));
 	headbob(horizontal_speed_len, delta);
 
+	steps_sounder(horizontal_speed_len, delta);
+
 	if is_debugging:
 		label_misc.text = "camera_pc.fov: %5f" % camera_pc.fov;
 		label_misc.text += "
@@ -284,6 +290,18 @@ func headbob(
 			head_pc.position.y,
 			current_head_y + sin(bob_t * 2) / 20 * bob_intensity,
 			9*delta);
+
+func steps_sounder(hsl: float, delta: float) -> void:
+	if (hsl <= controllers.speed_default * slow_step_speed_proportion * 0.25):
+		traveled_for_step = 0;
+		return ;
+	traveled_for_step += delta*hsl;
+	if (traveled_for_step >= step_distance):
+		if (hsl <= controllers.speed_default * slow_step_speed_proportion):
+			%CharacterAudio.play_next_slow_step();
+		else:
+			%CharacterAudio.play_next_fast_step();
+		traveled_for_step = 0;
 
 func _on_state_changed(state_name: String, label: Label) -> void:
 	if (is_debugging):
