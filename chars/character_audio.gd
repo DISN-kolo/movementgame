@@ -41,8 +41,10 @@ func play_next_fast_step() -> void:
 func play_next_step(sound: AudioStreamWAV) -> void:
 	if (right_must_play):
 		right_ear.stream = sound;
+		right_ear.pitch_scale = randf_range(0.95, 1);
 		right_ear.play();
 	else:
 		left_ear.stream = sound;
+		left_ear.pitch_scale = randf_range(0.95, 1);
 		left_ear.play();
 	right_must_play = !right_must_play;

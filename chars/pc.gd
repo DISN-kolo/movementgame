@@ -312,6 +312,8 @@ func headbob(
 		#traveled_for_step = 0;
 
 func do_a_step_on_bob(hsl: float) -> void:
+	if (!is_on_floor()):
+		return ;
 	if (hsl <= controllers.speed_default * slow_step_speed_proportion):
 		%CharacterAudio.play_next_slow_step();
 	else:
