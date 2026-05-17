@@ -29,8 +29,10 @@ var fov_default : float = 85;
 var fov_speed_proportion_minimum : float = 0.1;
 var bob_speed_proportion_minimum : float = 0.2;
 var bob_t : float = 0;
+var half_bob_step : bool = true;
+signal bobbed;
 
-var slow_step_speed_proportion : float = 0.3;
+var slow_step_speed_proportion : float = 0.5;
 var traveled_for_step : float = 0;
 var step_distance : float = 1.5;
 
@@ -152,6 +154,7 @@ func space_available() -> bool:
 	return true;
 
 func _ready() -> void:
+	bobbed.connect(do_a_step_on_bob);
 	climb_casts.positioned_ledger.connect(do_the_top_check);
 	worldnode = get_tree().get_first_node_in_group("worldnode");
 	default_head_y = head_pc.position.y;
@@ -192,7 +195,7 @@ func _physics_process(delta: float) -> void:
 		* map_speed_to_fov_multiplier(horizontal_speed_len, delta));
 	headbob(horizontal_speed_len, delta);
 
-	steps_sounder(horizontal_speed_len, delta);
+	#steps_sounder(horizontal_speed_len, delta);
 
 	if is_debugging:
 		label_misc.text = "camera_pc.fov: %5f" % camera_pc.fov;
@@ -273,15 +276,20 @@ func headbob(
 				1.1),
 			1.0,
 			1.1);
-		if run_machine.current_state == run_state:
+		if (run_machine.current_state == run_state):
 			bob_t += 2.5*PI * delta * bob_intensity;
-		elif run_machine.current_state == non_run_state:
+		elif (run_machine.current_state == non_run_state):
 			bob_t += 2.5*PI * delta * bob_intensity / 2;
 		else:
 			print("something went catastrophically wrong "
 				+ "while determining whether we run or not");
-		if bob_t >= 2*PI:
+		if (bob_t >= 2*PI):
 			bob_t = 0;
+			half_bob_step = true;
+			bobbed.emit(horizontal_speed_len);
+		if ((bob_t >= PI) and half_bob_step):
+			bobbed.emit(horizontal_speed_len);
+			half_bob_step = false;
 		camera_pc.position.x = lerp(
 			camera_pc.position.x,
 			sin(bob_t) / 40 * bob_intensity,
@@ -291,17 +299,23 @@ func headbob(
 			current_head_y + sin(bob_t * 2) / 20 * bob_intensity,
 			9*delta);
 
-func steps_sounder(hsl: float, delta: float) -> void:
-	if (hsl <= controllers.speed_default * slow_step_speed_proportion * 0.25):
-		traveled_for_step = 0;
-		return ;
-	traveled_for_step += delta*hsl;
-	if (traveled_for_step >= step_distance):
-		if (hsl <= controllers.speed_default * slow_step_speed_proportion):
-			%CharacterAudio.play_next_slow_step();
-		else:
-			%CharacterAudio.play_next_fast_step();
-		traveled_for_step = 0;
+#func steps_sounder(hsl: float, delta: float) -> void:
+	#if (hsl <= controllers.speed_default * slow_step_speed_proportion * 0.25):
+		#traveled_for_step = 0;
+		#return ;
+	#traveled_for_step += delta*hsl * 0.5;
+	#if (traveled_for_step >= step_distance):
+		#if (hsl <= controllers.speed_default * slow_step_speed_proportion):
+			#%CharacterAudio.play_next_slow_step();
+		#else:
+			#%CharacterAudio.play_next_fast_step();
+		#traveled_for_step = 0;
+
+func do_a_step_on_bob(hsl: float) -> void:
+	if (hsl <= controllers.speed_default * slow_step_speed_proportion):
+		%CharacterAudio.play_next_slow_step();
+	else:
+		%CharacterAudio.play_next_fast_step();
 
 func _on_state_changed(state_name: String, label: Label) -> void:
 	if (is_debugging):
