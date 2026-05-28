@@ -25,6 +25,9 @@ class_name Player;
 @onready var hand_casts: HandCasts = %HandCasts;
 @onready var low_vault_casts: LowVaultCastsNode = %LowVaultCasts;
 
+@onready var character_audio: Node3D = %CharacterAudio;
+
+
 var fov_default : float = 85;
 var fov_speed_proportion_minimum : float = 0.1;
 var bob_speed_proportion_minimum : float = 0.2;
@@ -299,25 +302,13 @@ func headbob(
 			current_head_y + sin(bob_t * 2) / 20 * bob_intensity,
 			9*delta);
 
-#func steps_sounder(hsl: float, delta: float) -> void:
-	#if (hsl <= controllers.speed_default * slow_step_speed_proportion * 0.25):
-		#traveled_for_step = 0;
-		#return ;
-	#traveled_for_step += delta*hsl * 0.5;
-	#if (traveled_for_step >= step_distance):
-		#if (hsl <= controllers.speed_default * slow_step_speed_proportion):
-			#%CharacterAudio.play_next_slow_step();
-		#else:
-			#%CharacterAudio.play_next_fast_step();
-		#traveled_for_step = 0;
-
 func do_a_step_on_bob(hsl: float) -> void:
 	if (!is_on_floor()):
 		return ;
 	if (hsl <= controllers.speed_default * slow_step_speed_proportion):
-		%CharacterAudio.play_next_slow_step();
+		character_audio.play_next_slow_step();
 	else:
-		%CharacterAudio.play_next_fast_step();
+		character_audio.play_next_fast_step();
 
 func _on_state_changed(state_name: String, label: Label) -> void:
 	if (is_debugging):

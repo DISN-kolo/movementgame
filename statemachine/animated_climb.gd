@@ -28,3 +28,4 @@ func process_physics(delta: float) -> State:
 
 func start_returning_idle() -> void:
 	returned_state = idle_state;
+	actor.character_audio.play_next_fast_step();

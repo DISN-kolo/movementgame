@@ -46,6 +46,7 @@ func process_physics(delta: float) -> State:
 	actor.move_and_slide();
 	
 	if (actor.is_on_floor()):
+		actor.character_audio.play_next_fast_step();
 		if (input_dir.length() > 0.1):
 			return walk_state;
 		return idle_state;

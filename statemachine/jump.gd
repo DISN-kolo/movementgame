@@ -55,6 +55,9 @@ func process_physics(delta: float) -> State:
 	if (!actor.is_on_floor() and actor.velocity.y < 0):
 		return fall_state;
 	if (actor.is_on_floor()):
+		# TODO maybe emit a signal instead and catch it in the audio?
+		# for having a special fall sound
+		actor.character_audio.play_next_fast_step();
 		if (input_dir.length() > 0.1):
 			return walk_state;
 		return idle_state;
