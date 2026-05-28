@@ -20,6 +20,7 @@ var direction: Vector3 = Vector3(0, 0, 0);
 	#return null;
 
 # TODO: add pre-fall for coyote time. steal from the GJ project
+# that's why wwe have a fall_state here.
 
 func process_physics(delta: float) -> State:
 	input_dir = Input.get_vector("mov_left", "mov_right", "mov_up", "mov_down");

@@ -19,6 +19,7 @@ var direction: Vector3 = Vector3(0, 0, 0);
 
 func process_input(event: InputEvent) -> State:
 	if (Input.is_action_just_pressed("jump") and actor.is_on_floor()):
+		actor.character_audio.play_next_fast_step();
 		return jump_state;
 	return null
 

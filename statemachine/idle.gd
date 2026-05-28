@@ -16,6 +16,8 @@ func enter() -> void:
 
 func process_input(event: InputEvent) -> State:
 	if Input.is_action_just_pressed("jump") and actor.is_on_floor():
+		# TODO see to using a signal here maybe as well (just like with landing)
+		actor.character_audio.play_next_fast_step();
 		return jump_state;
 	return null
 
