@@ -17,18 +17,54 @@ var wb_lvu_instance: Area3D = null;
 # TODO
 # three behaviors: 
 # 1. step-up onto the platform (conserve speed)
+# 
+#        ====>
+#                  ·` ` ` ` `
+#                  ·
+#          /```````:````````` (same h or the last segment is higher)
+#          |       :
+# ........./       :
+# 
 # 1.1. shall the step-up be different for idle vs walk vs jump/fall?
+# 1.2. I think it's better to NOT do a step-up from idle.
 # 2. step-over (maybe allow for a boosted jump if key pushed again)
+#
+#        ====>
+# 
+#          /```````\          
+#          |       :````````` (lower h, but not below the original floor)
+# ........./       :
+# 
 # 3. jump-over-edge-ledge (the state afterwards must be some sort
 #of a jump-boost 100%, not 'if the player presses stuff')
-# these behaviors need:
-# 1. check for any initial collision, the closer the more priority (like top)
-# 2. check if there's a fall-able gap after the collision (using an area)
-# 3. check if there's space to vault into
-# XXX this lowcast thing etc should have priority over ledging stuff
-# maybe the area checks with async will fuck it up, but in theory
-#putting it before all the climb stuff in "process"es of states
-#should result in correct order of checks.
+#
+#        ====>
+# 
+#          /```````\          
+#          |       |
+# ........./       |          (below the original floor or nothing at all)
+#                  |
+# . . . . . . . . .|. . . . . .
+#  # # # # # # # # | # # # # # 
+# #################|###########
+#
+# the process:
+# 1. do the typical 3-raycasts-in-front to detect the furthest
+#available sticking-out-thing
+# 2. spawn a capsule there and check if the top part of the potential vault
+#path is available. if not, abandon the idea of vaulting.
+# 3. add a fixed distance to that collpoint, equivalent to maybe 1.5 radii of
+#player's coll capsule. maybe speed-affected?. run a topdown raycast there.
+# 4. if the raycast hit, see which height thing happens in the previously
+#discussed scenarios. if the raycast doesn't hit, it's the third scenario
+#as well.
+# 5. if the scenario is the first one, do the simple vault-up.
+# 6. if the scenario is the second one, spawn a capsule in the collpoint of
+#(3). if it's occupied, do a simple vault-up. if it's not occupied, do the
+#vault-over. if during the vault-over the jump is pressed again, do a
+#boosted jump.
+# 7. if the scenario is the third one, do a forced boosted jump (maybe
+#change later to regular vault with optional vault-jump on user press)
 
 func _ready() -> void:
 	var i: int = 0;
