@@ -22,6 +22,10 @@ var step_distance : float = 1.5;
 @onready var run_state: Run = $"../Controllers/RunMachine/Run";
 @onready var non_run_state: NonRun = $"../Controllers/RunMachine/NonRun";
 
+func handle_event(event) -> void:
+	rotate_y(-event.relative.x * Settings.sensitivity);
+	camera_pc.rotate_x(-event.relative.y * Settings.sensitivity);
+	camera_pc.rotation.x = clamp(camera_pc.rotation.x, -PI/2, PI/2);
 
 func _ready() -> void:
 	bobbed.connect(do_a_step_on_bob);
