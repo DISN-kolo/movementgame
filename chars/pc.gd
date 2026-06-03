@@ -27,18 +27,6 @@ class_name Player;
 
 @onready var character_audio: Node3D = %CharacterAudio;
 
-
-var fov_default : float = 85;
-var fov_speed_proportion_minimum : float = 0.1;
-var bob_speed_proportion_minimum : float = 0.2;
-var bob_t : float = 0;
-var half_bob_step : bool = true;
-signal bobbed;
-
-var slow_step_speed_proportion : float = 0.5;
-var traveled_for_step : float = 0;
-var step_distance : float = 1.5;
-
 # related to crouching
 var default_head_y : float;
 var lower_head_y : float;
@@ -46,8 +34,6 @@ var current_head_y : float;
 var default_capsule_height : float;
 var crouched_capsule_height : float;
 var crouched_capsule_offset : float;
-
-var lagging_speed_len : float = 0;
 
 @export var is_debugging : bool = false;
 
@@ -157,7 +143,6 @@ func space_available() -> bool:
 	return true;
 
 func _ready() -> void:
-	bobbed.connect(do_a_step_on_bob);
 	climb_casts.positioned_ledger.connect(do_the_top_check);
 	worldnode = get_tree().get_first_node_in_group("worldnode");
 	default_head_y = head_pc.position.y;
@@ -194,11 +179,7 @@ func _physics_process(delta: float) -> void:
 
 	var horizontal_speed_len: float = Vector2(velocity.x, velocity.z).length();
 
-	camera_pc.fov = (fov_default
-		* map_speed_to_fov_multiplier(horizontal_speed_len, delta));
-	headbob(horizontal_speed_len, delta);
-
-	#steps_sounder(horizontal_speed_len, delta);
+	head_pc.process_physics_tick(delta, horizontal_speed_len);
 
 	if is_debugging:
 		label_misc.text = "camera_pc.fov: %5f" % camera_pc.fov;
@@ -241,74 +222,6 @@ func _process(delta: float) -> void:
 	state_machine.process_default(delta);
 	run_machine.process_default(delta);
 	crouch_machine.process_default(delta);
-
-func map_speed_to_fov_multiplier(
-		horizontal_speed_len: float,
-		delta: float) -> float:
-	lagging_speed_len = lerp(
-		lagging_speed_len,
-		horizontal_speed_len,
-		2*delta);
-	return clamp(remap(lagging_speed_len,
-			controllers.speed_default * fov_speed_proportion_minimum,
-			controllers.speed_default,
-			1.0,
-			1.1),
-		1.0,
-		1.1);
-
-## stage 1: stationary. stage 2: movement based on speed.
-func headbob(
-		horizontal_speed_len: float,
-		delta: float) -> void:
-	if (horizontal_speed_len <= bob_speed_proportion_minimum
-		* controllers.speed_default):
-		camera_pc.position.x = lerp(
-			camera_pc.position.x,
-			0.0,
-			5*delta);
-		head_pc.position.y = lerp(
-			head_pc.position.y,
-			current_head_y,
-			5*delta);
-	else:
-		var bob_intensity : float = clamp(remap(horizontal_speed_len,
-				controllers.speed_default * bob_speed_proportion_minimum,
-				controllers.speed_default,
-				1.0,
-				1.1),
-			1.0,
-			1.1);
-		if (run_machine.current_state == run_state):
-			bob_t += 2.5*PI * delta * bob_intensity;
-		elif (run_machine.current_state == non_run_state):
-			bob_t += 2.5*PI * delta * bob_intensity / 2;
-		else:
-			print("something went catastrophically wrong "
-				+ "while determining whether we run or not");
-		if (bob_t >= 2*PI):
-			bob_t = 0;
-			half_bob_step = true;
-			bobbed.emit(horizontal_speed_len);
-		if ((bob_t >= PI) and half_bob_step):
-			bobbed.emit(horizontal_speed_len);
-			half_bob_step = false;
-		camera_pc.position.x = lerp(
-			camera_pc.position.x,
-			sin(bob_t) / 40 * bob_intensity,
-			9*delta);
-		head_pc.position.y = lerp(
-			head_pc.position.y,
-			current_head_y + sin(bob_t * 2) / 20 * bob_intensity,
-			9*delta);
-
-func do_a_step_on_bob(hsl: float) -> void:
-	if (!is_on_floor()):
-		return ;
-	if (hsl <= controllers.speed_default * slow_step_speed_proportion):
-		character_audio.play_next_slow_step();
-	else:
-		character_audio.play_next_fast_step();
 
 func _on_state_changed(state_name: String, label: Label) -> void:
 	if (is_debugging):

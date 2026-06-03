@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://dgetrxyknty7k" path="res://statemachine/jump.gd" id="4_parr1"]
 [ext_resource type="Script" uid="uid://b4iui472vyo04" path="res://statemachine/walk.gd" id="5_7do1w"]
 [ext_resource type="Script" uid="uid://bmkcybbyhykfs" path="res://statemachine/run.gd" id="5_xe2sf"]
+[ext_resource type="Script" uid="uid://dd8yr7wyrbj4a" path="res://chars/head_pc.gd" id="6_3k606"]
 [ext_resource type="Script" uid="uid://bb3t0rak1dhmi" path="res://chars/character_audio.gd" id="6_46d00"]
 [ext_resource type="Script" uid="uid://cpm522fhupkjv" path="res://statemachine/ledged.gd" id="6_d75p6"]
 [ext_resource type="Script" uid="uid://drmq8lfgaak06" path="res://statemachine/idle.gd" id="6_gntgg"]
@@ -304,6 +305,7 @@ target_position = Vector3(0, 1.05, 0)
 [node name="HeadPC" type="Node3D" parent="." unique_id=756534075]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+script = ExtResource("6_3k606")
 
 [node name="CameraPC" type="Camera3D" parent="HeadPC" unique_id=1907710476]
 unique_name_in_owner = true
