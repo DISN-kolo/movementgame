@@ -18,7 +18,7 @@ func enter() -> void:
 	controllers.is_walking_bc_input = false;
 	super();
 	starting_position = actor.position;
-	ending_position = actor.ending_position;
+	ending_position = actor.climb_casts.ending_position;
 	controllers.play_climb();
 
 func process_physics(delta: float) -> State:

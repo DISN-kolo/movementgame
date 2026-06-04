@@ -19,7 +19,7 @@ func enter() -> void:
 	Signals.get_uncrouched.emit();
 	super();
 	starting_position = actor.position;
-	ending_position = actor.wb_actual_position;
+	ending_position = actor.climb_casts.wb_actual_position;
 	controllers.play_transition_to_ledged();
 
 func process_physics(delta: float) -> State:

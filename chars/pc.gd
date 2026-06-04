@@ -14,10 +14,6 @@ class_name Player;
 
 @onready var state_machine: StateMachine = $Controllers/StateMachine;
 @onready var run_machine: StateMachine = $Controllers/RunMachine;
-
-@onready var run_state: State = $Controllers/RunMachine/Run;
-@onready var non_run_state: State = $Controllers/RunMachine/NonRun;
-
 @onready var crouch_machine: StateMachine = $Controllers/CrouchMachine;
 
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D;
@@ -37,61 +33,7 @@ var crouched_capsule_offset : float;
 
 @export var is_debugging : bool = false;
 
-var wb_actual_position: Vector3 = Vector3(NAN, NAN, NAN);
-
-@onready var wannabeup_ps = preload("res://chars/wanna_be_up_checker.tscn");
-var wannabeup: Area3D;
-
-var climbing_space_available: bool = false;
-var ending_position: Vector3;
-
 var state_machine_awaiting: bool = false;
-
-var worldnode: Node;
-
-func spawn_wb_up() -> void:
-	# TODO
-	# check how wacky it gets. sloped ledges are not for my game I think.
-	# just move the top_col_pos manually while shimmying. crazy work.
-	ending_position = (climb_casts.top_col_pos
-		+ Vector3(0, default_capsule_height/2, 0));
-	wannabeup = wannabeup_ps.instantiate();
-	worldnode.add_child(wannabeup);
-	wannabeup.global_position = ending_position;
-	print(wannabeup.position);
-
-func remove_old_wb_ups() -> void:
-	var wn_children: Array[Node] = worldnode.get_children();
-	for wn_child in wn_children:
-		if (wn_child.is_in_group("wannabe_up_area")):
-			print("detected wb_up, rming");
-			wn_child.free();
-
-func do_the_top_check() -> void:
-	remove_old_wb_ups();
-	spawn_wb_up();
-	var wn_children: Array[Node] = worldnode.get_children();
-	for wn_child in wn_children:
-		if (wn_child.is_in_group("wannabe_up_area")):
-			wannabeup = wn_child;
-			break ;
-	await get_tree().physics_frame;
-	if (wannabeup.has_overlapping_bodies()):
-		climbing_space_available = false;
-	else:
-		climbing_space_available = true;
-
-
-func there_is_wb() -> bool:
-	var wn_children: Array[Node] = worldnode.get_children();
-	for wn_child in wn_children:
-		if (wn_child.is_in_group("wannabe_ledged_area")):
-			print("detected wb, yeah there is");
-			return true;
-	return false;
-
-func is_wb_below() -> bool:
-	return (wb_actual_position.y <= position.y);
 
 func calc_head_z_vector() -> Vector3:
 	var res: Vector3 = Vector3(0, 0, 1).rotated(
@@ -116,35 +58,8 @@ func looking_almost_at_wall_we_are_on() -> bool:
 		return true;
 	return false;
 
-func remove_old_wb() -> void:
-	var wn_children: Array[Node] = worldnode.get_children();
-	for wn_child in wn_children:
-		if (wn_child.is_in_group("wannabe_ledged_area")):
-			print("detected wb, rming");
-			wn_child.free();
-
-func space_available() -> bool:
-	var wn_children: Array[Node] = worldnode.get_children();
-	var wannabe_actual: Area3D = null;
-	var succeeded: bool = false;
-	for wn_child in wn_children:
-		if (wn_child.is_in_group("wannabe_ledged_area")):
-			print(wn_child);
-			succeeded = true;
-			wannabe_actual = wn_child;
-			break ;
-	if (!succeeded):
-		return false;
-	wb_actual_position = wannabe_actual.global_position;
-	print("set wb actual pos to: ", wb_actual_position);
-	await get_tree().physics_frame;
-	if (wannabe_actual.has_overlapping_bodies()):
-		return false;
-	return true;
 
 func _ready() -> void:
-	climb_casts.positioned_ledger.connect(do_the_top_check);
-	worldnode = get_tree().get_first_node_in_group("worldnode");
 	default_head_y = head_pc.position.y;
 	lower_head_y = default_head_y - 0.5;
 	current_head_y = default_head_y;

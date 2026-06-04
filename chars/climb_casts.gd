@@ -7,6 +7,17 @@ class_name ClimbCastsNode;
 @onready var collision_shape_3d: CollisionShape3D = $"../../CollisionShape3D";
 const WANNA_BE_HANGING_LEDGE_CHECKER = preload("uid://c1sjg3ntf4qbe");
 
+# sorry
+@onready var pc: Player = $"../..";
+
+var wb_actual_position: Vector3 = Vector3(NAN, NAN, NAN);
+@onready var wannabeup_ps = preload("res://chars/wanna_be_up_checker.tscn");
+var wannabeup: Area3D;
+var climbing_space_available: bool = false;
+var ending_position: Vector3;
+
+var worldnode: Node;
+
 var hopped_from_rid: RID = RID();
 var latest_rid: RID = RID();
 var is_hopping: bool = false;
@@ -25,12 +36,17 @@ func move_top_col_pos(nextpos: Vector3) -> void:
 	top_col_pos = nextpos;
 
 func _ready() -> void:
+	worldnode = get_tree().get_first_node_in_group("worldnode");
+	positioned_ledger.connect(do_the_top_of_climb_check);
 	Signals.move_top_col_pos.connect(move_top_col_pos);
 	var i: int = 0;
 	for child in get_children():
 		actual_raycasts[i] = child;
 		i += 1;
 
+## spawns and positions an area which imitates where one would be if trying
+## to ledge oneself by onto what they're looking at. the area is in group
+## [code]wannabe_ledged_area[/code].
 func completely_prepare_ledging() -> void:
 	calc_nearest_top_coll();
 	if (!yes_collision):
@@ -117,7 +133,83 @@ func spawn_and_position_area() -> void:
 	hor_col_norm.y -= 1.3;
 	var scanner_area_location: Vector3 = hor_col_pos + hor_col_norm;
 	var new_wanna_be_instance = WANNA_BE_HANGING_LEDGE_CHECKER.instantiate();
-	var worldnode = get_tree().get_first_node_in_group("worldnode");
 	worldnode.add_child(new_wanna_be_instance);
 	new_wanna_be_instance.global_position = scanner_area_location;
 	print(new_wanna_be_instance.global_position);
+
+
+
+## respawns the "this is where you'd be if climbed" checker and checks it,
+## storing the result in the [member ClimbCastsNode.climbing_space_available].
+func do_the_top_of_climb_check() -> void:
+	remove_old_wb_ups();
+	spawn_wb_up();
+	var wn_children: Array[Node] = worldnode.get_children();
+	for wn_child in wn_children:
+		if (wn_child.is_in_group("wannabe_up_area")):
+			wannabeup = wn_child;
+			break ;
+	await get_tree().physics_frame;
+	if (wannabeup.has_overlapping_bodies()):
+		climbing_space_available = false;
+	else:
+		climbing_space_available = true;
+
+## this will remove all old wannabeup checkers that could still
+## be left standing around. wannabeup == the capsule that's on top of the
+## potentially climbable surface.
+func remove_old_wb_ups() -> void:
+	var wn_children: Array[Node] = worldnode.get_children();
+	for wn_child in wn_children:
+		if (wn_child.is_in_group("wannabe_up_area")):
+			print("detected wb_up, rming");
+			wn_child.free();
+
+func spawn_wb_up() -> void:
+	ending_position = (top_col_pos
+		+ Vector3(0, pc.default_capsule_height/2, 0));
+	wannabeup = wannabeup_ps.instantiate();
+	worldnode.add_child(wannabeup);
+	wannabeup.global_position = ending_position;
+	print(wannabeup.position);
+
+
+## this will remove all old wannabeledged checkers that could still
+## be left hanging around. wannabeledged == the capsule that's imitating
+## what it'd be like to hang onto a ledge.
+func remove_old_wb_ledged() -> void:
+	var wn_children: Array[Node] = worldnode.get_children();
+	for wn_child in wn_children:
+		if (wn_child.is_in_group("wannabe_ledged_area")):
+			print("detected wb, rming");
+			wn_child.free();
+
+func there_is_wb_ledged() -> bool:
+	var wn_children: Array[Node] = worldnode.get_children();
+	for wn_child in wn_children:
+		if (wn_child.is_in_group("wannabe_ledged_area")):
+			print("detected wb, yeah there is");
+			return true;
+	return false;
+
+func is_wb_ledged_below() -> bool:
+	return (wb_actual_position.y <= position.y);
+
+func ledging_space_available() -> bool:
+	var wn_children: Array[Node] = worldnode.get_children();
+	var wannabe_actual: Area3D = null;
+	var succeeded: bool = false;
+	for wn_child in wn_children:
+		if (wn_child.is_in_group("wannabe_ledged_area")):
+			print(wn_child);
+			succeeded = true;
+			wannabe_actual = wn_child;
+			break ;
+	if (!succeeded):
+		return false;
+	wb_actual_position = wannabe_actual.global_position;
+	print("set wb actual pos to: ", wb_actual_position);
+	await get_tree().physics_frame;
+	if (wannabe_actual.has_overlapping_bodies()):
+		return false;
+	return true;

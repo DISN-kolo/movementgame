@@ -26,10 +26,10 @@ func enter() -> void:
 func process_input(event: InputEvent) -> State:
 	if (Input.is_action_just_pressed("jump")):
 		controllers.out_of_ledged.emit();
-		actor.do_the_top_check();
+		actor.climb_casts.do_the_top_of_climb_check();
 		controllers.shimmy_speed_modifier = 1;
 		if (actor.looking_almost_at_wall_we_are_on()):
-			if (actor.climbing_space_available):
+			if (actor.climb_casts.climbing_space_available):
 				return animated_climb_state;
 			else:
 				return hop_up_from_ledge_state;
@@ -48,8 +48,8 @@ func process_input(event: InputEvent) -> State:
 
 func process_physics(delta: float) -> State:
 	if (Input.is_action_pressed("jump")):
-		actor.do_the_top_check();
-		if (actor.looking_almost_at_wall_we_are_on() and actor.climbing_space_available):
+		actor.climb_casts.do_the_top_of_climb_check();
+		if (actor.looking_almost_at_wall_we_are_on() and actor.climb_casts.climbing_space_available):
 			controllers.out_of_ledged.emit();
 			controllers.shimmy_speed_modifier = 1;
 			return animated_climb_state;
@@ -66,7 +66,7 @@ func process_physics(delta: float) -> State:
 		print("L ip, R p");
 		if (input_dir.length() > 0.1):
 			if (direction.dot(actor.along_the_wall_axis()) <= 0):
-				actor.do_the_top_check();
+				actor.climb_casts.do_the_top_of_climb_check();
 				controllers.shimmy_speed_modifier = 1;
 				return ledged_state;
 	if (!actor.hand_casts.right_possible()
@@ -74,7 +74,7 @@ func process_physics(delta: float) -> State:
 		print("L p, R ip");
 		if (input_dir.length() > 0.1):
 			if (direction.dot(actor.along_the_wall_axis()) >= 0):
-				actor.do_the_top_check();
+				actor.climb_casts.do_the_top_of_climb_check();
 				controllers.shimmy_speed_modifier = 1;
 				return ledged_state;
 	controllers.last_direction = direction;
@@ -84,7 +84,7 @@ func process_physics(delta: float) -> State:
 	Signals.move_wanna_be_up.emit(difference_to_wbu + actor.global_position);
 	Signals.move_top_col_pos.emit(difference_to_tcp + actor.global_position);
 	if (input_dir.length() < 0.1):
-		actor.do_the_top_check();
+		actor.climb_casts.do_the_top_of_climb_check();
 		controllers.shimmy_speed_modifier = 1;
 		return ledged_state;
 	return null;

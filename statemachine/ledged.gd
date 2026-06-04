@@ -29,7 +29,7 @@ func process_input(event: InputEvent) -> State:
 	if (Input.is_action_just_pressed("jump")):
 		controllers.out_of_ledged.emit();
 		if (actor.looking_almost_at_wall_we_are_on()):
-			if (actor.climbing_space_available):
+			if (actor.climb_casts.climbing_space_available):
 				return animated_climb_state;
 			else:
 				return hop_up_from_ledge_state;
@@ -47,7 +47,7 @@ func process_input(event: InputEvent) -> State:
 func process_physics(delta: float) -> State:
 	actor.velocity = Vector3(0.0, 0.0, 0.0);
 	if (Input.is_action_pressed("jump")):
-		if (actor.looking_almost_at_wall_we_are_on() and init_delay_passed and actor.climbing_space_available):
+		if (actor.looking_almost_at_wall_we_are_on() and init_delay_passed and actor.climb_casts.climbing_space_available):
 			init_delay_passed = false;
 			controllers.out_of_ledged.emit();
 			return animated_climb_state;

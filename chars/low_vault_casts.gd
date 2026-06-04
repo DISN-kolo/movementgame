@@ -73,7 +73,7 @@ func _ready() -> void:
 		i += 1;
 
 func stepup_space_available() -> bool:
-	print(wb_lvu_instance)
+	#print(wb_lvu_instance)
 	if (wb_lvu_instance == null):
 		return false;
 	if (wb_lvu_instance.has_overlapping_bodies()):
@@ -90,7 +90,7 @@ func rm_old_wb_lvus() -> void:
 	var wn_children: Array[Node] = worldnode.get_children();
 	for wn_child in wn_children:
 		if (wn_child.is_in_group("wb_lvu_area")):
-			print("detected wb_lvu, rming");
+			#print("detected wb_lvu, rming");
 			wn_child.free();
 
 func spawn_wb_lvu_checker() -> void:
@@ -114,8 +114,8 @@ func calc_nearest_lv_coll() -> void:
 		return ;
 	collided_object = actual_raycasts[index];
 	top_col_pos = actual_raycasts[index].get_collision_point();
-	print("co:  ", collided_object);
-	print("tcp: ", top_col_pos);
+	#print("co:  ", collided_object);
+	#print("tcp: ", top_col_pos);
 
 func check_all() -> Array[bool]:
 	# XXX one day expand to more than three? lol
