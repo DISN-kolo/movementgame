@@ -66,6 +66,10 @@ var wb_lvu_instance: Area3D = null;
 # 7. if the scenario is the third one, do a forced boosted jump (maybe
 #change later to regular vault with optional vault-jump on user press)
 
+# use shift for something more useful like a different vault mode instead
+# of controlling the run state?
+# idea by https://git.gay/Hylus5d10
+
 func _ready() -> void:
 	var i: int = 0;
 	for child in get_children():
