@@ -97,39 +97,27 @@ func _physics_process(delta: float) -> void:
 	if is_debugging:
 		label_misc.text = "camera_pc.fov: %5f" % camera_pc.fov;
 		label_misc.text += "
-	dot: %8.2f
 	pos: %8.2f, %8.2f, %8.2f
 	tcp: %8.2f, %8.2f, %8.2f
 	vel: %8.2f, %8.2f, %8.2f
 	spd: %8.2f
-	l_d: %8.2f, %8.2f, %8.2f
 	speed_modifier        = %8.2f
 	crouch_speed_modifier = %8.2f
 	is_walking_bc_input   = %s
-	ready_to_slide        = %s
-	slide_fatigue         = %s
-	left_possible         = %s
-	right_possible        = %s
 	low vault result: %8.2f, %8.2f, %8.2f
+	aux cast determined stuff is lower than half: %s
 " % [
-			calc_head_z_vector().dot(calc_xz_wall_norm()),
 			position.x, position.y, position.z,
 			climb_casts.top_col_pos.x, climb_casts.top_col_pos.y, climb_casts.top_col_pos.z,
 			velocity.x, velocity.y, velocity.z,
 			Vector2(velocity.x, velocity.z).length(),
-			controllers.last_direction.x,
-			controllers.last_direction.y,
-			controllers.last_direction.z,
 			controllers.speed_modifier,
 			controllers.crouch_speed_modifier,
 			str(controllers.is_walking_bc_input),
-			str(controllers.ready_to_slide),
-			str(controllers.slide_fatigue),
-			hand_casts.left_possible(),
-			hand_casts.right_possible(),
 			low_vault_casts.top_col_pos.x,
 			low_vault_casts.top_col_pos.y,
-			low_vault_casts.top_col_pos.z,];
+			low_vault_casts.top_col_pos.z,
+			low_vault_casts.aux_hit];
 
 func _process(delta: float) -> void:
 	state_machine.process_default(delta);

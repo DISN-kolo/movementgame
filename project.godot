@@ -46,6 +46,7 @@ worldnode="A node that encapsulates a level"
 wannabe_ledged_area=""
 wannabe_up_area=""
 wb_lvu_area=""
+wb_through_area=""
 
 [input]
 
