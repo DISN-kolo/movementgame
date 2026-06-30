@@ -25,6 +25,7 @@ func enter() -> void:
 
 func process_input(event: InputEvent) -> State:
 	if (Input.is_action_just_pressed("jump")):
+		actor.low_vault_casts.rm_old_wb_lvus();
 		controllers.out_of_ledged.emit();
 		actor.climb_casts.do_the_top_of_climb_check();
 		controllers.shimmy_speed_modifier = 1;

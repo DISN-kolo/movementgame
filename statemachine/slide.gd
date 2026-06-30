@@ -40,6 +40,7 @@ var direction: Vector3 = Vector3(0, 0, 0);
 
 func process_input(event: InputEvent) -> State:
 	if (Input.is_action_just_pressed("jump") and actor.is_on_floor()):
+		actor.low_vault_casts.rm_old_wb_lvus();
 		return jump_state;
 	if (Input.is_action_just_pressed("crouch")):
 		return walk_state;

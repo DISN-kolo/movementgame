@@ -26,6 +26,7 @@ func enter() -> void:
 
 func process_input(event: InputEvent) -> State:
 	if (Input.is_action_just_pressed("jump")):
+		actor.low_vault_casts.rm_old_wb_lvus();
 		controllers.out_of_ledged.emit();
 		if (actor.looking_almost_at_wall_we_are_on()):
 			if (actor.climb_casts.climbing_space_available):
