@@ -5,6 +5,7 @@ margin = 0.01
 height = 1.98
 
 [node name="WannaBeLowVaultedUpChecker" type="Area3D" unique_id=1843939474 groups=["wb_through_area"]]
+collision_layer = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=90958509]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

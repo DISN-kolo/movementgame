@@ -7,6 +7,12 @@ var yes_collision: bool = false;
 var top_col_pos: Vector3 = Vector3(NAN, NAN, NAN);
 var collided_object: Object = null;
 
+var lvu_pos: Vector3 = Vector3(NAN, NAN, NAN);
+var through_pos: Vector3 = Vector3(NAN, NAN, NAN);
+
+var lvu_overlaps: bool = true;
+var through_overlaps: bool = true;
+
 @onready var low_vault_cast_1: RayCast3D = $LowVaultCast1;
 @onready var low_vault_cast_2: RayCast3D = $LowVaultCast2;
 @onready var low_vault_cast_3: RayCast3D = $LowVaultCast3;
@@ -21,6 +27,8 @@ const WANNA_BE_THROUGH_CHECKER = preload("res://chars/wanna_be_through_checker.t
 var wb_through_instance: Area3D = null;
 
 var scenario_chosen: int = 0;
+
+var worldnode;
 
 # TODO
 # ray hit?
@@ -47,6 +55,7 @@ var scenario_chosen: int = 0;
 # idea by https://git.gay/Hylus5d10
 
 func _ready() -> void:
+	worldnode = get_tree().get_first_node_in_group("worldnode");
 	var i: int = 0;
 	for child in get_children():
 		if (child.is_in_group("aux_cast")):
@@ -73,7 +82,6 @@ func completely_prepare_stepup() -> void:
 	spawn_wb_through_checker();
 
 func rm_old_wb_lvus() -> void:
-	var worldnode = get_tree().get_first_node_in_group("worldnode");
 	var wn_children: Array[Node] = worldnode.get_children();
 	for wn_child in wn_children:
 		if (wn_child.is_in_group("wb_lvu_area")):
@@ -83,7 +91,6 @@ func spawn_wb_lvu_checker() -> void:
 	if (!yes_collision):
 		return ;
 	wb_lvu_instance = WANNA_BE_LOW_VAULTED_UP_CHECKER.instantiate();
-	var worldnode = get_tree().get_first_node_in_group("worldnode");
 	worldnode.add_child(wb_lvu_instance);
 	wb_lvu_instance.global_position = top_col_pos;
 
@@ -125,7 +132,6 @@ func aux_raycast_checking() -> void:
 		print(aux_cast.get_collision_point());
 
 func rm_old_wb_throughs() -> void:
-	var worldnode = get_tree().get_first_node_in_group("worldnode");
 	var wn_children: Array[Node] = worldnode.get_children();
 	for wn_child in wn_children:
 		if (wn_child.is_in_group("wb_through_area")):
@@ -133,9 +139,40 @@ func rm_old_wb_throughs() -> void:
 
 func spawn_wb_through_checker() -> void:
 	wb_through_instance = WANNA_BE_THROUGH_CHECKER.instantiate();
-	var worldnode = get_tree().get_first_node_in_group("worldnode");
 	worldnode.add_child(wb_through_instance);
 	if (aux_hit):
 		wb_through_instance.global_position = aux_cast.get_collision_point();
 	else:
 		wb_through_instance.global_position = aux_cast.global_position - Vector3(0, 2, 0);
+
+func there_is_wb_lvu() -> bool:
+	var wn_children: Array[Node] = worldnode.get_children();
+	for wn_child in wn_children:
+		if (wn_child.is_in_group("wb_lvu_area")):
+			return true;
+	return false;
+
+func there_is_wb_through() -> bool:
+	var wn_children: Array[Node] = worldnode.get_children();
+	for wn_child in wn_children:
+		if (wn_child.is_in_group("wb_through_area")):
+			return true;
+	return false;
+
+func calculate_areas_overlap() -> void:
+	var wn_children: Array[Node] = worldnode.get_children();
+	var wannabe_lvu_actual: Area3D = null;
+	var wannabe_through_actual: Area3D = null;
+	for wn_child in wn_children:
+		if (wn_child.is_in_group("wb_lvu_area")):
+			wannabe_lvu_actual = wn_child;
+			lvu_pos = wannabe_lvu_actual.global_position;
+		elif (wn_child.is_in_group("wb_through_area")):
+			wannabe_through_actual = wn_child;
+			through_pos = wannabe_through_actual.global_position;
+	await get_tree().physics_frame;
+	if (wannabe_lvu_actual != null):
+		lvu_overlaps = wannabe_lvu_actual.has_overlapping_bodies();
+	if (wannabe_through_actual != null):
+		through_overlaps = wannabe_through_actual.has_overlapping_bodies();
+	print("OVS CALCD");

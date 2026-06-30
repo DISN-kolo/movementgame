@@ -23,7 +23,7 @@ func change_state(new_state: State) -> void:
 	new_state.enter();
 
 func process_input(event: InputEvent) -> void:
-	var new_state = current_state.process_input(event);
+	var new_state = await current_state.process_input(event);
 	if (new_state):
 		change_state(new_state);
 

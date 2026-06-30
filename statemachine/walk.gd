@@ -20,13 +20,20 @@ var direction: Vector3 = Vector3(0, 0, 0);
 func process_input(event: InputEvent) -> State:
 	if (Input.is_action_just_pressed("jump") and actor.is_on_floor()):
 		actor.low_vault_casts.completely_prepare_stepup();
-		#if (actor.low_vault_casts.there_is_wb_vaulted()):
-			#if (await actor.climb_casts.ledging_space_available()):
+		if (actor.low_vault_casts.there_is_wb_lvu()):
+			print("yup, there is wb lvu");
+			await actor.low_vault_casts.calculate_areas_overlap();
+			print("after await, the results are in:");
+			print("lvu overlap? ", actor.low_vault_casts.lvu_overlaps);
+			print("is there a thru? ", actor.low_vault_casts.there_is_wb_through());
+			if (actor.low_vault_casts.there_is_wb_through()):
+				print("thru overlap? ", actor.low_vault_casts.through_overlaps);
+			#if (await actor.low_vault_casts.ledging_space_available()):
 				#print("determined space available from jump");
-				#return transitional_to_ledged_state;
+				##return transitional_to_ledged_state;
 			#elif (actor.climb_casts.is_wb_ledged_below() && actor.climb_casts.climbing_space_available):
 				#print("determined vault from jump");
-				#return animated_vault_state;
+				##return animated_vault_state;
 		actor.character_audio.play_next_fast_step();
 		return jump_state;
 	return null
