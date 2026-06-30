@@ -193,7 +193,7 @@ func there_is_wb_ledged() -> bool:
 	return false;
 
 func is_wb_ledged_below() -> bool:
-	return (wb_actual_position.y <= position.y);
+	return (wb_actual_position.y <= pc.position.y);
 
 func ledging_space_available() -> bool:
 	var wn_children: Array[Node] = worldnode.get_children();
