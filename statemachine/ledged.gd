@@ -19,7 +19,6 @@ func enter() -> void:
 	Signals.player_ledged.emit();
 	actor.climb_casts.is_hopping = false;
 	actor.climb_casts.hopped_from_rid = actor.climb_casts.latest_rid;
-	print("just set rid to ", actor.climb_casts.hopped_from_rid);
 	$"../../AutoclimbDelay".start();
 	init_delay_passed = false;
 	controllers.is_walking_bc_input = false;

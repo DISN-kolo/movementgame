@@ -23,7 +23,6 @@ func process_input(event: InputEvent) -> State:
 
 func process_physics(delta: float) -> State:
 	if (Input.is_action_pressed("jump")):
-		actor.climb_casts.remove_old_wb_ledged();
 		actor.climb_casts.completely_prepare_ledging();
 		if (actor.climb_casts.there_is_wb_ledged()):
 			if (await actor.climb_casts.ledging_space_available()):
@@ -32,10 +31,6 @@ func process_physics(delta: float) -> State:
 			elif (actor.climb_casts.is_wb_ledged_below() && actor.climb_casts.climbing_space_available):
 				print("determined vault from idle");
 				return animated_vault_state;
-		actor.low_vault_casts.rm_old_wb_lvus();
-		actor.low_vault_casts.completely_prepare_stepup();
-		if (await actor.low_vault_casts.stepup_space_available()):
-			print("determined stepup available");
 	if (Input.get_vector("mov_left", "mov_right",
 		"mov_up", "mov_down").length() >= 0.01):
 		return walk_state;

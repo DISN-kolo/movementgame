@@ -63,7 +63,6 @@ func process_physics(delta: float) -> State:
 	# maybe do these with direction = 0?
 	if (!actor.hand_casts.left_possible()
 		&& actor.hand_casts.right_possible()):
-		print("L ip, R p");
 		if (input_dir.length() > 0.1):
 			if (direction.dot(actor.along_the_wall_axis()) <= 0):
 				actor.climb_casts.do_the_top_of_climb_check();
@@ -71,7 +70,6 @@ func process_physics(delta: float) -> State:
 				return ledged_state;
 	if (!actor.hand_casts.right_possible()
 		&& actor.hand_casts.left_possible()):
-		print("L p, R ip");
 		if (input_dir.length() > 0.1):
 			if (direction.dot(actor.along_the_wall_axis()) >= 0):
 				actor.climb_casts.do_the_top_of_climb_check();

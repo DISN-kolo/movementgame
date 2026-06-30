@@ -20,12 +20,10 @@ var direction: Vector3 = Vector3(0, 0, 0);
 	#return null;
 
 # TODO: add pre-fall for coyote time. steal from the GJ project
-# that's why wwe have a fall_state here.
 
 func process_physics(delta: float) -> State:
 	input_dir = Input.get_vector("mov_left", "mov_right", "mov_up", "mov_down");
 	if (Input.is_action_pressed("jump")):
-		actor.climb_casts.remove_old_wb_ledged();
 		actor.climb_casts.completely_prepare_ledging();
 		if (actor.climb_casts.there_is_wb_ledged()):
 			if (await actor.climb_casts.ledging_space_available()):

@@ -11,8 +11,12 @@ var collided_object: Object = null;
 @onready var low_vault_cast_2: RayCast3D = $LowVaultCast2;
 @onready var low_vault_cast_3: RayCast3D = $LowVaultCast3;
 
+@onready var aux_cast: RayCast3D = %LowVaultCastAux;
+
 const WANNA_BE_LOW_VAULTED_UP_CHECKER = preload("res://chars/wanna_be_low_vaulted_up_checker.tscn");
 var wb_lvu_instance: Area3D = null;
+
+var scenario_chosen: int = 0;
 
 # TODO
 # three behaviors: 
@@ -73,6 +77,8 @@ var wb_lvu_instance: Area3D = null;
 func _ready() -> void:
 	var i: int = 0;
 	for child in get_children():
+		if (child.is_in_group("aux_cast")):
+			continue ;
 		actual_raycasts[i] = child;
 		i += 1;
 
@@ -88,6 +94,9 @@ func completely_prepare_stepup() -> void:
 	rm_old_wb_lvus();
 	calc_nearest_lv_coll();
 	spawn_wb_lvu_checker();
+	if (!yes_collision):
+		return ;
+	aux_raycast_checking()
 
 func rm_old_wb_lvus() -> void:
 	var worldnode = get_tree().get_first_node_in_group("worldnode");
@@ -122,7 +131,6 @@ func calc_nearest_lv_coll() -> void:
 	#print("tcp: ", top_col_pos);
 
 func check_all() -> Array[bool]:
-	# XXX one day expand to more than three? lol
 	var casts: Array[bool] = [false, false, false];
 	var i: int = 0;
 	for cast in actual_raycasts:
@@ -133,3 +141,12 @@ func check_all() -> Array[bool]:
 func one_cast_check(cast: RayCast3D) -> bool:
 	cast.force_raycast_update();
 	return cast.is_colliding();
+
+# TODO 2.0 is the size of the player. Also known as: a magic number.
+# Not good!
+func aux_raycast_checking() -> void:
+	aux_cast.global_position.y = top_col_pos.y + 2.0;
+	aux_cast.force_raycast_update();
+	print(aux_cast.get_collision_normal())
+	print(aux_cast.get_collision_point())
+	print(aux_cast.get_collider())
