@@ -31,21 +31,8 @@ var scenario_chosen: int = 0;
 var worldnode;
 
 # TODO
-# ray hit?
-# no:
-#   capsule 2 intersects?
-#   no:
-#     vault over
-#   yes:
-#     then this ray is inside some geometry or it's weird, just jump
-# yes:
-#   height?
-#   below half-point between floor and init top col height:
-#     vault over
-#   below half-height of player:
-#     step up to that ray hit's pos
-#   above:
-#     just jump
+# check phone gallery for hopefully the final scheme of movement and bring it
+#over here.
 #
 # why have intermediate capsule area? for checking the animated path's validity.
 # cuz if it's not valid, don't animate the vault!
