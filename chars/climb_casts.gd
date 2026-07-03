@@ -4,11 +4,10 @@ class_name ClimbCastsNode;
 @onready var climb_cast_top_1: RayCast3D = $ClimbCastTop1;
 @onready var climb_cast_top_2: RayCast3D = $ClimbCastTop2;
 @onready var climb_cast_top_3: RayCast3D = $ClimbCastTop3;
-@onready var collision_shape_3d: CollisionShape3D = $"../../CollisionShape3D";
+var collision_shape_3d: CollisionShape3D;
 const WANNA_BE_HANGING_LEDGE_CHECKER = preload("uid://c1sjg3ntf4qbe");
 
-# sorry
-@onready var pc: Player = $"../..";
+var pc: Player;
 
 var wb_actual_position: Vector3 = Vector3(NAN, NAN, NAN);
 @onready var wannabeup_ps = preload("res://chars/wanna_be_up_checker.tscn");

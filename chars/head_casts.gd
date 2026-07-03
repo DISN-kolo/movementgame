@@ -1,7 +1,8 @@
 extends Node3D
+class_name HeadCasts;
 
 @onready var head_pc: Node3D = %HeadPC
-@onready var pc: Player = get_parent()
+var pc: Player;
 
 var default_offset: Vector3 = Vector3.ZERO;
 

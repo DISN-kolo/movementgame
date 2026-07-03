@@ -20,8 +20,7 @@ var through_overlaps: bool = true;
 @onready var aux_cast: RayCast3D = %LowVaultCastAux;
 var aux_hit: bool = false;
 
-# sorry
-@onready var pc: Player = $"../..";
+var pc: Player;
 
 const WANNA_BE_LOW_VAULTED_UP_CHECKER = preload("res://chars/wanna_be_low_vaulted_up_checker.tscn");
 var wb_lvu_instance: Area3D = null;

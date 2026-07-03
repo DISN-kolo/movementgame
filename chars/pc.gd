@@ -14,9 +14,12 @@ class_name Player;
 
 @onready var state_machine: StateMachine = $Controllers/StateMachine;
 @onready var run_machine: StateMachine = $Controllers/RunMachine;
+@onready var run_state: Run = $Controllers/RunMachine/Run;
+@onready var non_run_state: NonRun = $Controllers/RunMachine/NonRun;
 @onready var crouch_machine: StateMachine = $Controllers/CrouchMachine;
 
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D;
+@onready var head_casts: HeadCasts = %HeadCasts;
 @onready var climb_casts: ClimbCastsNode = %ClimbCasts;
 @onready var hand_casts: HandCasts = %HandCasts;
 @onready var low_vault_casts: LowVaultCastsNode = %LowVaultCasts;
@@ -70,6 +73,14 @@ func _ready() -> void:
 	run_machine.state_changed.connect(_on_state_changed.bind(label_r_state));
 	crouch_machine.state_changed.connect(_on_state_changed.bind(label_c_state));
 	controllers.me = self;
+	head_pc.pc = self;
+	head_pc.run_machine = run_machine;
+	head_pc.run_state = run_state;
+	head_pc.non_run_state = non_run_state;
+	head_casts.pc = self;
+	climb_casts.pc = self;
+	climb_casts.collision_shape_3d = collision_shape_3d;
+	low_vault_casts.pc = self;
 	state_machine.init(self);
 	run_machine.init(self);
 	crouch_machine.init(self);

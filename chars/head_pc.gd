@@ -15,12 +15,11 @@ var traveled_for_step : float = 0;
 var step_distance : float = 1.5;
 
 @onready var camera_pc: Camera3D = %CameraPC;
-# a bit ugly but oh well
-@onready var pc: Player = $"..";
+var pc: Player;
 
-@onready var run_machine: StateMachine = $"../Controllers/RunMachine";
-@onready var run_state: Run = $"../Controllers/RunMachine/Run";
-@onready var non_run_state: NonRun = $"../Controllers/RunMachine/NonRun";
+var run_machine: StateMachine;
+var run_state: Run;
+var non_run_state: NonRun;
 
 func handle_event(event) -> void:
 	rotate_y(-event.relative.x * Settings.sensitivity);
