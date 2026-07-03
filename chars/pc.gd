@@ -105,7 +105,7 @@ func _physics_process(delta: float) -> void:
 	crouch_speed_modifier = %8.2f
 	is_walking_bc_input   = %s
 	low vault result: %8.2f, %8.2f, %8.2f
-	aux cast determined stuff is lower than half: %s
+	first condition returns: %s
 " % [
 			position.x, position.y, position.z,
 			climb_casts.top_col_pos.x, climb_casts.top_col_pos.y, climb_casts.top_col_pos.z,
@@ -117,7 +117,8 @@ func _physics_process(delta: float) -> void:
 			low_vault_casts.top_col_pos.x,
 			low_vault_casts.top_col_pos.y,
 			low_vault_casts.top_col_pos.z,
-			low_vault_casts.aux_hit];
+			low_vault_casts.FirstPartCondition.keys()[low_vault_casts.classify_first_part()],
+	];
 
 func _process(delta: float) -> void:
 	state_machine.process_default(delta);

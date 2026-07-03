@@ -20,6 +20,9 @@ var through_overlaps: bool = true;
 @onready var aux_cast: RayCast3D = %LowVaultCastAux;
 var aux_hit: bool = false;
 
+# sorry
+@onready var pc: Player = $"../..";
+
 const WANNA_BE_LOW_VAULTED_UP_CHECKER = preload("res://chars/wanna_be_low_vaulted_up_checker.tscn");
 var wb_lvu_instance: Area3D = null;
 
@@ -27,6 +30,8 @@ const WANNA_BE_THROUGH_CHECKER = preload("res://chars/wanna_be_through_checker.t
 var wb_through_instance: Area3D = null;
 
 var scenario_chosen: int = 0;
+
+enum FirstPartCondition { NO_COLL, BELOW_QUARTER, BELOW_HALF_ABOVE_QUARTER };
 
 var worldnode;
 
@@ -115,6 +120,16 @@ func calc_nearest_lv_coll() -> void:
 		return ;
 	collided_object = actual_raycasts[index];
 	top_col_pos = actual_raycasts[index].get_collision_point();
+
+func classify_first_part() -> FirstPartCondition:
+	if (!yes_collision):
+		return FirstPartCondition.NO_COLL;
+	var local_y: float = top_col_pos.y - pc.global_position.y;
+	var quarter_y: float = -pc.default_capsule_height / 4.0;
+	if (local_y < quarter_y):
+		return FirstPartCondition.BELOW_QUARTER;
+	else:
+		return FirstPartCondition.BELOW_HALF_ABOVE_QUARTER;
 
 func check_all() -> Array[bool]:
 	var casts: Array[bool] = [false, false, false];
