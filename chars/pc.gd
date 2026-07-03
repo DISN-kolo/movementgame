@@ -31,6 +31,7 @@ var default_head_y : float;
 var lower_head_y : float;
 var current_head_y : float;
 var default_capsule_height : float;
+var default_capsule_radius : float;
 var crouched_capsule_height : float;
 var crouched_capsule_offset : float;
 
@@ -67,6 +68,7 @@ func _ready() -> void:
 	lower_head_y = default_head_y - 0.5;
 	current_head_y = default_head_y;
 	default_capsule_height = collision_shape_3d.shape.height;
+	default_capsule_radius = collision_shape_3d.shape.radius;
 	crouched_capsule_height = default_capsule_height * 0.5;
 	crouched_capsule_offset = -(default_capsule_height - crouched_capsule_height) / 2.0;
 	state_machine.state_changed.connect(_on_state_changed.bind(label_state));
@@ -117,6 +119,7 @@ func _physics_process(delta: float) -> void:
 	is_walking_bc_input   = %s
 	low vault result: %8.2f, %8.2f, %8.2f
 	first condition returns: %s
+	second condition returns: %s
 " % [
 			position.x, position.y, position.z,
 			climb_casts.top_col_pos.x, climb_casts.top_col_pos.y, climb_casts.top_col_pos.z,
@@ -128,7 +131,8 @@ func _physics_process(delta: float) -> void:
 			low_vault_casts.top_col_pos.x,
 			low_vault_casts.top_col_pos.y,
 			low_vault_casts.top_col_pos.z,
-			low_vault_casts.FirstPartCondition.keys()[low_vault_casts.classify_first_part()],
+			low_vault_casts.FirstPartCondition.keys()[low_vault_casts.saved_fp_condition],
+			low_vault_casts.SecondPartCondition.keys()[low_vault_casts.saved_sp_condition],
 	];
 
 func _process(delta: float) -> void:

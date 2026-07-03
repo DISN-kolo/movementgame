@@ -6,6 +6,7 @@ var actual_raycasts: Array[RayCast3D] = [null, null, null];
 var yes_collision: bool = false;
 var top_col_pos: Vector3 = Vector3(NAN, NAN, NAN);
 var collided_object: Object = null;
+var collided_index: int = -1;
 
 var lvu_pos: Vector3 = Vector3(NAN, NAN, NAN);
 var through_pos: Vector3 = Vector3(NAN, NAN, NAN);
@@ -31,6 +32,10 @@ var wb_through_instance: Area3D = null;
 var scenario_chosen: int = 0;
 
 enum FirstPartCondition { NO_COLL, BELOW_QUARTER, BELOW_HALF_ABOVE_QUARTER };
+enum SecondPartCondition { NO_COLL, BELOW_QUARTER_UNTIL_FLOOR, BELOW_HALF_ABOVE_QUARTER, ABOVE_HALF };
+
+var saved_fp_condition: FirstPartCondition = FirstPartCondition.NO_COLL;
+var saved_sp_condition: SecondPartCondition = SecondPartCondition.NO_COLL;
 
 var worldnode;
 
@@ -116,7 +121,9 @@ func calc_nearest_lv_coll() -> void:
 		index += 1;
 	if (index == 3):
 		yes_collision = false;
+		collided_index = -1;
 		return ;
+	collided_index = index;
 	collided_object = actual_raycasts[index];
 	top_col_pos = actual_raycasts[index].get_collision_point();
 
@@ -130,6 +137,25 @@ func classify_first_part() -> FirstPartCondition:
 	else:
 		return FirstPartCondition.BELOW_HALF_ABOVE_QUARTER;
 
+func classify_second_part() -> SecondPartCondition:
+	if (!aux_hit):
+		# TODO additional check of why no coll
+		return SecondPartCondition.NO_COLL;
+	var local_y: float = aux_cast.get_collision_point().y - pc.global_position.y;
+	var quarter_y: float = -pc.default_capsule_height / 4.0;
+	if (local_y < quarter_y):
+		return SecondPartCondition.BELOW_QUARTER_UNTIL_FLOOR;
+	elif (local_y < 0.0):
+		return SecondPartCondition.BELOW_HALF_ABOVE_QUARTER;
+	else:
+		return SecondPartCondition.ABOVE_HALF;
+
+func run_and_save_first_classify() -> void:
+	saved_fp_condition = classify_first_part();
+
+func run_and_save_second_classify() -> void:
+	saved_sp_condition = classify_second_part();
+
 func check_all() -> Array[bool]:
 	var casts: Array[bool] = [false, false, false];
 	var i: int = 0;
@@ -142,7 +168,14 @@ func one_cast_check(cast: RayCast3D) -> bool:
 	cast.force_raycast_update();
 	return cast.is_colliding();
 
+func position_aux_cast() -> void:
+	var collided_ray: RayCast3D = actual_raycasts[collided_index];
+	var capsule_diameter: float = pc.default_capsule_radius * 2.0;
+	aux_cast.position.x = collided_ray.position.x;
+	aux_cast.position.z = collided_ray.position.z - 1.5 * capsule_diameter;
+
 func aux_raycast_checking() -> void:
+	position_aux_cast();
 	aux_cast.force_raycast_update();
 	if (aux_cast.get_collider() == null):
 		print("no coll! vault or wall.");
@@ -160,12 +193,13 @@ func rm_old_wb_throughs() -> void:
 			wn_child.free();
 
 func spawn_wb_through_checker() -> void:
-	wb_through_instance = WANNA_BE_THROUGH_CHECKER.instantiate();
-	worldnode.add_child(wb_through_instance);
 	if (aux_hit):
+		wb_through_instance = WANNA_BE_THROUGH_CHECKER.instantiate();
+		worldnode.add_child(wb_through_instance);
 		wb_through_instance.global_position = aux_cast.get_collision_point();
 	else:
-		wb_through_instance.global_position = aux_cast.global_position - Vector3(0, 2, 0);
+		print("alert! aux not hit as seen from spawn_wb_through_checker.")
+		wb_through_instance = null;
 
 func there_is_wb_lvu() -> bool:
 	var wn_children: Array[Node] = worldnode.get_children();

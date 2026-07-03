@@ -21,13 +21,17 @@ func process_input(event: InputEvent) -> State:
 	if (Input.is_action_just_pressed("jump") and actor.is_on_floor()):
 		actor.low_vault_casts.completely_prepare_stepup();
 		if (actor.low_vault_casts.there_is_wb_lvu()):
-			print("yup, there is wb lvu");
+			print("yup, there is wb lvu. run the first phase check");
+			actor.low_vault_casts.run_and_save_first_classify();
 			await actor.low_vault_casts.calculate_areas_overlap();
 			print("after await, the results are in:");
 			print("lvu overlap? ", actor.low_vault_casts.lvu_overlaps);
-			print("is there a thru? ", actor.low_vault_casts.there_is_wb_through());
-			if (actor.low_vault_casts.there_is_wb_through()):
-				print("thru overlap? ", actor.low_vault_casts.through_overlaps);
+			if (!actor.low_vault_casts.lvu_overlaps):
+				print("no lvu overlap, run the check 2");
+				actor.low_vault_casts.run_and_save_second_classify();
+			#print("is there a thru? ", actor.low_vault_casts.there_is_wb_through());
+			#if (actor.low_vault_casts.there_is_wb_through()):
+				#print("thru overlap? ", actor.low_vault_casts.through_overlaps);
 			#if (await actor.low_vault_casts.ledging_space_available()):
 				#print("determined space available from jump");
 				##return transitional_to_ledged_state;
