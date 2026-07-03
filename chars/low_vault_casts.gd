@@ -31,8 +31,29 @@ var scenario_chosen: int = 0;
 var worldnode;
 
 # TODO
-# check phone gallery for hopefully the final scheme of movement and bring it
-#over here.
+#
+# first part is:
+# 1. below quarter
+#   second part is:
+#   a. below floor level
+#     edge-jump
+#   b. below qurter, until floor level (including)
+#     step-over
+#   c. below half, above quarter
+#     vault-(through)-up (how? what off? maybe just jump?
+#     looks super uncomfortable, like a wall ("above half"))
+#   d. above half
+#     just jump
+# 2. below half, above quarter
+#   second part is:
+#   a. below floor level
+#     edge-jump
+#   b. below qurter, until floor level (including)
+#     vault-over
+#   c. below half, above quarter
+#     vault-(through)-up
+#   d. above half
+#     vault-up (not "through")
 #
 # why have intermediate capsule area? for checking the animated path's validity.
 # cuz if it's not valid, don't animate the vault!
