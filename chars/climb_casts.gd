@@ -139,7 +139,7 @@ func spawn_and_position_area() -> void:
 
 
 ## respawns the "this is where you'd be if climbed" checker and checks it,
-## storing the result in the [member ClimbCastsNode.climbing_space_available].
+## storing the result in the [member climbing_space_available].
 func do_the_top_of_climb_check() -> void:
 	remove_old_wb_ups();
 	spawn_wb_up();

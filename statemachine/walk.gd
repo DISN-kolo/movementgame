@@ -23,21 +23,13 @@ func process_input(event: InputEvent) -> State:
 		if (actor.low_vault_casts.there_is_wb_lvu()):
 			print("yup, there is wb lvu. run the first phase check");
 			actor.low_vault_casts.run_and_save_first_classify();
-			await actor.low_vault_casts.calculate_areas_overlap();
+			await actor.low_vault_casts.calculate_area_overlap();
 			print("after await, the results are in:");
 			print("lvu overlap? ", actor.low_vault_casts.lvu_overlaps);
+			# FIXME always gets false. wtf ^^^^^^^^^^^^^^^^^^^^^^^^^^
 			if (!actor.low_vault_casts.lvu_overlaps):
 				print("no lvu overlap, run the check 2");
 				actor.low_vault_casts.run_and_save_second_classify();
-			#print("is there a thru? ", actor.low_vault_casts.there_is_wb_through());
-			#if (actor.low_vault_casts.there_is_wb_through()):
-				#print("thru overlap? ", actor.low_vault_casts.through_overlaps);
-			#if (await actor.low_vault_casts.ledging_space_available()):
-				#print("determined space available from jump");
-				##return transitional_to_ledged_state;
-			#elif (actor.climb_casts.is_wb_ledged_below() && actor.climb_casts.climbing_space_available):
-				#print("determined vault from jump");
-				##return animated_vault_state;
 		actor.character_audio.play_next_fast_step();
 		return jump_state;
 	return null
