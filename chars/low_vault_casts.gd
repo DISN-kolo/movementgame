@@ -226,4 +226,4 @@ func calculate_area_overlap() -> void:
 	if (wannabe_lvu_actual != null):
 		await get_tree().physics_frame;
 		lvu_overlaps = wannabe_lvu_actual.has_overlapping_bodies();
-		print("OVS CALCD");
+		print("OVS CALCD: ", lvu_overlaps);

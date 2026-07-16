@@ -69,6 +69,13 @@ collision_mask = 0
 size = Vector3(21.885437, 17.500708, 8.468262)
 material = ExtResource("2_5e6hi")
 
+[node name="RandomBIGBOX2" type="CSGBox3D" parent="." unique_id=271296677]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.02559, -1.7925451, -52.059994)
+use_collision = true
+collision_mask = 0
+size = Vector3(7.341156, 8.729358, 8.468262)
+material = ExtResource("2_5e6hi")
+
 [node name="Macrostairs" type="Node3D" parent="." unique_id=1772485603]
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="Macrostairs" unique_id=505029145]
@@ -149,14 +156,14 @@ size = Vector3(1.7689303, 1.5686889, 11.496567)
 material = ExtResource("2_5e6hi")
 
 [node name="CSGBox3D18" type="CSGBox3D" parent="Macrostairs" unique_id=456476907]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.69845, 1.0095041, 24.040024)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.69845, 0.14800501, 24.040024)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.31415266, 3.5225434, 0.3453827)
 material = ExtResource("2_5e6hi")
 
 [node name="CSGBox3D19" type="CSGBox3D" parent="Macrostairs" unique_id=932456998]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.099376, 1.0095041, 16.079596)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.099376, 0.14800501, 16.079596)
 use_collision = true
 collision_mask = 0
 size = Vector3(0.31415266, 3.5225434, 0.3453827)
@@ -884,7 +891,7 @@ mesh = SubResource("CapsuleMesh_5e6hi")
 [node name="SpawnNodes" type="Node3D" parent="." unique_id=2050136620]
 
 [node name="Spawn0" type="Marker3D" parent="SpawnNodes" unique_id=1673313650]
-transform = Transform3D(-0.99033093, 0, 0.1387251, 0, 0.9999999, 0, -0.1387251, 0, -0.99033093, 6.11652, -0.24835443, 92.5939)
+transform = Transform3D(-0.94394225, 0, -0.33011118, 0, 1, 0, 0.33011118, 0, -0.94394225, -2.1489735, 1.0613532, 74.47936)
 gizmo_extents = 4.19
 
 [node name="Spawn1" type="Marker3D" parent="SpawnNodes" unique_id=739905706]

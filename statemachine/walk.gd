@@ -17,7 +17,7 @@ func enter() -> void:
 var input_dir: Vector2 = Vector2(0, 0);
 var direction: Vector3 = Vector3(0, 0, 0);
 
-func process_input(event: InputEvent) -> State:
+func process_physics(delta: float) -> State:
 	if (Input.is_action_just_pressed("jump") and actor.is_on_floor()):
 		actor.low_vault_casts.completely_prepare_stepup();
 		if (actor.low_vault_casts.there_is_wb_lvu()):
@@ -26,15 +26,11 @@ func process_input(event: InputEvent) -> State:
 			await actor.low_vault_casts.calculate_area_overlap();
 			print("after await, the results are in:");
 			print("lvu overlap? ", actor.low_vault_casts.lvu_overlaps);
-			# FIXME always gets false. wtf ^^^^^^^^^^^^^^^^^^^^^^^^^^
 			if (!actor.low_vault_casts.lvu_overlaps):
 				print("no lvu overlap, run the check 2");
 				actor.low_vault_casts.run_and_save_second_classify();
 		actor.character_audio.play_next_fast_step();
 		return jump_state;
-	return null
-
-func process_physics(delta: float) -> State:
 	if (controllers.ready_to_slide
 		and !(controllers.slide_fatigue)
 		and controllers.is_walking_bc_input
