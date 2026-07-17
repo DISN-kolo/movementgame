@@ -23,6 +23,10 @@ var aux_hit: bool = false;
 var is_shallow_flat_obstacle: bool = false;
 var aux_blocked_by_wall: bool = false;
 
+enum SweepKind { NONE, WALL_CHECK, LANDING };
+var last_sweep_kind: SweepKind = SweepKind.NONE;
+var last_sweep_result: bool = false;
+
 var pc: Player;
 
 const WANNA_BE_LOW_VAULTED_UP_CHECKER = preload("res://chars/wanna_be_low_vaulted_up_checker.tscn");
@@ -83,11 +87,17 @@ func stepup_space_available() -> bool:
 		return false;
 	return true;
 
-func completely_prepare_stepup() -> void:
+func prepare_stepup_stage_one() -> void:
+	last_sweep_kind = SweepKind.NONE;
+	last_sweep_result = false;
 	rm_old_wb_lvus();
 	calc_nearest_lv_coll();
 	spawn_wb_lvu_checker();
+
+func prepare_stepup_stage_two() -> void:
 	if (!yes_collision):
+		return ;
+	if (lvu_overlaps):
 		return ;
 	aux_raycast_checking();
 	if (aux_hit && !is_shallow_flat_obstacle):
@@ -179,8 +189,11 @@ func aux_raycast_checking() -> void:
 	if (aux_cast.get_collider() == null):
 		print("no coll! vault or wall.");
 		aux_hit = false;
+		is_shallow_flat_obstacle = false;
 		var result: PhysicsTestMotionResult3D = PhysicsTestMotionResult3D.new();
-		aux_blocked_by_wall = sweep_from_top_col(aux_cast.to_global(aux_cast.target_position), [], result);
+		var sweep_target: Vector3 = aux_cast.to_global(aux_cast.target_position);
+		sweep_target.y = top_col_pos.y;
+		aux_blocked_by_wall = sweep_from_top_col(sweep_target, [], result, SweepKind.WALL_CHECK);
 		return ;
 	print("yes coll:");
 	aux_hit = true;
@@ -193,17 +206,35 @@ func aux_raycast_checking() -> void:
 ## see [member PhysicsTestMotionParameters3D.recovery_as_collision]). obviously
 ## you have to exclude the ledge we're on since it'll often clip the bottom
 ## of the capsule
-func sweep_from_top_col(target: Vector3, exclude: Array[RID], result: PhysicsTestMotionResult3D) -> bool:
+func sweep_from_top_col(target: Vector3, exclude: Array[RID], result: PhysicsTestMotionResult3D, kind: SweepKind) -> bool:
 	var params: PhysicsTestMotionParameters3D = PhysicsTestMotionParameters3D.new();
 	params.from = Transform3D(pc.global_transform.basis, top_col_pos);
 	params.motion = target - top_col_pos;
 	params.recovery_as_collision = true;
 	params.exclude_bodies = exclude;
-	return PhysicsServer3D.body_test_motion(pc.get_rid(), params, result);
+	last_sweep_kind = kind;
+	last_sweep_result = PhysicsServer3D.body_test_motion(pc.get_rid(), params, result);
+	ping_collider(result.get_collider());
+	return last_sweep_result;
+
+func ping_collider(c: Node3D) -> void:
+	if (!c):
+		return ;
+	if (!c.has_method("get_material")):
+		return ;
+	var mat: Material = c.get_material();
+	if (!(mat is StandardMaterial3D)):
+		return ;
+	var std_mat: StandardMaterial3D = mat.duplicate();
+	c.set_material(std_mat);
+	var original_color: Color = std_mat.albedo_color;
+	var tween: Tween = create_tween();
+	tween.tween_property(std_mat, "albedo_color", Color.WHITE, 0.1);
+	tween.tween_property(std_mat, "albedo_color", original_color, 0.1);
 
 func calc_safe_landing_pos() -> void:
 	var result: PhysicsTestMotionResult3D = PhysicsTestMotionResult3D.new();
-	if (sweep_from_top_col(aux_cast.get_collision_point(), [latest_rid], result)):
+	if (sweep_from_top_col(aux_cast.get_collision_point(), [latest_rid], result, SweepKind.LANDING)):
 		safe_landing_pos = top_col_pos + result.get_travel();
 	else:
 		safe_landing_pos = aux_cast.get_collision_point();

@@ -19,16 +19,26 @@ var direction: Vector3 = Vector3(0, 0, 0);
 
 func process_physics(delta: float) -> State:
 	if (Input.is_action_just_pressed("jump") and actor.is_on_floor()):
-		actor.low_vault_casts.completely_prepare_stepup();
+		actor.low_vault_casts.prepare_stepup_stage_one();
 		if (actor.low_vault_casts.there_is_wb_lvu()):
-			print("yup, there is wb lvu. run the first phase check");
+			print("stage 1: obstacle found, running 1st classify");
 			actor.low_vault_casts.run_and_save_first_classify();
 			await actor.low_vault_casts.calculate_area_overlap();
-			print("after await, the results are in:");
-			print("lvu overlap? ", actor.low_vault_casts.lvu_overlaps);
+			print("wb lvu overlap? ", actor.low_vault_casts.lvu_overlaps);
 			if (!actor.low_vault_casts.lvu_overlaps):
-				print("no lvu overlap, run the check 2");
+				print("no wb lvu overlaps -> running stage 2 + 2nd classify");
+				actor.low_vault_casts.prepare_stepup_stage_two();
 				actor.low_vault_casts.run_and_save_second_classify();
+			else:
+				print("wb lvu overlaps -> don't do anything fancy");
+		else:
+			print("stage 1: no obstacle, just jump");
+		if (actor.low_vault_casts.last_sweep_kind == LowVaultCastsNode.SweepKind.NONE):
+			print("sweep: none performed this attempt.");
+		elif (actor.low_vault_casts.last_sweep_kind == LowVaultCastsNode.SweepKind.WALL_CHECK):
+			print("sweep: wall check, any blockers? ", actor.low_vault_casts.last_sweep_result);
+		else:
+			print("sweep: landing, hit = ", actor.low_vault_casts.last_sweep_result);
 		actor.character_audio.play_next_fast_step();
 		return jump_state;
 	if (controllers.ready_to_slide
