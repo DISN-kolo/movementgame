@@ -193,7 +193,11 @@ func aux_raycast_checking() -> void:
 		var result: PhysicsTestMotionResult3D = PhysicsTestMotionResult3D.new();
 		var sweep_target: Vector3 = aux_cast.to_global(aux_cast.target_position);
 		sweep_target.y = top_col_pos.y;
-		aux_blocked_by_wall = sweep_from_top_col(sweep_target, [], result, SweepKind.WALL_CHECK);
+		aux_blocked_by_wall = sweep_from_top_col(
+			sweep_target,
+			[],
+			result,
+			SweepKind.WALL_CHECK);
 		return ;
 	print("yes coll:");
 	aux_hit = true;
@@ -206,7 +210,11 @@ func aux_raycast_checking() -> void:
 ## see [member PhysicsTestMotionParameters3D.recovery_as_collision]). obviously
 ## you have to exclude the ledge we're on since it'll often clip the bottom
 ## of the capsule
-func sweep_from_top_col(target: Vector3, exclude: Array[RID], result: PhysicsTestMotionResult3D, kind: SweepKind) -> bool:
+func sweep_from_top_col(
+		target: Vector3,
+		exclude: Array[RID],
+		result: PhysicsTestMotionResult3D,
+		kind: SweepKind) -> bool:
 	var params: PhysicsTestMotionParameters3D = PhysicsTestMotionParameters3D.new();
 	var capsule_feet_offset: Vector3 = Vector3(0, pc.default_capsule_height / 2.0, 0);
 	params.from = Transform3D(pc.global_transform.basis, top_col_pos + capsule_feet_offset);
@@ -235,11 +243,14 @@ func ping_collider(c: Node3D) -> void:
 
 func calc_safe_landing_pos() -> void:
 	var result: PhysicsTestMotionResult3D = PhysicsTestMotionResult3D.new();
-	if (sweep_from_top_col(aux_cast.get_collision_point(), [latest_rid], result, SweepKind.LANDING)):
+	if (sweep_from_top_col(
+			aux_cast.get_collision_point(),
+			[latest_rid],
+			result,
+			SweepKind.LANDING)):
 		safe_landing_pos = top_col_pos + result.get_travel();
 	else:
 		safe_landing_pos = aux_cast.get_collision_point();
-	print(safe_landing_pos);
 
 func there_is_wb_lvu() -> bool:
 	var wn_children: Array[Node] = worldnode.get_children();

@@ -120,6 +120,7 @@ func _physics_process(delta: float) -> void:
 	low vault result: %8.2f, %8.2f, %8.2f
 	first condition returns: %s
 	second condition returns: %s
+	safe landing pos: %8.2f, %8.2f, %8.2f
 " % [
 			position.x, position.y, position.z,
 			climb_casts.top_col_pos.x, climb_casts.top_col_pos.y, climb_casts.top_col_pos.z,
@@ -133,6 +134,9 @@ func _physics_process(delta: float) -> void:
 			low_vault_casts.top_col_pos.z,
 			low_vault_casts.FirstPartCondition.keys()[low_vault_casts.saved_fp_condition],
 			low_vault_casts.SecondPartCondition.keys()[low_vault_casts.saved_sp_condition],
+			low_vault_casts.safe_landing_pos.x,
+			low_vault_casts.safe_landing_pos.y,
+			low_vault_casts.safe_landing_pos.z
 	];
 
 func _process(delta: float) -> void:

@@ -39,6 +39,11 @@ func process_physics(delta: float) -> State:
 			print("sweep: wall check, any blockers? ", actor.low_vault_casts.last_sweep_result);
 		else:
 			print("sweep: landing, hit = ", actor.low_vault_casts.last_sweep_result);
+			var feet_offset: Vector3 = Vector3(0, actor.default_capsule_height / 2.0, 0);
+			actor.global_position = actor.low_vault_casts.safe_landing_pos + feet_offset;
+			print("quick test: teleported to ", actor.global_position);
+			actor.move_and_slide();
+			return null;
 		actor.character_audio.play_next_fast_step();
 		return jump_state;
 	if (controllers.ready_to_slide
