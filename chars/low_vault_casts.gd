@@ -208,7 +208,8 @@ func aux_raycast_checking() -> void:
 ## of the capsule
 func sweep_from_top_col(target: Vector3, exclude: Array[RID], result: PhysicsTestMotionResult3D, kind: SweepKind) -> bool:
 	var params: PhysicsTestMotionParameters3D = PhysicsTestMotionParameters3D.new();
-	params.from = Transform3D(pc.global_transform.basis, top_col_pos);
+	var capsule_feet_offset: Vector3 = Vector3(0, pc.default_capsule_height / 2.0, 0);
+	params.from = Transform3D(pc.global_transform.basis, top_col_pos + capsule_feet_offset);
 	params.motion = target - top_col_pos;
 	params.recovery_as_collision = true;
 	params.exclude_bodies = exclude;
@@ -238,6 +239,7 @@ func calc_safe_landing_pos() -> void:
 		safe_landing_pos = top_col_pos + result.get_travel();
 	else:
 		safe_landing_pos = aux_cast.get_collision_point();
+	print(safe_landing_pos);
 
 func there_is_wb_lvu() -> bool:
 	var wn_children: Array[Node] = worldnode.get_children();

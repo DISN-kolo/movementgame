@@ -21,6 +21,12 @@ sdfgi_use_occlusion = true
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5e6hi"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6fjtb"]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+albedo_color = Color(1, 1, 1, 0.40784314)
+
 [node name="World0" type="Node3D" unique_id=1585072494 groups=["worldnode"]]
 script = ExtResource("1_6fjtb")
 
@@ -887,6 +893,11 @@ mesh = SubResource("CapsuleMesh_5e6hi")
 [node name="PlayerSizeExample3" type="MeshInstance3D" parent="." unique_id=821982735]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.736233, -0.264238, 95.29896)
 mesh = SubResource("CapsuleMesh_5e6hi")
+
+[node name="PlayerSizeExample4" type="MeshInstance3D" parent="." unique_id=2114167553]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43443155, -0.264238, 79.27212)
+mesh = SubResource("CapsuleMesh_5e6hi")
+surface_material_override/0 = SubResource("StandardMaterial3D_6fjtb")
 
 [node name="SpawnNodes" type="Node3D" parent="." unique_id=2050136620]
 
