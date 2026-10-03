@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://ddng3vwlafat2" path="res://chars/climb_casts.gd" id="2_m3xoy"]
 [ext_resource type="Script" uid="uid://hyleuye2sjmi" path="res://chars/head_casts.gd" id="2_ucmax"]
 [ext_resource type="Script" uid="uid://djqdubkdlusj7" path="res://statemachine/state_machine.gd" id="2_wfr46"]
-[ext_resource type="Script" uid="uid://dfq0aqe7af7t6" path="res://chars/low_vault_casts.gd" id="4_4lgag"]
 [ext_resource type="Script" uid="uid://dgetrxyknty7k" path="res://statemachine/jump.gd" id="4_parr1"]
 [ext_resource type="Script" uid="uid://b4iui472vyo04" path="res://statemachine/walk.gd" id="5_7do1w"]
 [ext_resource type="Script" uid="uid://bmkcybbyhykfs" path="res://statemachine/run.gd" id="5_xe2sf"]
@@ -254,31 +253,6 @@ debug_shape_custom_color = Color(0, 0, 1, 0.09803922)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.255566, -0.8689252)
 target_position = Vector3(0, -1.255, 0)
 debug_shape_custom_color = Color(0, 0, 1, 0.09803922)
-
-[node name="LowVaultCasts" type="Node3D" parent="HeadCasts" unique_id=1391112024]
-unique_name_in_owner = true
-script = ExtResource("4_4lgag")
-
-[node name="LowVaultCast1" type="RayCast3D" parent="HeadCasts/LowVaultCasts" unique_id=357887421]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00024170429, -0.53205395)
-target_position = Vector3(0, -0.98, 0)
-debug_shape_custom_color = Color(0, 1, 0.93333334, 0.12941177)
-
-[node name="LowVaultCast2" type="RayCast3D" parent="HeadCasts/LowVaultCasts" unique_id=623018942]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00024170429, -0.7006234)
-target_position = Vector3(0, -0.98, 0)
-debug_shape_custom_color = Color(0, 1, 0.93333334, 0.12941177)
-
-[node name="LowVaultCast3" type="RayCast3D" parent="HeadCasts/LowVaultCasts" unique_id=978533269]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00024170429, -0.86919284)
-target_position = Vector3(0, -0.98, 0)
-debug_shape_custom_color = Color(0, 1, 0.93333334, 0.12941177)
-
-[node name="LowVaultCastAux" type="RayCast3D" parent="HeadCasts/LowVaultCasts" unique_id=1737468661 groups=["aux_cast"]]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.41)
-target_position = Vector3(0, -2.05, 0)
-debug_shape_custom_color = Color(1, 0.91764706, 0, 1)
 
 [node name="HandCasts" type="Node3D" parent="." unique_id=415478117]
 unique_name_in_owner = true
