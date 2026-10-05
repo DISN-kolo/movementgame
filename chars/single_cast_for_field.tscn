@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cimq22qri4u6f"]
+
+[ext_resource type="Script" uid="uid://bjh1w0i3y8iwv" path="res://chars/cast_field_single.gd" id="1_c4lxf"]
+
+[node name="SingleCastForField" type="RayCast3D" unique_id=975354584]
+debug_shape_custom_color = Color(0.49699998, 0.64255, 0.71, 0.6862745)
+debug_shape_thickness = 1
+script = ExtResource("1_c4lxf")

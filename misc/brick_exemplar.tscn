@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://clbwypf3yvq2m"]
+
+[ext_resource type="Script" uid="uid://bg4yjk083sa3f" path="res://misc/brick_exemplar.gd" id="1_p3vcu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_by22s"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+albedo_color = Color(1, 1, 1, 0.27058825)
+
+[sub_resource type="PrismMesh" id="PrismMesh_fwbc6"]
+material = SubResource("StandardMaterial3D_by22s")
+size = Vector3(0.2, 0.2, 1)
+
+[node name="BrickExemplar" type="Node3D" unique_id=1599329628]
+script = ExtResource("1_p3vcu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=335463162]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.5, 0)
+mesh = SubResource("PrismMesh_fwbc6")

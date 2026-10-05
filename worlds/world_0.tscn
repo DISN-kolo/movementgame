@@ -22,10 +22,10 @@ sdfgi_use_occlusion = true
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5e6hi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6fjtb"]
-transparency = 3
-alpha_hash_scale = 1.0
-alpha_antialiasing_mode = 0
-albedo_color = Color(1, 1, 1, 0.40784314)
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+albedo_color = Color(0.63899994, 0.71, 0.53249997, 0.40784314)
 
 [node name="World0" type="Node3D" unique_id=1585072494 groups=["worldnode"]]
 script = ExtResource("1_6fjtb")
@@ -908,3 +908,7 @@ gizmo_extents = 4.19
 [node name="Spawn1" type="Marker3D" parent="SpawnNodes" unique_id=739905706]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 0.9999999, 0, 1, 0, -4.371139e-08, 44.53682, -0.13441479, 93.720146)
 gizmo_extents = 4.19
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1853002044]
+transform = Transform3D(0.3936078, 0.51803744, -0.7594144, 0, 0.8260983, 0.5635261, 0.9192785, -0.22180827, 0.32515872, -3.1257944, 1.9588249, 79.7892)
+current = true

@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://ddng3vwlafat2" path="res://chars/climb_casts.gd" id="2_m3xoy"]
 [ext_resource type="Script" uid="uid://hyleuye2sjmi" path="res://chars/head_casts.gd" id="2_ucmax"]
 [ext_resource type="Script" uid="uid://djqdubkdlusj7" path="res://statemachine/state_machine.gd" id="2_wfr46"]
+[ext_resource type="Script" uid="uid://dggb72urvmxty" path="res://chars/cast_field_container.gd" id="4_3k606"]
 [ext_resource type="Script" uid="uid://dgetrxyknty7k" path="res://statemachine/jump.gd" id="4_parr1"]
 [ext_resource type="Script" uid="uid://b4iui472vyo04" path="res://statemachine/walk.gd" id="5_7do1w"]
 [ext_resource type="Script" uid="uid://bmkcybbyhykfs" path="res://statemachine/run.gd" id="5_xe2sf"]
@@ -254,6 +255,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.255566, -0.8689252)
 target_position = Vector3(0, -1.255, 0)
 debug_shape_custom_color = Color(0, 0, 1, 0.09803922)
 
+[node name="CastFieldContainer" type="Node3D" parent="HeadCasts" unique_id=1920395058]
+script = ExtResource("4_3k606")
+
 [node name="HandCasts" type="Node3D" parent="." unique_id=415478117]
 unique_name_in_owner = true
 script = ExtResource("2_gfyax")
@@ -289,6 +293,7 @@ script = ExtResource("6_3k606")
 
 [node name="CameraPC" type="Camera3D" parent="HeadPC" unique_id=1907710476]
 unique_name_in_owner = true
+current = true
 
 [node name="CharacterAudio" type="Node3D" parent="HeadPC" unique_id=2127392736]
 unique_name_in_owner = true
