@@ -10,7 +10,7 @@ albedo_color = Color(1, 1, 1, 0.27058825)
 
 [sub_resource type="PrismMesh" id="PrismMesh_fwbc6"]
 material = SubResource("StandardMaterial3D_by22s")
-size = Vector3(0.2, 0.2, 1)
+size = Vector3(0.1, 0.1, 1)
 
 [node name="BrickExemplar" type="Node3D" unique_id=1599329628]
 script = ExtResource("1_p3vcu")
@@ -18,4 +18,5 @@ script = ExtResource("1_p3vcu")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=335463162]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.5, 0)
+visible = false
 mesh = SubResource("PrismMesh_fwbc6")
