@@ -1,15 +1,14 @@
 [gd_scene format=3 uid="uid://clbwypf3yvq2m"]
 
 [ext_resource type="Script" uid="uid://bg4yjk083sa3f" path="res://misc/brick_exemplar.gd" id="1_p3vcu"]
+[ext_resource type="Shader" uid="uid://bflj5blg0y5f5" path="res://misc/brickexemp.gdshader" id="2_nente"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_by22s"]
-transparency = 1
-blend_mode = 1
-cull_mode = 2
-albedo_color = Color(1, 1, 1, 0.27058825)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b1v2b"]
+render_priority = 0
+shader = ExtResource("2_nente")
 
 [sub_resource type="PrismMesh" id="PrismMesh_fwbc6"]
-material = SubResource("StandardMaterial3D_by22s")
+material = SubResource("ShaderMaterial_b1v2b")
 size = Vector3(0.1, 0.1, 1)
 
 [node name="BrickExemplar" type="Node3D" unique_id=1599329628]

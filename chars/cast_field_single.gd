@@ -20,3 +20,9 @@ func _physics_process(delta: float) -> void:
 	elif (not is_colliding() and alr_coll):
 		instance_brick.set_invis();
 		alr_coll = false;
+
+func get_marked():
+	instance_brick.get_marked();
+
+func get_unmarked():
+	instance_brick.get_unmarked();
