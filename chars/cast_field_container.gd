@@ -26,16 +26,16 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	for z in range(0, z_len + 1):
-		var cty: int = 0;
-		var max_cty: int = 0;
+		var count: int = 0;
+		var max_count: int = 0;
 		for x in range(-x_rad + 1, x_rad):
 			if (casts_references[Vector2i(x, z)].is_colliding()):
-				cty += 1;
+				count += 1;
 			else:
-				cty = 0;
-			if (cty > max_cty):
-				max_cty = cty;
-		if (max_cty >= x_rad - 1):
+				count = 0;
+			if (count > max_count):
+				max_count = count;
+		if (max_count >= x_rad - 1):
 			mark_row(z);
 		else:
 			unmark_row(z);
