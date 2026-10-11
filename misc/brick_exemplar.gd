@@ -3,8 +3,8 @@ class_name BrickExemplar;
 
 const HIGHLIGHT = preload("uid://d3bebav8wj2hy");
 
-var defcol: Color = Color("ffffff45");
-var goodcol: Color = Color("00ff0070");
+#var defcol: Color = Color("ffffff45");
+#var goodcol: Color = Color("00ff0070");
 
 func set_invis():
 	%MeshInstance3D.visible = false;

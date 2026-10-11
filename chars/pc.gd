@@ -38,6 +38,9 @@ var crouched_capsule_offset : float;
 
 var state_machine_awaiting: bool = false;
 
+# read it from the cast field container to know relative heights of cast hits
+var feet_y: float = 0.0;
+
 func calc_head_z_vector() -> Vector3:
 	var res: Vector3 = Vector3(0, 0, 1).rotated(
 		Vector3(0, 1, 0),
@@ -84,6 +87,7 @@ func _ready() -> void:
 	state_machine.init(self);
 	run_machine.init(self);
 	crouch_machine.init(self);
+	%CastFieldContainer.pc_ref = self;
 
 func _unhandled_input(event) -> void:
 	if event is InputEventMouseMotion:
@@ -100,29 +104,34 @@ func _physics_process(delta: float) -> void:
 		state_machine_awaiting = false;
 	run_machine.process_physics(delta);
 	crouch_machine.process_physics(delta);
+	feet_y = self.global_position.y - default_capsule_height/2.0;
 
 	var horizontal_speed_len: float = Vector2(velocity.x, velocity.z).length();
 
 	head_pc.process_physics_tick(delta, horizontal_speed_len);
 
 	if is_debugging:
-		label_misc.text = "camera_pc.fov: %5f" % camera_pc.fov;
-		label_misc.text += "
+		#label_misc.text = "camera_pc.fov: %5f" % camera_pc.fov;
+		label_misc.text = "
 	pos: %8.2f, %8.2f, %8.2f
+	feet_y: %8.2f
 	tcp: %8.2f, %8.2f, %8.2f
 	vel: %8.2f, %8.2f, %8.2f
 	spd: %8.2f
 	speed_modifier        = %8.2f
 	crouch_speed_modifier = %8.2f
 	is_walking_bc_input   = %s
+	ledge_row_z           = %2d
 " % [
 			position.x, position.y, position.z,
+			feet_y,
 			climb_casts.top_col_pos.x, climb_casts.top_col_pos.y, climb_casts.top_col_pos.z,
 			velocity.x, velocity.y, velocity.z,
 			Vector2(velocity.x, velocity.z).length(),
 			controllers.speed_modifier,
 			controllers.crouch_speed_modifier,
-			str(controllers.is_walking_bc_input)
+			str(controllers.is_walking_bc_input),
+			%CastFieldContainer.ledge_row_z
 	];
 
 func _process(delta: float) -> void:

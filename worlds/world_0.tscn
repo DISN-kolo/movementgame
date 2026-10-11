@@ -767,6 +767,27 @@ collision_mask = 0
 size = Vector3(3.1608503, 4.689, 0.44258118)
 material = ExtResource("2_5e6hi")
 
+[node name="CSGBox3D122" type="CSGBox3D" parent="JumpLedges" unique_id=1607203123]
+transform = Transform3D(0.86602545, 0, -0.5, 0, 1, 0, 0.5, 0, 0.86602545, 0.61819553, -1.2098722, 98.37899)
+use_collision = true
+collision_mask = 0
+size = Vector3(1.0408906, 3.4060235, 3.5924873)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D123" type="CSGBox3D" parent="JumpLedges" unique_id=1295193830]
+transform = Transform3D(0.86602545, 0, -0.5, 0, 1, 0, 0.5, 0, 0.86602545, -0.75070095, -1.3194153, 97.7448)
+use_collision = true
+collision_mask = 0
+size = Vector3(1.9462266, 0.8365655, 3.862934)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D124" type="CSGBox3D" parent="JumpLedges" unique_id=1699510987]
+transform = Transform3D(0.86602545, 0, -0.5, 0, 1, 0, 0.5, 0, 0.86602545, 0.83947515, -3.0259173, 96.133194)
+use_collision = true
+collision_mask = 0
+size = Vector3(3.1608503, 4.689, 0.44258118)
+material = ExtResource("2_5e6hi")
+
 [node name="CSGBox3D83" type="CSGBox3D" parent="JumpLedges" unique_id=889013460]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0103245, -2.3720424, 81.1998)
 use_collision = true
@@ -814,6 +835,76 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.435573, -2.9803925, 80.373
 use_collision = true
 collision_mask = 0
 size = Vector3(6.3080287, 4.689, 0.47348785)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D112" type="CSGBox3D" parent="JumpLedges" unique_id=132965165]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8053827, -1.3629339, 88.57174)
+use_collision = true
+collision_mask = 0
+size = Vector3(19.022667, 1.2684503, 0.94389725)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D113" type="CSGBox3D" parent="JumpLedges" unique_id=2095199305]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6270373, -0.8948904, 88.61313)
+use_collision = true
+collision_mask = 0
+size = Vector3(0.19173715, 2.2045376, 0.22711802)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D114" type="CSGBox3D" parent="JumpLedges" unique_id=1648731694]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22009122, -0.8948904, 88.61313)
+use_collision = true
+collision_mask = 0
+size = Vector3(0.19173715, 2.2045376, 0.22711802)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D115" type="CSGBox3D" parent="JumpLedges" unique_id=1372856113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4720316, -0.8948904, 88.85554)
+use_collision = true
+collision_mask = 0
+size = Vector3(0.19173715, 2.2045376, 0.22711802)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D116" type="CSGBox3D" parent="JumpLedges" unique_id=1473464565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9834695, -0.8948904, 89.118)
+use_collision = true
+collision_mask = 0
+size = Vector3(0.19173715, 2.2045376, 0.22711802)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D117" type="CSGBox3D" parent="JumpLedges" unique_id=1391938397]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.228842, -1.245588, 88.69526)
+use_collision = true
+collision_mask = 0
+size = Vector3(0.19173715, 2.2045376, 0.22711802)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D118" type="CSGBox3D" parent="JumpLedges" unique_id=1779525351]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.369258, -1.5839509, 88.69526)
+use_collision = true
+collision_mask = 0
+size = Vector3(0.19173715, 2.2045376, 0.22711802)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D119" type="CSGBox3D" parent="JumpLedges" unique_id=1561582668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.183479, -1.0202914, 88.69526)
+use_collision = true
+collision_mask = 0
+size = Vector3(0.19173715, 2.2045376, 0.22711802)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D120" type="CSGBox3D" parent="JumpLedges" unique_id=936460284]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.872499, -1.0202914, 88.69526)
+use_collision = true
+collision_mask = 0
+size = Vector3(0.19173715, 2.2045376, 0.22711802)
+material = ExtResource("2_5e6hi")
+
+[node name="CSGBox3D121" type="CSGBox3D" parent="JumpLedges" unique_id=609808219]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5871, -1.0202914, 88.69526)
+use_collision = true
+collision_mask = 0
+size = Vector3(0.19173715, 2.2045376, 0.22711802)
 material = ExtResource("2_5e6hi")
 
 [node name="CSGBox3D90" type="CSGBox3D" parent="JumpLedges" unique_id=1988464361]
