@@ -17,7 +17,9 @@ var tgt_pos = Vector3(0, -3.055, 0);
 
 var pc_ref: Player = null;
 
-## Result of a single in_group_checker() pass.
+var row_meanies: Array[float] = [];
+
+## Result of a single in_group_checker() pass
 class InGroupRes:
 	var max_y: float = -INF;
 	var min_y: float = INF;
@@ -41,6 +43,7 @@ class InGroupRes:
 var group_res: InGroupRes = InGroupRes.new();
 
 func _ready() -> void:
+	row_meanies.resize(z_len + 1);
 	for x in range(-x_rad, x_rad + 1):
 		for z in range(0, z_len + 1):
 			scff_i = SINGLE_CAST_FOR_FIELD.instantiate();
@@ -57,6 +60,7 @@ func _physics_process(delta: float) -> void:
 	ledge_row_z = -1;
 	for z in range(0, z_len + 1):
 		var light_up_row: bool = false;
+		row_meanies[z] = -INF;
 		for x_left in range(-x_rad, x_rad - x_gap + 2):
 			var res: InGroupRes = in_group_checker(
 				x_left,
@@ -66,6 +70,7 @@ func _physics_process(delta: float) -> void:
 			);
 			if (res.has_outlier == false):
 				light_up_row = true;
+				row_meanies[z] = res.meanie;
 				break;
 		if (light_up_row == true):
 			mark_row(z);
@@ -98,9 +103,9 @@ func in_group_checker(
 		if (current_cast.is_colliding() == false):
 			if (res.forgave_one == false):
 				res.forgave_one = true;
-				continue;
-			res.has_outlier = true;
-			return res;
+			else:
+				res.has_outlier = true;
+			continue;
 		var cur_col_y: float = current_cast.get_collision_point().y;
 		res.max_y = max(cur_col_y, res.max_y);
 		if (cur_col_y < res.min_y):
@@ -111,15 +116,15 @@ func in_group_checker(
 		res.totals += cur_col_y;
 		res.count += 1;
 
-	if (res.forgave_one == true):
-		res.meanie = res.totals/res.count;
+	res.meanie = res.totals/res.count;
+	if (res.forgave_one == true and res.has_outlier == false):
 		res.has_outlier = (
 			(res.max_y - res.meanie > parameter) or
 			(res.meanie - res.min_y > parameter)
 		);
 		return res;
 
-	if (res.count >= 2):
+	if (res.count >= x_gap - 1):
 		var mean_without_lowest: float = (
 			res.totals - res.min_y
 		)/(res.count - 1);
@@ -127,4 +132,5 @@ func in_group_checker(
 			(res.max_y - mean_without_lowest > parameter) or
 			(mean_without_lowest - res.second_min_y > parameter)
 		);
+		res.meanie = mean_without_lowest;
 	return res;
